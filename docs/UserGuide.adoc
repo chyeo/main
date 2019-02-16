@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= PlanWithEase - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,18 +12,18 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2113-ay1819s2-t09-1/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T09-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Plan With Ease (PWE) is an application target at National University of Singapore (NUS) Information Security freshmen who prefer to use a desktop application to plan their modules according to their degree requirements. More Importantly, PWE is optimized for users who prefer an environment with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PWE is able to plan your modules faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Ensure you have Java version `9` installed in your Computer.
+.  Download the latest `PWE.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +

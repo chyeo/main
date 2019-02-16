@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= PlanWithEase - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,20 +13,18 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/cs2113-ay1819s2-t09-1/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T09-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Setting up
 
 === Prerequisites
 
-. *JDK `9`* or later
+. *JDK `9`*
 +
-[WARNING]
-JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
-
+[NOTE]
+Only JDK 9 is officially supported
 . *IntelliJ* IDE
 +
 [NOTE]
