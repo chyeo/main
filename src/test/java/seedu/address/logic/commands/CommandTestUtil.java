@@ -110,8 +110,8 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Module> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
-        Module expectedSelectedModule = actualModel.getSelectedPerson();
+        List<Module> expectedFilteredList = new ArrayList<>(actualModel.getFilteredModuleList());
+        Module expectedSelectedModule = actualModel.getSelectedModule();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -121,8 +121,8 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-            assertEquals(expectedSelectedModule, actualModel.getSelectedPerson());
+            assertEquals(expectedFilteredList, actualModel.getFilteredModuleList());
+            assertEquals(expectedSelectedModule, actualModel.getSelectedModule());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -132,21 +132,21 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredModuleList().size());
 
-        Module module = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Module module = model.getFilteredModuleList().get(targetIndex.getZeroBased());
         final String[] splitName = module.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredModuleList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredModuleList().size());
     }
 
     /**
      * Deletes the first module in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
-        Module firstModule = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstModule);
+        Module firstModule = model.getFilteredModuleList().get(0);
+        model.deleteModule(firstModule);
         model.commitAddressBook();
     }
 

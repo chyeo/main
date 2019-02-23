@@ -96,24 +96,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Module module) {
+    public boolean hasModule(Module module) {
         requireNonNull(module);
         return versionedAddressBook.hasPerson(module);
     }
 
     @Override
-    public void deletePerson(Module target) {
+    public void deleteModule(Module target) {
         versionedAddressBook.removePerson(target);
     }
 
     @Override
-    public void addPerson(Module module) {
+    public void addModule(Module module) {
         versionedAddressBook.addPerson(module);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
-    public void setPerson(Module target, Module editedModule) {
+    public void setModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
 
         versionedAddressBook.setPerson(target, editedModule);
@@ -126,12 +126,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Module> getFilteredPersonList() {
+    public ObservableList<Module> getFilteredModuleList() {
         return filteredModules;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Module> predicate) {
+    public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
         filteredModules.setPredicate(predicate);
     }
@@ -166,17 +166,17 @@ public class ModelManager implements Model {
     //=========== Selected module ===========================================================================
 
     @Override
-    public ReadOnlyProperty<Module> selectedPersonProperty() {
+    public ReadOnlyProperty<Module> selectedModuleProperty() {
         return selectedPerson;
     }
 
     @Override
-    public Module getSelectedPerson() {
+    public Module getSelectedModule() {
         return selectedPerson.getValue();
     }
 
     @Override
-    public void setSelectedPerson(Module module) {
+    public void setSelectedModule(Module module) {
         if (module != null && !filteredModules.contains(module)) {
             throw new ModuleNotFoundException();
         }

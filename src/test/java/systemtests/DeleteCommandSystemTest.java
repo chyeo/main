@@ -61,7 +61,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered module list, delete index within bounds of address book and module list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredModuleList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered module list, delete index within bounds of address book but out of bounds of module list
@@ -117,7 +117,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      */
     private Module removePerson(Model model, Index index) {
         Module targetModule = getPerson(model, index);
-        model.deletePerson(targetModule);
+        model.deleteModule(targetModule);
         return targetModule;
     }
 
