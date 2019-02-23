@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.module.Person;
 
 /**
  * Provides a handle to a person card in the person list panel.

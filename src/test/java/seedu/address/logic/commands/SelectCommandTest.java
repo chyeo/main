@@ -81,7 +81,7 @@ public class SelectCommandTest {
         // null -> returns false
         assertFalse(selectFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different module -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
