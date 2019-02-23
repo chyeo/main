@@ -12,17 +12,17 @@ import seedu.address.model.module.exceptions.DuplicateModuleException;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of modules that enforces uniqueness between its elements and does not allow nulls.
  * A module is considered unique by comparing using {@code Module#isSameModule(Module)}. As such, adding and updating of
- * persons uses Module#isSameModule(Module) for equality so as to ensure that the module being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a module uses Module#equals(Object) so
+ * modules uses Module#isSameModule(Module) for equality so as to ensure that the module being added or updated is
+ * unique in terms of identity in the UniqueModuleList. However, the removal of a module uses Module#equals(Object) so
  * as to ensure that the module with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
  * @see Module#isSameModule(Module)
  */
-public class UniquePersonList implements Iterable<Module> {
+public class UniqueModuleList implements Iterable<Module> {
 
     private final ObservableList<Module> internalList = FXCollections.observableArrayList();
     private final ObservableList<Module> internalUnmodifiableList =
@@ -53,7 +53,7 @@ public class UniquePersonList implements Iterable<Module> {
      * {@code target} must exist in the list.
      * The module identity of {@code editedModule} must not be the same as another existing module in the list.
      */
-    public void setPerson(Module target, Module editedModule) {
+    public void setModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
 
         int index = internalList.indexOf(target);
@@ -79,7 +79,7 @@ public class UniquePersonList implements Iterable<Module> {
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setModules(UniqueModuleList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,9 +88,9 @@ public class UniquePersonList implements Iterable<Module> {
      * Replaces the contents of this list with {@code modules}.
      * {@code modules} must not contain duplicate modules.
      */
-    public void setPersons(List<Module> modules) {
+    public void setModules(List<Module> modules) {
         requireAllNonNull(modules);
-        if (!personsAreUnique(modules)) {
+        if (!modulesAreUnique(modules)) {
             throw new DuplicateModuleException();
         }
 
@@ -112,8 +112,8 @@ public class UniquePersonList implements Iterable<Module> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueModuleList // instanceof handles nulls
+                        && internalList.equals(((UniqueModuleList) other).internalList));
     }
 
     @Override
@@ -124,7 +124,7 @@ public class UniquePersonList implements Iterable<Module> {
     /**
      * Returns true if {@code modules} contains only unique modules.
      */
-    private boolean personsAreUnique(List<Module> modules) {
+    private boolean modulesAreUnique(List<Module> modules) {
         for (int i = 0; i < modules.size() - 1; i++) {
             for (int j = i + 1; j < modules.size(); j++) {
                 if (modules.get(i).isSameModule(modules.get(j))) {

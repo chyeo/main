@@ -8,7 +8,7 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.UniquePersonList;
+import seedu.address.model.module.UniqueModuleList;
 
 /**
  * Wraps all data at the address-book level
@@ -16,7 +16,7 @@ import seedu.address.model.module.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueModuleList modules;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,7 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        modules = new UniqueModuleList();
     }
 
     public AddressBook() {}
@@ -46,8 +46,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the module list with {@code modules}.
      * {@code modules} must not contain duplicate modules.
      */
-    public void setPersons(List<Module> modules) {
-        this.persons.setPersons(modules);
+    public void setModules(List<Module> modules) {
+        this.modules.setModules(modules);
         indicateModified();
     }
 
@@ -57,7 +57,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setModules(newData.getPersonList());
     }
 
     //// module-level operations
@@ -67,7 +67,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasPerson(Module module) {
         requireNonNull(module);
-        return persons.contains(module);
+        return modules.contains(module);
     }
 
     /**
@@ -75,7 +75,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The module must not already exist in the address book.
      */
     public void addPerson(Module p) {
-        persons.add(p);
+        modules.add(p);
         indicateModified();
     }
 
@@ -87,7 +87,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPerson(Module target, Module editedModule) {
         requireNonNull(editedModule);
 
-        persons.setPerson(target, editedModule);
+        modules.setModule(target, editedModule);
         indicateModified();
     }
 
@@ -96,7 +96,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removePerson(Module key) {
-        persons.remove(key);
+        modules.remove(key);
         indicateModified();
     }
 
@@ -121,24 +121,24 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return modules.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Module> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return modules.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && modules.equals(((AddressBook) other).modules));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return modules.hashCode();
     }
 }
