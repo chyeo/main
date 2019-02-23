@@ -11,7 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.module.Person;
+import seedu.address.model.module.Module;
 
 /**
  * Panel containing the list of persons.
@@ -21,12 +21,12 @@ public class PersonListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Module> personListView;
 
-    public PersonListPanel(ObservableList<Person> personList, ObservableValue<Person> selectedPerson,
-            Consumer<Person> onSelectedPersonChange) {
+    public PersonListPanel(ObservableList<Module> moduleList, ObservableValue<Module> selectedPerson,
+            Consumer<Module> onSelectedPersonChange) {
         super(FXML);
-        personListView.setItems(personList);
+        personListView.setItems(moduleList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in person list panel changed to : '" + newValue + "'");
@@ -35,7 +35,7 @@ public class PersonListPanel extends UiPart<Region> {
         selectedPerson.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected person changed to: " + newValue);
 
-            // Don't modify selection if we are already selecting the selected person,
+            // Don't modify selection if we are already selecting the selected module,
             // otherwise we would have an infinite loop.
             if (Objects.equals(personListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
@@ -52,18 +52,18 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class PersonListViewCell extends ListCell<Module> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Module module, boolean empty) {
+            super.updateItem(module, empty);
 
-            if (empty || person == null) {
+            if (empty || module == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new PersonCard(module, getIndex() + 1).getRoot());
             }
         }
     }

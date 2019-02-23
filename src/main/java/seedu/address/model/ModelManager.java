@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.module.Person;
+import seedu.address.model.module.Module;
 import seedu.address.model.module.exceptions.PersonNotFoundException;
 
 /**
@@ -26,8 +26,8 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Module> filteredModules;
+    private final SimpleObjectProperty<Module> selectedPerson = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,8 +40,8 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredModules = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredModules.addListener(this::ensureSelectedPersonIsValid);
     }
 
     public ModelManager() {
@@ -96,44 +96,44 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public boolean hasPerson(Module module) {
+        requireNonNull(module);
+        return versionedAddressBook.hasPerson(module);
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public void deletePerson(Module target) {
         versionedAddressBook.removePerson(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
+    public void addPerson(Module module) {
+        versionedAddressBook.addPerson(module);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setPerson(Module target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
 
-        versionedAddressBook.setPerson(target, editedPerson);
+        versionedAddressBook.setPerson(target, editedModule);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Module List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Module> getFilteredPersonList() {
+        return filteredModules;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredPersonList(Predicate<Module> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredModules.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -163,33 +163,33 @@ public class ModelManager implements Model {
         versionedAddressBook.commit();
     }
 
-    //=========== Selected person ===========================================================================
+    //=========== Selected module ===========================================================================
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
+    public ReadOnlyProperty<Module> selectedPersonProperty() {
         return selectedPerson;
     }
 
     @Override
-    public Person getSelectedPerson() {
+    public Module getSelectedPerson() {
         return selectedPerson.getValue();
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
+    public void setSelectedPerson(Module module) {
+        if (module != null && !filteredModules.contains(module)) {
             throw new PersonNotFoundException();
         }
-        selectedPerson.setValue(person);
+        selectedPerson.setValue(module);
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     * Ensures {@code selectedPerson} is a valid module in {@code filteredModules}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Module> change) {
         while (change.next()) {
             if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                // null is always a valid selected module, so we do not need to check that it is valid anymore.
                 return;
             }
 
@@ -203,10 +203,10 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
+                    .anyMatch(removedPerson -> selectedPerson.getValue().isSameModule(removedPerson));
             if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
+                // Select the module that came before it in the list,
+                // or clear the selection if there is no such module.
                 selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
@@ -228,7 +228,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
+                && filteredModules.equals(other.filteredModules)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 

@@ -8,7 +8,7 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
-import seedu.address.model.module.Person;
+import seedu.address.model.module.Module;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonCardTest extends GuiUnitTest {
@@ -16,25 +16,25 @@ public class PersonCardTest extends GuiUnitTest {
     @Test
     public void display() {
         // no tags
-        Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
-        PersonCard personCard = new PersonCard(personWithNoTags, 1);
+        Module moduleWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        PersonCard personCard = new PersonCard(moduleWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, personWithNoTags, 1);
+        assertCardDisplay(personCard, moduleWithNoTags, 1);
 
         // with tags
-        Person personWithTags = new PersonBuilder().build();
-        personCard = new PersonCard(personWithTags, 2);
+        Module moduleWithTags = new PersonBuilder().build();
+        personCard = new PersonCard(moduleWithTags, 2);
         uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, personWithTags, 2);
+        assertCardDisplay(personCard, moduleWithTags, 2);
     }
 
     @Test
     public void equals() {
-        Person person = new PersonBuilder().build();
-        PersonCard personCard = new PersonCard(person, 0);
+        Module module = new PersonBuilder().build();
+        PersonCard personCard = new PersonCard(module, 0);
 
-        // same person, same index -> returns true
-        PersonCard copy = new PersonCard(person, 0);
+        // same module, same index -> returns true
+        PersonCard copy = new PersonCard(module, 0);
         assertTrue(personCard.equals(copy));
 
         // same object -> returns true
@@ -46,19 +46,19 @@ public class PersonCardTest extends GuiUnitTest {
         // different types -> returns false
         assertFalse(personCard.equals(0));
 
-        // different person, same index -> returns false
-        Person differentPerson = new PersonBuilder().withName("differentName").build();
-        assertFalse(personCard.equals(new PersonCard(differentPerson, 0)));
+        // different module, same index -> returns false
+        Module differentModule = new PersonBuilder().withName("differentName").build();
+        assertFalse(personCard.equals(new PersonCard(differentModule, 0)));
 
-        // same person, different index -> returns false
-        assertFalse(personCard.equals(new PersonCard(person, 1)));
+        // same module, different index -> returns false
+        assertFalse(personCard.equals(new PersonCard(module, 1)));
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
+     * Asserts that {@code personCard} displays the details of {@code expectedModule} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, Person expectedPerson, int expectedId) {
+    private void assertCardDisplay(PersonCard personCard, Module expectedModule, int expectedId) {
         guiRobot.pauseForHuman();
 
         PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
@@ -66,7 +66,7 @@ public class PersonCardTest extends GuiUnitTest {
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
 
-        // verify person details are displayed correctly
-        assertCardDisplaysPerson(expectedPerson, personCardHandle);
+        // verify module details are displayed correctly
+        assertCardDisplaysPerson(expectedModule, personCardHandle);
     }
 }

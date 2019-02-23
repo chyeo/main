@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.module.Person;
+import seedu.address.model.module.Module;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a module card in the module list panel.
  */
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
@@ -71,14 +71,14 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code person}.
+     * Returns true if this handle contains {@code module}.
      */
-    public boolean equals(Person person) {
-        return getName().equals(person.getName().fullName)
-                && getAddress().equals(person.getAddress().value)
-                && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value)
-                && getTags().equals(person.getTags().stream()
+    public boolean equals(Module module) {
+        return getName().equals(module.getName().fullName)
+                && getAddress().equals(module.getAddress().value)
+                && getPhone().equals(module.getPhone().value)
+                && getEmail().equals(module.getEmail().value)
+                && getTags().equals(module.getTags().stream()
                         .map(tag -> tag.tagName)
                         .sorted()
                         .collect(Collectors.toList()));
