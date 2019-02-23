@@ -41,7 +41,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Module moduleInList = model.getAddressBook().getPersonList().get(0);
+        Module moduleInList = model.getAddressBook().getModuleList().get(0);
         assertCommandFailure(new AddCommand(moduleInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
     }

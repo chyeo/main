@@ -57,7 +57,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setModules(newData.getPersonList());
+        setModules(newData.getModuleList());
     }
 
     //// module-level operations
@@ -126,7 +126,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Module> getPersonList() {
+    public ObservableList<Module> getModuleList() {
         return modules.asUnmodifiableObservableList();
     }
 

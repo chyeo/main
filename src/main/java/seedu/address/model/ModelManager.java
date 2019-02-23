@@ -40,7 +40,7 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredModules = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredModules = new FilteredList<>(versionedAddressBook.getModuleList());
         filteredModules.addListener(this::ensureSelectedPersonIsValid);
     }
 
