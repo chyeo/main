@@ -21,7 +21,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.NameContainsKeywordsPredicate;
-import seedu.address.model.module.exceptions.PersonNotFoundException;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -137,7 +137,7 @@ public class ModelManagerTest {
 
     @Test
     public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+        thrown.expect(ModuleNotFoundException.class);
         modelManager.setSelectedPerson(ALICE);
     }
 

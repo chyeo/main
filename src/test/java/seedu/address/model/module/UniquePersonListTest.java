@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.module.exceptions.DuplicateModuleException;
-import seedu.address.model.module.exceptions.PersonNotFoundException;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniquePersonListTest {
@@ -78,7 +78,7 @@ public class UniquePersonListTest {
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+        thrown.expect(ModuleNotFoundException.class);
         uniquePersonList.setPerson(ALICE, ALICE);
     }
 
@@ -127,7 +127,7 @@ public class UniquePersonListTest {
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+        thrown.expect(ModuleNotFoundException.class);
         uniquePersonList.remove(ALICE);
     }
 
