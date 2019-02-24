@@ -29,7 +29,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedModule}.
      */
-    public static void assertCardDisplaysPerson(Module expectedModule, ModuleCardHandle actualCard) {
+    public static void assertCardDisplaysModule(Module expectedModule, ModuleCardHandle actualCard) {
         assertEquals(expectedModule.getName().fullName, actualCard.getName());
         assertEquals(expectedModule.getPhone().value, actualCard.getPhone());
         assertEquals(expectedModule.getEmail().value, actualCard.getEmail());
@@ -45,7 +45,7 @@ public class GuiTestAssert {
     public static void assertListMatching(ModuleListPanelHandle moduleListPanelHandle, Module... modules) {
         for (int i = 0; i < modules.length; i++) {
             moduleListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(modules[i], moduleListPanelHandle.getModuleCardHandle(i));
+            assertCardDisplaysModule(modules[i], moduleListPanelHandle.getModuleCardHandle(i));
         }
     }
 
@@ -61,8 +61,8 @@ public class GuiTestAssert {
      * Asserts the size of the list in {@code moduleListPanelHandle} equals to {@code size}.
      */
     public static void assertListSize(ModuleListPanelHandle moduleListPanelHandle, int size) {
-        int numberOfPeople = moduleListPanelHandle.getListSize();
-        assertEquals(size, numberOfPeople);
+        int numberOfModules = moduleListPanelHandle.getListSize();
+        assertEquals(size, numberOfModules);
     }
 
     /**

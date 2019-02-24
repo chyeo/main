@@ -3,7 +3,7 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysModule;
 
 import org.junit.Test;
 
@@ -67,6 +67,6 @@ public class ModuleCardTest extends GuiUnitTest {
         assertEquals(Integer.toString(expectedId) + ". ", moduleCardHandle.getId());
 
         // verify module details are displayed correctly
-        assertCardDisplaysPerson(expectedModule, moduleCardHandle);
+        assertCardDisplaysModule(expectedModule, moduleCardHandle);
     }
 }

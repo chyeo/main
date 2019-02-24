@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalModules.getTypicalModules;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysModule;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
@@ -41,7 +41,7 @@ public class ModuleListPanelTest extends GuiUnitTest {
             Module expectedModule = TYPICAL_MODULES.get(i);
             ModuleCardHandle actualCard = moduleListPanelHandle.getModuleCardHandle(i);
 
-            assertCardDisplaysPerson(expectedModule, actualCard);
+            assertCardDisplaysModule(expectedModule, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
