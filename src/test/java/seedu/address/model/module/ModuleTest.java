@@ -16,7 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.ModuleBuilder;
 
-public class PersonTest {
+public class ModuleTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -28,7 +28,7 @@ public class PersonTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameModule() {
         // same object -> returns true
         assertTrue(ALICE.isSameModule(ALICE));
 
