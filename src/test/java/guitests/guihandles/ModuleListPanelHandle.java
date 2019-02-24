@@ -11,15 +11,15 @@ import seedu.address.model.module.Module;
 /**
  * Provides a handle for {@code ModuleListPanel} containing the list of {@code ModuleCard}.
  */
-public class PersonListPanelHandle extends NodeHandle<ListView<Module>> {
-    public static final String PERSON_LIST_VIEW_ID = "#personListView";
+public class ModuleListPanelHandle extends NodeHandle<ListView<Module>> {
+    public static final String MODULE_LIST_VIEW_ID = "#personListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    private Optional<Module> lastRememberedSelectedPersonCard;
+    private Optional<Module> lastRememberedSelectedModuleCard;
 
-    public PersonListPanelHandle(ListView<Module> personListPanelNode) {
-        super(personListPanelNode);
+    public ModuleListPanelHandle(ListView<Module> moduleListPanelNode) {
+        super(moduleListPanelNode);
     }
 
     /**
@@ -101,15 +101,15 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Module>> {
      * Returns the module card handle of a module associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public ModuleCardHandle getPersonCardHandle(int index) {
+    public ModuleCardHandle getModuleCardHandle(int index) {
         return getAllCardNodes().stream()
                 .map(ModuleCardHandle::new)
-                .filter(handle -> handle.equals(getPerson(index)))
+                .filter(handle -> handle.equals(getModule(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
 
-    private Module getPerson(int index) {
+    private Module getModule(int index) {
         return getRootNode().getItems().get(index);
     }
 
@@ -125,28 +125,28 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Module>> {
     /**
      * Remembers the selected {@code ModuleCard} in the list.
      */
-    public void rememberSelectedPersonCard() {
+    public void rememberSelectedModuleCard() {
         List<Module> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            lastRememberedSelectedPersonCard = Optional.empty();
+            lastRememberedSelectedModuleCard = Optional.empty();
         } else {
-            lastRememberedSelectedPersonCard = Optional.of(selectedItems.get(0));
+            lastRememberedSelectedModuleCard = Optional.of(selectedItems.get(0));
         }
     }
 
     /**
      * Returns true if the selected {@code ModuleCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedPersonCard()} call.
+     * {@code rememberSelectedModuleCard()} call.
      */
-    public boolean isSelectedPersonCardChanged() {
+    public boolean isSelectedModuleCardChanged() {
         List<Module> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            return lastRememberedSelectedPersonCard.isPresent();
+            return lastRememberedSelectedModuleCard.isPresent();
         } else {
-            return !lastRememberedSelectedPersonCard.isPresent()
-                    || !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
+            return !lastRememberedSelectedModuleCard.isPresent()
+                    || !lastRememberedSelectedModuleCard.get().equals(selectedItems.get(0));
         }
     }
 

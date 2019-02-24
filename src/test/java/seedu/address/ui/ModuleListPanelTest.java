@@ -13,7 +13,7 @@ import java.util.Collections;
 import org.junit.Test;
 
 import guitests.guihandles.ModuleCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.ModuleListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,16 +30,16 @@ public class ModuleListPanelTest extends GuiUnitTest {
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
     private final SimpleObjectProperty<Module> selectedPerson = new SimpleObjectProperty<>();
-    private PersonListPanelHandle personListPanelHandle;
+    private ModuleListPanelHandle moduleListPanelHandle;
 
     @Test
     public void display() {
         initUi(TYPICAL_MODULES);
 
         for (int i = 0; i < TYPICAL_MODULES.size(); i++) {
-            personListPanelHandle.navigateToCard(TYPICAL_MODULES.get(i));
+            moduleListPanelHandle.navigateToCard(TYPICAL_MODULES.get(i));
             Module expectedModule = TYPICAL_MODULES.get(i);
-            ModuleCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+            ModuleCardHandle actualCard = moduleListPanelHandle.getModuleCardHandle(i);
 
             assertCardDisplaysPerson(expectedModule, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -53,8 +53,8 @@ public class ModuleListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedPerson.set(secondModule));
         guiRobot.pauseForHuman();
 
-        ModuleCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        ModuleCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
+        ModuleCardHandle expectedPerson = moduleListPanelHandle.getModuleCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        ModuleCardHandle selectedPerson = moduleListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 
@@ -90,7 +90,7 @@ public class ModuleListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code ModuleListPanel} backed by {@code backingList}.
+     * Initializes {@code moduleListPanelHandle} with a {@code ModuleListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code ModuleListPanel}.
      */
     private void initUi(ObservableList<Module> backingList) {
@@ -98,7 +98,7 @@ public class ModuleListPanelTest extends GuiUnitTest {
                 new ModuleListPanel(backingList, selectedPerson, selectedPerson::set);
         uiPartRule.setUiPart(moduleListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(moduleListPanel.getRoot(),
-                PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        moduleListPanelHandle = new ModuleListPanelHandle(getChildNode(moduleListPanel.getRoot(),
+                ModuleListPanelHandle.MODULE_LIST_VIEW_ID));
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import guitests.guihandles.ModuleCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.ModuleListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.module.Module;
 
@@ -39,29 +39,29 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code modules} correctly and
+     * Asserts that the list in {@code moduleListPanelHandle} displays the details of {@code modules} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Module... modules) {
+    public static void assertListMatching(ModuleListPanelHandle moduleListPanelHandle, Module... modules) {
         for (int i = 0; i < modules.length; i++) {
-            personListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(modules[i], personListPanelHandle.getPersonCardHandle(i));
+            moduleListPanelHandle.navigateToCard(i);
+            assertCardDisplaysPerson(modules[i], moduleListPanelHandle.getModuleCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code modules} correctly and
+     * Asserts that the list in {@code moduleListPanelHandle} displays the details of {@code modules} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Module> modules) {
-        assertListMatching(personListPanelHandle, modules.toArray(new Module[0]));
+    public static void assertListMatching(ModuleListPanelHandle moduleListPanelHandle, List<Module> modules) {
+        assertListMatching(moduleListPanelHandle, modules.toArray(new Module[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code moduleListPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
-        int numberOfPeople = personListPanelHandle.getListSize();
+    public static void assertListSize(ModuleListPanelHandle moduleListPanelHandle, int size) {
+        int numberOfPeople = moduleListPanelHandle.getListSize();
         assertEquals(size, numberOfPeople);
     }
 
