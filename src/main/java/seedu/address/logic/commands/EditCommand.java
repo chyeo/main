@@ -47,9 +47,9 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_MODULE = "This person already exists in the address book.";
 
     private final Index index;
     private final EditModuleDescriptor editModuleDescriptor;
@@ -76,23 +76,23 @@ public class EditCommand extends Command {
         }
 
         Module moduleToEdit = lastShownList.get(index.getZeroBased());
-        Module editedModule = createEditedPerson(moduleToEdit, editModuleDescriptor);
+        Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
 
         if (!moduleToEdit.isSameModule(editedModule) && model.hasModule(editedModule)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 
         model.setModule(moduleToEdit, editedModule);
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedModule));
+        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
     }
 
     /**
      * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
      * edited with {@code editModuleDescriptor}.
      */
-    private static Module createEditedPerson(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
+    private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
         assert moduleToEdit != null;
 
         Name updatedName = editModuleDescriptor.getName().orElse(moduleToEdit.getName());
