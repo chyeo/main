@@ -32,14 +32,14 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: delete the first module in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_MODULE.getOneBased() + "       ";
-        Module deletedModule = removePerson(expectedModel, INDEX_FIRST_MODULE);
+        Module deletedModule = removeModule(expectedModel, INDEX_FIRST_MODULE);
         String expectedResultMessage = String.format(MESSAGE_DELETE_MODULE_SUCCESS, deletedModule);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last module in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+        Index lastModuleIndex = getLastIndex(modelBeforeDeletingLast);
+        assertCommandSuccess(lastModuleIndex);
 
         /* Case: undo deleting the last module in the list -> last module restored */
         command = UndoCommand.COMMAND_WORD;
@@ -48,13 +48,13 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: redo deleting the last module in the list -> last module deleted again */
         command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
+        removeModule(modelBeforeDeletingLast, lastModuleIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle module in the list -> deleted */
-        Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
+        Index middleModuleIndex = getMidIndex(getModel());
+        assertCommandSuccess(middleModuleIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
@@ -81,7 +81,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
         selectModule(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedModule = removePerson(expectedModel, selectedIndex);
+        deletedModule = removeModule(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_MODULE_SUCCESS, deletedModule);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
@@ -115,7 +115,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Removes the {@code Module} at the specified {@code index} in {@code model}'s address book.
      * @return the removed module
      */
-    private Module removePerson(Model model, Index index) {
+    private Module removeModule(Model model, Index index) {
         Module targetModule = getModule(model, index);
         model.deleteModule(targetModule);
         return targetModule;
@@ -128,7 +128,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
-        Module deletedModule = removePerson(expectedModel, toDelete);
+        Module deletedModule = removeModule(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_MODULE_SUCCESS, deletedModule);
 
         assertCommandSuccess(
