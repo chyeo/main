@@ -59,7 +59,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered module list, delete index within bounds of address book and module list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showModulesWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_MODULE;
         assertTrue(index.getZeroBased() < getModel().getFilteredModuleList().size());
         assertCommandSuccess(index);
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered module list, delete index within bounds of address book but out of bounds of module list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showModulesWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getModuleList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
@@ -75,11 +75,11 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* --------------------- Performing delete operation while a module card is selected ------------------------ */
 
         /* Case: delete the selected module -> module list panel selects the module before the deleted module */
-        showAllPersons();
+        showAllModules();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        selectModule(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
         deletedModule = removePerson(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_MODULE_SUCCESS, deletedModule);

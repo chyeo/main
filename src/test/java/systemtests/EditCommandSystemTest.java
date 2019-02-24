@@ -109,7 +109,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered module list, edit index within bounds of address book and module list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showModulesWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_MODULE;
         assertTrue(index.getZeroBased() < getModel().getFilteredModuleList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
@@ -120,7 +120,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered module list, edit index within bounds of address book but out of bounds of module list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showModulesWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getModuleList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
@@ -130,9 +130,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: selects first card in the module list, edit a module -> edited, card selection remains unchanged but
          * browser url changes
          */
-        showAllPersons();
+        showAllModules();
         index = INDEX_FIRST_MODULE;
-        selectPerson(index);
+        selectModule(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
