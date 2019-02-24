@@ -27,7 +27,7 @@ public class ModelManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
-    private final SimpleObjectProperty<Module> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Module> selectedModule = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -41,7 +41,7 @@ public class ModelManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(versionedAddressBook.getModuleList());
-        filteredModules.addListener(this::ensureSelectedPersonIsValid);
+        filteredModules.addListener(this::ensureSelectedModuleIsValid);
     }
 
     public ModelManager() {
@@ -167,12 +167,12 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyProperty<Module> selectedModuleProperty() {
-        return selectedPerson;
+        return selectedModule;
     }
 
     @Override
     public Module getSelectedModule() {
-        return selectedPerson.getValue();
+        return selectedModule.getValue();
     }
 
     @Override
@@ -180,34 +180,34 @@ public class ModelManager implements Model {
         if (module != null && !filteredModules.contains(module)) {
             throw new ModuleNotFoundException();
         }
-        selectedPerson.setValue(module);
+        selectedModule.setValue(module);
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid module in {@code filteredModules}.
+     * Ensures {@code selectedModule} is a valid module in {@code filteredModules}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Module> change) {
+    private void ensureSelectedModuleIsValid(ListChangeListener.Change<? extends Module> change) {
         while (change.next()) {
-            if (selectedPerson.getValue() == null) {
+            if (selectedModule.getValue() == null) {
                 // null is always a valid selected module, so we do not need to check that it is valid anymore.
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
+            boolean wasSelectedModuleReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedModule.getValue());
+            if (wasSelectedModuleReplaced) {
+                // Update selectedModule to its new value.
+                int index = change.getRemoved().indexOf(selectedModule.getValue());
+                selectedModule.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSameModule(removedPerson));
-            if (wasSelectedPersonRemoved) {
+            boolean wasSelectedModuleRemoved = change.getRemoved().stream()
+                    .anyMatch(removedModule -> selectedModule.getValue().isSameModule(removedModule));
+            if (wasSelectedModuleRemoved) {
                 // Select the module that came before it in the list,
                 // or clear the selection if there is no such module.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+                selectedModule.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -229,7 +229,7 @@ public class ModelManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredModules.equals(other.filteredModules)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && Objects.equals(selectedModule.get(), other.selectedModule.get());
     }
 
 }
