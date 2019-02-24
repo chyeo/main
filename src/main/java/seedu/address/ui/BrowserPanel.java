@@ -31,25 +31,25 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    public BrowserPanel(ObservableValue<Module> selectedPerson) {
+    public BrowserPanel(ObservableValue<Module> selectedModule) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
         // Load module page when selected module changes.
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
+        selectedModule.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 loadDefaultPage();
                 return;
             }
-            loadPersonPage(newValue);
+            loadModulePage(newValue);
         });
 
         loadDefaultPage();
     }
 
-    private void loadPersonPage(Module module) {
+    private void loadModulePage(Module module) {
         loadPage(SEARCH_PAGE_URL + module.getName().fullName);
     }
 
