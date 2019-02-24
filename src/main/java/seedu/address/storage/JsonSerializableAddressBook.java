@@ -49,10 +49,10 @@ class JsonSerializableAddressBook {
         AddressBook addressBook = new AddressBook();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Module module = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(module)) {
+            if (addressBook.hasModule(module)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(module);
+            addressBook.addModule(module);
         }
         return addressBook;
     }

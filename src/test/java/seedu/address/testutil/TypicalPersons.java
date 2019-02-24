@@ -65,7 +65,7 @@ public class TypicalPersons {
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Module module : getTypicalPersons()) {
-            ab.addPerson(module);
+            ab.addModule(module);
         }
         return ab;
     }

@@ -24,7 +24,7 @@ public class AddressBookBuilder {
      * Adds a new {@code Module} to the {@code AddressBook} that we are building.
      */
     public AddressBookBuilder withPerson(Module module) {
-        addressBook.addPerson(module);
+        addressBook.addModule(module);
         return this;
     }
 

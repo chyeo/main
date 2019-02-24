@@ -43,7 +43,7 @@ public class SampleDataUtil {
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Module sampleModule : getSampleModules()) {
-            sampleAb.addPerson(sampleModule);
+            sampleAb.addModule(sampleModule);
         }
         return sampleAb;
     }

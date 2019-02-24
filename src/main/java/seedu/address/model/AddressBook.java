@@ -33,7 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Modules in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -65,7 +65,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a module with the same identity as {@code module} exists in the address book.
      */
-    public boolean hasPerson(Module module) {
+    public boolean hasModule(Module module) {
         requireNonNull(module);
         return modules.contains(module);
     }
@@ -74,7 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a module to the address book.
      * The module must not already exist in the address book.
      */
-    public void addPerson(Module p) {
+    public void addModule(Module p) {
         modules.add(p);
         indicateModified();
     }
@@ -84,7 +84,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The module identity of {@code editedModule} must not be the same as another existing module in the address book.
      */
-    public void setPerson(Module target, Module editedModule) {
+    public void setModule(Module target, Module editedModule) {
         requireNonNull(editedModule);
 
         modules.setModule(target, editedModule);
@@ -95,7 +95,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Module key) {
+    public void removeModule(Module key) {
         modules.remove(key);
         indicateModified();
     }

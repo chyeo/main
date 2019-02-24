@@ -98,17 +98,17 @@ public class ModelManager implements Model {
     @Override
     public boolean hasModule(Module module) {
         requireNonNull(module);
-        return versionedAddressBook.hasPerson(module);
+        return versionedAddressBook.hasModule(module);
     }
 
     @Override
     public void deleteModule(Module target) {
-        versionedAddressBook.removePerson(target);
+        versionedAddressBook.removeModule(target);
     }
 
     @Override
     public void addModule(Module module) {
-        versionedAddressBook.addPerson(module);
+        versionedAddressBook.addModule(module);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
@@ -116,7 +116,7 @@ public class ModelManager implements Model {
     public void setModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
 
-        versionedAddressBook.setPerson(target, editedModule);
+        versionedAddressBook.setModule(target, editedModule);
     }
 
     //=========== Filtered Module List Accessors =============================================================
