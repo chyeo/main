@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.ModuleCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.module.Module;
@@ -17,7 +17,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
+    public static void assertCardEquals(ModuleCardHandle expectedCard, ModuleCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
@@ -29,7 +29,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedModule}.
      */
-    public static void assertCardDisplaysPerson(Module expectedModule, PersonCardHandle actualCard) {
+    public static void assertCardDisplaysPerson(Module expectedModule, ModuleCardHandle actualCard) {
         assertEquals(expectedModule.getName().fullName, actualCard.getName());
         assertEquals(expectedModule.getPhone().value, actualCard.getPhone());
         assertEquals(expectedModule.getEmail().value, actualCard.getEmail());

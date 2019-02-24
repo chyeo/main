@@ -12,7 +12,7 @@ import java.util.Collections;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.ModuleCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -39,7 +39,7 @@ public class ModuleListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_MODULES.size(); i++) {
             personListPanelHandle.navigateToCard(TYPICAL_MODULES.get(i));
             Module expectedModule = TYPICAL_MODULES.get(i);
-            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+            ModuleCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
 
             assertCardDisplaysPerson(expectedModule, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -53,8 +53,8 @@ public class ModuleListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedPerson.set(secondModule));
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
+        ModuleCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        ModuleCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 
