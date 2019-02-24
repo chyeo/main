@@ -52,18 +52,18 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditModuleDescriptor editModuleDescriptor;
 
     /**
      * @param index of the module in the filtered module list to edit
-     * @param editPersonDescriptor details to edit the module with
+     * @param editModuleDescriptor details to edit the module with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditModuleDescriptor editModuleDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editModuleDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editModuleDescriptor = new EditModuleDescriptor(editModuleDescriptor);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class EditCommand extends Command {
         }
 
         Module moduleToEdit = lastShownList.get(index.getZeroBased());
-        Module editedModule = createEditedPerson(moduleToEdit, editPersonDescriptor);
+        Module editedModule = createEditedPerson(moduleToEdit, editModuleDescriptor);
 
         if (!moduleToEdit.isSameModule(editedModule) && model.hasModule(editedModule)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -90,16 +90,16 @@ public class EditCommand extends Command {
 
     /**
      * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editModuleDescriptor}.
      */
-    private static Module createEditedPerson(Module moduleToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Module createEditedPerson(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
         assert moduleToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(moduleToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(moduleToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(moduleToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(moduleToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(moduleToEdit.getTags());
+        Name updatedName = editModuleDescriptor.getName().orElse(moduleToEdit.getName());
+        Phone updatedPhone = editModuleDescriptor.getPhone().orElse(moduleToEdit.getPhone());
+        Email updatedEmail = editModuleDescriptor.getEmail().orElse(moduleToEdit.getEmail());
+        Address updatedAddress = editModuleDescriptor.getAddress().orElse(moduleToEdit.getAddress());
+        Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
 
         return new Module(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
@@ -119,27 +119,27 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editModuleDescriptor.equals(e.editModuleDescriptor);
     }
 
     /**
      * Stores the details to edit the module with. Each non-empty field value will replace the
      * corresponding field value of the module.
      */
-    public static class EditPersonDescriptor {
+    public static class EditModuleDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditModuleDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditModuleDescriptor(EditModuleDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -211,12 +211,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditModuleDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditModuleDescriptor e = (EditModuleDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
