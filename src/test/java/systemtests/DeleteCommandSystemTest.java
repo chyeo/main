@@ -6,7 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_MODULE_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getPerson;
+import static seedu.address.testutil.TestUtil.getModule;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
@@ -116,7 +116,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * @return the removed module
      */
     private Module removePerson(Model model, Index index) {
-        Module targetModule = getPerson(model, index);
+        Module targetModule = getModule(model, index);
         model.deleteModule(targetModule);
         return targetModule;
     }
