@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import seedu.address.model.module.Module;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code ModuleCard}.
+ * Provides a handle for {@code ModuleListPanel} containing the list of {@code ModuleCard}.
  */
 public class PersonListPanelHandle extends NodeHandle<ListView<Module>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";

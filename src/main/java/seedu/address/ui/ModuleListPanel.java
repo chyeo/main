@@ -14,25 +14,25 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.module.Module;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of modules.
  */
-public class PersonListPanel extends UiPart<Region> {
+public class ModuleListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
 
     @FXML
     private ListView<Module> personListView;
 
-    public PersonListPanel(ObservableList<Module> moduleList, ObservableValue<Module> selectedPerson,
-            Consumer<Module> onSelectedPersonChange) {
+    public ModuleListPanel(ObservableList<Module> moduleList, ObservableValue<Module> selectedModule,
+            Consumer<Module> onSelectedModuleChange) {
         super(FXML);
         personListView.setItems(moduleList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        personListView.setCellFactory(listView -> new ModuleListViewCell());
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-            onSelectedPersonChange.accept(newValue);
+            onSelectedModuleChange.accept(newValue);
         });
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
+        selectedModule.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected person changed to: " + newValue);
 
             // Don't modify selection if we are already selecting the selected module,
@@ -54,7 +54,7 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCard}.
      */
-    class PersonListViewCell extends ListCell<Module> {
+    class ModuleListViewCell extends ListCell<Module> {
         @Override
         protected void updateItem(Module module, boolean empty) {
             super.updateItem(module, empty);
