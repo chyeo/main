@@ -29,11 +29,11 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredModuleList().size());
+        Index lastModuleIndex = Index.fromOneBased(model.getFilteredModuleList().size());
 
         assertExecutionSuccess(INDEX_FIRST_MODULE);
         assertExecutionSuccess(INDEX_THIRD_MODULE);
-        assertExecutionSuccess(lastPersonIndex);
+        assertExecutionSuccess(lastModuleIndex);
     }
 
     @Test
