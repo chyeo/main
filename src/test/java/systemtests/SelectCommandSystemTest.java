@@ -30,9 +30,9 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, INDEX_FIRST_MODULE);
 
         /* Case: select the last card in the module list -> selected */
-        Index personCount = getLastIndex(getModel());
-        command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
-        assertCommandSuccess(command, personCount);
+        Index moduleCount = getLastIndex(getModel());
+        command = SelectCommand.COMMAND_WORD + " " + moduleCount.getOneBased();
+        assertCommandSuccess(command, moduleCount);
 
         /* Case: undo previous selection -> rejected */
         command = UndoCommand.COMMAND_WORD;
