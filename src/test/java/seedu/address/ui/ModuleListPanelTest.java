@@ -3,7 +3,7 @@ package seedu.address.ui;
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
@@ -49,11 +49,11 @@ public class ModuleListPanelTest extends GuiUnitTest {
     @Test
     public void selection_modelSelectedPersonChanged_selectionChanges() {
         initUi(TYPICAL_MODULES);
-        Module secondModule = TYPICAL_MODULES.get(INDEX_SECOND_PERSON.getZeroBased());
+        Module secondModule = TYPICAL_MODULES.get(INDEX_SECOND_MODULE.getZeroBased());
         guiRobot.interact(() -> selectedPerson.set(secondModule));
         guiRobot.pauseForHuman();
 
-        ModuleCardHandle expectedPerson = moduleListPanelHandle.getModuleCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        ModuleCardHandle expectedPerson = moduleListPanelHandle.getModuleCardHandle(INDEX_SECOND_MODULE.getZeroBased());
         ModuleCardHandle selectedPerson = moduleListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
