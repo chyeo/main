@@ -38,7 +38,7 @@ public class SelectCommand extends Command {
         List<Module> filteredModuleList = model.getFilteredModuleList();
 
         if (targetIndex.getZeroBased() >= filteredModuleList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
         }
 
         model.setSelectedModule(filteredModuleList.get(targetIndex.getZeroBased()));

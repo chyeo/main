@@ -72,7 +72,7 @@ public class EditCommand extends Command {
         List<Module> lastShownList = model.getFilteredModuleList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
         }
 
         Module moduleToEdit = lastShownList.get(index.getZeroBased());
