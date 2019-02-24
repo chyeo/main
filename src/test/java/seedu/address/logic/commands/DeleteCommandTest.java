@@ -63,7 +63,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteModule(moduleToDelete);
         expectedModel.commitAddressBook();
-        showNoPerson(expectedModel);
+        showNoModule(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -92,7 +92,7 @@ public class DeleteCommandTest {
         // delete -> first module deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered module list to show all persons
+        // undo -> reverts addressbook back to previous state and filtered module list to show all modules
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -122,7 +122,7 @@ public class DeleteCommandTest {
      * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the module object regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
+    public void executeUndoRedo_validIndexFilteredList_sameModuleDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_MODULE);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
@@ -134,7 +134,7 @@ public class DeleteCommandTest {
         // delete -> deletes second module in unfiltered module list / first module in filtered module list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered module list to show all persons
+        // undo -> reverts addressbook back to previous state and filtered module list to show all modules
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -169,7 +169,7 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPerson(Model model) {
+    private void showNoModule(Model model) {
         model.updateFilteredModuleList(p -> false);
 
         assertTrue(model.getFilteredModuleList().isEmpty());
