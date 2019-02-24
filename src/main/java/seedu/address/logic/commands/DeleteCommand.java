@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Person: %1$s";
 
     private final Index targetIndex;
 
@@ -43,7 +43,7 @@ public class DeleteCommand extends Command {
         Module moduleToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteModule(moduleToDelete);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, moduleToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
     }
 
     @Override
