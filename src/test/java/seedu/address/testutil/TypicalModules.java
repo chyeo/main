@@ -21,7 +21,7 @@ import seedu.address.model.module.Module;
 /**
  * A utility class containing a list of {@code Module} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalModules {
 
     public static final Module ALICE = new ModuleBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
@@ -57,20 +57,20 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalModules() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical modules.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Module module : getTypicalPersons()) {
+        for (Module module : getTypicalModules()) {
             ab.addModule(module);
         }
         return ab;
     }
 
-    public static List<Module> getTypicalPersons() {
+    public static List<Module> getTypicalModules() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

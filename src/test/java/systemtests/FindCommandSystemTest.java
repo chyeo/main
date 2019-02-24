@@ -3,10 +3,10 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_MODULES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalModules.BENSON;
+import static seedu.address.testutil.TypicalModules.CARL;
+import static seedu.address.testutil.TypicalModules.DANIEL;
+import static seedu.address.testutil.TypicalModules.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;
