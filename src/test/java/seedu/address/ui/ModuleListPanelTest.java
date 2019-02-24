@@ -29,7 +29,7 @@ public class ModuleListPanelTest extends GuiUnitTest {
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
-    private final SimpleObjectProperty<Module> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Module> selectedModule = new SimpleObjectProperty<>();
     private ModuleListPanelHandle moduleListPanelHandle;
 
     @Test
@@ -47,19 +47,19 @@ public class ModuleListPanelTest extends GuiUnitTest {
     }
 
     @Test
-    public void selection_modelSelectedPersonChanged_selectionChanges() {
+    public void selection_modelSelectedModuleChanged_selectionChanges() {
         initUi(TYPICAL_MODULES);
         Module secondModule = TYPICAL_MODULES.get(INDEX_SECOND_MODULE.getZeroBased());
-        guiRobot.interact(() -> selectedPerson.set(secondModule));
+        guiRobot.interact(() -> selectedModule.set(secondModule));
         guiRobot.pauseForHuman();
 
-        ModuleCardHandle expectedPerson = moduleListPanelHandle.getModuleCardHandle(INDEX_SECOND_MODULE.getZeroBased());
-        ModuleCardHandle selectedPerson = moduleListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedPerson, selectedPerson);
+        ModuleCardHandle expectedModule = moduleListPanelHandle.getModuleCardHandle(INDEX_SECOND_MODULE.getZeroBased());
+        ModuleCardHandle selectedModule = moduleListPanelHandle.getHandleToSelectedCard();
+        assertCardEquals(expectedModule, selectedModule);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code ModuleListPanel} requires lesser than
+     * Verifies that creating and deleting large number of modules in {@code ModuleListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -73,12 +73,12 @@ public class ModuleListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
+     * Returns a list of modules containing {@code moduleCount} modules that is used to populate the
      * {@code ModuleListPanel}.
      */
-    private ObservableList<Module> createBackingList(int personCount) {
+    private ObservableList<Module> createBackingList(int moduleCount) {
         ObservableList<Module> backingList = FXCollections.observableArrayList();
-        for (int i = 0; i < personCount; i++) {
+        for (int i = 0; i < moduleCount; i++) {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
@@ -95,7 +95,7 @@ public class ModuleListPanelTest extends GuiUnitTest {
      */
     private void initUi(ObservableList<Module> backingList) {
         ModuleListPanel moduleListPanel =
-                new ModuleListPanel(backingList, selectedPerson, selectedPerson::set);
+                new ModuleListPanel(backingList, selectedModule, selectedModule::set);
         uiPartRule.setUiPart(moduleListPanel);
 
         moduleListPanelHandle = new ModuleListPanelHandle(getChildNode(moduleListPanel.getRoot(),
