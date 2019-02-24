@@ -14,13 +14,13 @@ import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.module.Module;
 
 public class BrowserPanelTest extends GuiUnitTest {
-    private SimpleObjectProperty<Module> selectedPerson = new SimpleObjectProperty<>();
+    private SimpleObjectProperty<Module> selectedModule = new SimpleObjectProperty<>();
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() {
-        guiRobot.interact(() -> browserPanel = new BrowserPanel(selectedPerson));
+        guiRobot.interact(() -> browserPanel = new BrowserPanel(selectedModule));
         uiPartRule.setUiPart(browserPanel);
 
         browserPanelHandle = new BrowserPanelHandle(browserPanel.getRoot());
@@ -32,10 +32,10 @@ public class BrowserPanelTest extends GuiUnitTest {
         assertEquals(BrowserPanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
 
         // associated web page of a module
-        guiRobot.interact(() -> selectedPerson.set(ALICE));
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
+        guiRobot.interact(() -> selectedModule.set(ALICE));
+        URL expectedModuleUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
-        assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
+        assertEquals(expectedModuleUrl, browserPanelHandle.getLoadedUrl());
     }
 }
