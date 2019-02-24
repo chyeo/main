@@ -27,7 +27,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.module.Module;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ModuleBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -39,7 +39,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Module editedModule = new PersonBuilder().build();
+        Module editedModule = new ModuleBuilder().build();
         EditCommand.EditModuleDescriptor descriptor = new EditPersonDescriptorBuilder(editedModule).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
@@ -57,7 +57,7 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredModuleList().size());
         Module lastModule = model.getFilteredModuleList().get(indexLastPerson.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastModule);
+        ModuleBuilder personInList = new ModuleBuilder(lastModule);
         Module editedModule = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
@@ -92,7 +92,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Module moduleInFilteredList = model.getFilteredModuleList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Module editedModule = new PersonBuilder(moduleInFilteredList).withName(VALID_NAME_BOB).build();
+        Module editedModule = new ModuleBuilder(moduleInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
@@ -155,7 +155,7 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Module editedModule = new PersonBuilder().build();
+        Module editedModule = new ModuleBuilder().build();
         Module moduleToEdit = model.getFilteredModuleList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditCommand.EditModuleDescriptor descriptor = new EditPersonDescriptorBuilder(editedModule).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
@@ -199,7 +199,7 @@ public class EditCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
-        Module editedModule = new PersonBuilder().build();
+        Module editedModule = new ModuleBuilder().build();
         EditModuleDescriptor descriptor = new EditPersonDescriptorBuilder(editedModule).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());

@@ -18,7 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.module.exceptions.DuplicateModuleException;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ModuleBuilder;
 
 public class UniqueModuleListTest {
     @Rule
@@ -46,7 +46,7 @@ public class UniqueModuleListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueModuleList.add(ALICE);
-        Module editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Module editedAlice = new ModuleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueModuleList.contains(editedAlice));
     }
@@ -94,7 +94,7 @@ public class UniqueModuleListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueModuleList.add(ALICE);
-        Module editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Module editedAlice = new ModuleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueModuleList.setModule(ALICE, editedAlice);
         UniqueModuleList expectedUniqueModuleList = new UniqueModuleList();

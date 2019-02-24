@@ -23,7 +23,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.NameContainsKeywordsPredicate;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ModuleBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -124,7 +124,7 @@ public class ModelManagerTest {
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addModule(ALICE);
         modelManager.setSelectedModule(ALICE);
-        Module updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        Module updatedAlice = new ModuleBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         modelManager.setModule(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedModule());
     }

@@ -9,20 +9,20 @@ import org.junit.Test;
 
 import guitests.guihandles.ModuleCardHandle;
 import seedu.address.model.module.Module;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ModuleBuilder;
 
 public class ModuleCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Module moduleWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        Module moduleWithNoTags = new ModuleBuilder().withTags(new String[0]).build();
         ModuleCard moduleCard = new ModuleCard(moduleWithNoTags, 1);
         uiPartRule.setUiPart(moduleCard);
         assertCardDisplay(moduleCard, moduleWithNoTags, 1);
 
         // with tags
-        Module moduleWithTags = new PersonBuilder().build();
+        Module moduleWithTags = new ModuleBuilder().build();
         moduleCard = new ModuleCard(moduleWithTags, 2);
         uiPartRule.setUiPart(moduleCard);
         assertCardDisplay(moduleCard, moduleWithTags, 2);
@@ -30,7 +30,7 @@ public class ModuleCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Module module = new PersonBuilder().build();
+        Module module = new ModuleBuilder().build();
         ModuleCard moduleCard = new ModuleCard(module, 0);
 
         // same module, same index -> returns true
@@ -47,7 +47,7 @@ public class ModuleCardTest extends GuiUnitTest {
         assertFalse(moduleCard.equals(0));
 
         // different module, same index -> returns false
-        Module differentModule = new PersonBuilder().withName("differentName").build();
+        Module differentModule = new ModuleBuilder().withName("differentName").build();
         assertFalse(moduleCard.equals(new ModuleCard(differentModule, 0)));
 
         // same module, different index -> returns false
