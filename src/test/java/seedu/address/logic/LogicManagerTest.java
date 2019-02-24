@@ -100,7 +100,7 @@ public class LogicManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredPersonList().remove(0);
+        logic.getFilteredModuleList().remove(0);
     }
 
     /**
