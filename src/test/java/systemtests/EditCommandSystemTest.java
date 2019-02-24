@@ -46,7 +46,7 @@ import seedu.address.model.module.Name;
 import seedu.address.model.module.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ModuleBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.ModuleUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
 
@@ -183,7 +183,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a module with new values same as another module's values -> rejected */
-        executeCommand(PersonUtil.getAddCommand(BOB));
+        executeCommand(ModuleUtil.getAddCommand(BOB));
         assertTrue(getModel().getAddressBook().getModuleList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredModuleList().get(index.getZeroBased()).equals(BOB));

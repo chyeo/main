@@ -16,19 +16,19 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class for Module.
  */
-public class PersonUtil {
+public class ModuleUtil {
 
     /**
      * Returns an add command string for adding the {@code module}.
      */
     public static String getAddCommand(Module module) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(module);
+        return AddCommand.COMMAND_WORD + " " + getModuleDetails(module);
     }
 
     /**
      * Returns the part of command string for the given {@code module}'s details.
      */
-    public static String getPersonDetails(Module module) {
+    public static String getModuleDetails(Module module) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + module.getName().fullName + " ");
         sb.append(PREFIX_PHONE + module.getPhone().value + " ");
@@ -43,7 +43,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code EditModuleDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditModuleDescriptor descriptor) {
+    public static String getEditModuleDescriptorDetails(EditModuleDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
