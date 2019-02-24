@@ -4,7 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showModuleAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_MODULE;
@@ -45,16 +45,16 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_MODULE);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_MODULE);
+        showModuleAtIndex(model, INDEX_FIRST_MODULE);
+        showModuleAtIndex(expectedModel, INDEX_FIRST_MODULE);
 
         assertExecutionSuccess(INDEX_FIRST_MODULE);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_MODULE);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_MODULE);
+        showModuleAtIndex(model, INDEX_FIRST_MODULE);
+        showModuleAtIndex(expectedModel, INDEX_FIRST_MODULE);
 
         Index outOfBoundsIndex = INDEX_SECOND_MODULE;
         // ensures that outOfBoundIndex is still in bounds of address book list
