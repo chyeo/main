@@ -51,7 +51,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateModules_throwsDuplicateModuleException() {
         // Two modules with the same identity fields
         Module editedAlice = new ModuleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -63,24 +63,24 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasModule_nullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         addressBook.hasModule(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasModule_moduleNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasModule(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasModule_moduleInAddressBook_returnsTrue() {
         addressBook.addModule(ALICE);
         assertTrue(addressBook.hasModule(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasModule_moduleWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addModule(ALICE);
         Module editedAlice = new ModuleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -88,7 +88,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getModuleList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getModuleList().remove(0);
     }
