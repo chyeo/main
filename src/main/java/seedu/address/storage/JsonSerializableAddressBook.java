@@ -19,7 +19,7 @@ import seedu.address.model.module.Module;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedModule> persons = new ArrayList<>();
 
@@ -27,8 +27,8 @@ class JsonSerializableAddressBook {
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedModule> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedModule> modules) {
+        this.persons.addAll(modules);
     }
 
     /**
@@ -50,7 +50,7 @@ class JsonSerializableAddressBook {
         for (JsonAdaptedModule jsonAdaptedModule : persons) {
             Module module = jsonAdaptedModule.toModelType();
             if (addressBook.hasModule(module)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
             }
             addressBook.addModule(module);
         }
