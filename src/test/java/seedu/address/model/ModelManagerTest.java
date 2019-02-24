@@ -86,24 +86,24 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasModule_nullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasModule(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasModule_moduleNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasModule(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasModule_moduleInAddressBook_returnsTrue() {
         modelManager.addModule(ALICE);
         assertTrue(modelManager.hasModule(ALICE));
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
+    public void deleteModule_moduleIsSelectedAndFirstModuleInFilteredModuleList_selectionCleared() {
         modelManager.addModule(ALICE);
         modelManager.setSelectedModule(ALICE);
         modelManager.deleteModule(ALICE);
@@ -111,7 +111,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
+    public void deleteModule_moduleIsSelectedAndSecondModuleInFilteredModuleList_firstModuleSelected() {
         modelManager.addModule(ALICE);
         modelManager.addModule(BOB);
         assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredModuleList());
@@ -121,7 +121,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setPerson_personIsSelected_selectedPersonUpdated() {
+    public void setModule_moduleIsSelected_selectedModuleUpdated() {
         modelManager.addModule(ALICE);
         modelManager.setSelectedModule(ALICE);
         Module updatedAlice = new ModuleBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
@@ -130,19 +130,19 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredModuleList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredModuleList().remove(0);
     }
 
     @Test
-    public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
+    public void setSelectedModule_moduleNotInFilteredModuleList_throwsModuleNotFoundException() {
         thrown.expect(ModuleNotFoundException.class);
         modelManager.setSelectedModule(ALICE);
     }
 
     @Test
-    public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
+    public void setSelectedModule_moduleInFilteredModuleList_setsSelectedModule() {
         modelManager.addModule(ALICE);
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredModuleList());
         modelManager.setSelectedModule(ALICE);
