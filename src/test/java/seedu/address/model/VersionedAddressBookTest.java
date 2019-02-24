@@ -18,9 +18,9 @@ import seedu.address.testutil.AddressBookBuilder;
 
 public class VersionedAddressBookTest {
 
-    private final ReadOnlyAddressBook addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
-    private final ReadOnlyAddressBook addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
-    private final ReadOnlyAddressBook addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
+    private final ReadOnlyAddressBook addressBookWithAmy = new AddressBookBuilder().withModule(AMY).build();
+    private final ReadOnlyAddressBook addressBookWithBob = new AddressBookBuilder().withModule(BOB).build();
+    private final ReadOnlyAddressBook addressBookWithCarl = new AddressBookBuilder().withModule(CARL).build();
     private final ReadOnlyAddressBook emptyAddressBook = new AddressBookBuilder().build();
 
     @Test
