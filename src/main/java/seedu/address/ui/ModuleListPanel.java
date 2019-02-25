@@ -21,14 +21,14 @@ public class ModuleListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
 
     @FXML
-    private ListView<Module> personListView;
+    private ListView<Module> moduleListView;
 
     public ModuleListPanel(ObservableList<Module> moduleList, ObservableValue<Module> selectedModule,
             Consumer<Module> onSelectedModuleChange) {
         super(FXML);
-        personListView.setItems(moduleList);
-        personListView.setCellFactory(listView -> new ModuleListViewCell());
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        moduleListView.setItems(moduleList);
+        moduleListView.setCellFactory(listView -> new ModuleListViewCell());
+        moduleListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in person list panel changed to : '" + newValue + "'");
             onSelectedModuleChange.accept(newValue);
         });
@@ -37,16 +37,16 @@ public class ModuleListPanel extends UiPart<Region> {
 
             // Don't modify selection if we are already selecting the selected module,
             // otherwise we would have an infinite loop.
-            if (Objects.equals(personListView.getSelectionModel().getSelectedItem(), newValue)) {
+            if (Objects.equals(moduleListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
             }
 
             if (newValue == null) {
-                personListView.getSelectionModel().clearSelection();
+                moduleListView.getSelectionModel().clearSelection();
             } else {
-                int index = personListView.getItems().indexOf(newValue);
-                personListView.scrollTo(index);
-                personListView.getSelectionModel().clearAndSelect(index);
+                int index = moduleListView.getItems().indexOf(newValue);
+                moduleListView.scrollTo(index);
+                moduleListView.getSelectionModel().clearAndSelect(index);
             }
         });
     }

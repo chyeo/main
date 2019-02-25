@@ -12,7 +12,7 @@ import seedu.address.model.module.Module;
  * Provides a handle for {@code ModuleListPanel} containing the list of {@code ModuleCard}.
  */
 public class ModuleListPanelHandle extends NodeHandle<ListView<Module>> {
-    public static final String MODULE_LIST_VIEW_ID = "#personListView";
+    public static final String MODULE_LIST_VIEW_ID = "#moduleListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
