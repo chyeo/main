@@ -46,7 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane moduleListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -116,7 +116,7 @@ public class MainWindow extends UiPart<Stage> {
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList(), logic.selectedModuleProperty(),
                 logic::setSelectedModule);
-        personListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
