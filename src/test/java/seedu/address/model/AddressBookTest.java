@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModules.ALICE;
+import static seedu.address.testutil.TypicalModules.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,9 +21,9 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.exceptions.DuplicateModuleException;
+import seedu.address.testutil.ModuleBuilder;
 
 public class AddressBookTest {
 
@@ -34,7 +34,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getModuleList());
     }
 
     @Test
@@ -51,46 +51,46 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void resetData_withDuplicateModules_throwsDuplicateModuleException() {
+        // Two modules with the same identity fields
+        Module editedAlice = new ModuleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        List<Module> newModules = Arrays.asList(ALICE, editedAlice);
+        AddressBookStub newData = new AddressBookStub(newModules);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateModuleException.class);
         addressBook.resetData(newData);
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasModule_nullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPerson(null);
+        addressBook.hasModule(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+    public void hasModule_moduleNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasModule(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+    public void hasModule_moduleInAddressBook_returnsTrue() {
+        addressBook.addModule(ALICE);
+        assertTrue(addressBook.hasModule(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void hasModule_moduleWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addModule(ALICE);
+        Module editedAlice = new ModuleBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(addressBook.hasModule(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getModuleList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        addressBook.getModuleList().remove(0);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class AddressBookTest {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         addressBook.addListener(listener);
-        addressBook.addPerson(ALICE);
+        addressBook.addModule(ALICE);
         assertEquals(1, counter.get());
     }
 
@@ -108,23 +108,23 @@ public class AddressBookTest {
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         addressBook.addListener(listener);
         addressBook.removeListener(listener);
-        addressBook.addPerson(ALICE);
+        addressBook.addModule(ALICE);
         assertEquals(0, counter.get());
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose modules list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Module> modules = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        AddressBookStub(Collection<Module> modules) {
+            this.modules.setAll(modules);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Module> getModuleList() {
+            return modules;
         }
 
         @Override

@@ -32,7 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -46,7 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane moduleListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -111,12 +111,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+        browserPanel = new BrowserPanel(logic.selectedModuleProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList(), logic.selectedModuleProperty(),
+                logic::setSelectedModule);
+        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -168,8 +168,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public ModuleListPanel getModuleListPanel() {
+        return moduleListPanel;
     }
 
     /**
