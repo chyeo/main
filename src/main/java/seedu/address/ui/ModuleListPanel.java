@@ -29,11 +29,11 @@ public class ModuleListPanel extends UiPart<Region> {
         moduleListView.setItems(moduleList);
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());
         moduleListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+            logger.fine("Selection in module list panel changed to : '" + newValue + "'");
             onSelectedModuleChange.accept(newValue);
         });
         selectedModule.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected person changed to: " + newValue);
+            logger.fine("Selected module changed to: " + newValue);
 
             // Don't modify selection if we are already selecting the selected module,
             // otherwise we would have an infinite loop.
