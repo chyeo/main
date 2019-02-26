@@ -6,14 +6,14 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.module.Module;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -54,37 +54,37 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a module with the same identity as {@code module} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasModule(Module module);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given module.
+     * The module must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deleteModule(Module target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given module.
+     * {@code module} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addModule(Module module);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given module {@code target} with {@code editedModule}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setModule(Module target, Module editedModule);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered module list */
+    ObservableList<Module> getFilteredModuleList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered module list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredModuleList(Predicate<Module> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -112,19 +112,19 @@ public interface Model {
     void commitAddressBook();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected module in the filtered module list.
+     * null if no module is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Module> selectedModuleProperty();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected module in the filtered module list.
+     * null if no module is selected.
      */
-    Person getSelectedPerson();
+    Module getSelectedModule();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected module in the filtered module list.
      */
-    void setSelectedPerson(Person person);
+    void setSelectedModule(Module module);
 }
