@@ -63,13 +63,13 @@ public class JsonAddressBookStorageTest {
     @Test
     public void readAddressBook_invalidModuleAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonAddressBook.json");
+        readAddressBook("invalidModuleAddressBook.json");
     }
 
     @Test
     public void readAddressBook_invalidAndValidModuleAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAddressBook.json");
+        readAddressBook("invalidAndValidModuleAddressBook.json");
     }
 
     @Test
