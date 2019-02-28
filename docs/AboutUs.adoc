@@ -48,7 +48,7 @@ Responsibilities: Documentation + UI
 '''
 
 === Yeo Cheng Hong
-image::chyeo.jpg[width="150", align="left"]
+image::chyeo.png[width="150", align="left"]
 {empty}[http://github.com/chyeo[github]] [<<chyeo#, portfolio>>]
 
 Role: Developer +
