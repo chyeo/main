@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_MODULES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.testutil.TypicalModules.BENSON;
 import static seedu.address.testutil.TypicalModules.CARL;
@@ -117,6 +118,23 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find credits of module in address book -> 0 modules found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + DANIEL.getCredits().value;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find credits of module in address book with PREFIX_CREDITS -> 1 modules found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CREDITS + DANIEL.getCredits().value;
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find credits of module not in address book with PREFIX_CREDITS -> 0 modules found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CREDITS + "99999999";
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find module in address book, credits is substring of keyword -> 0 modules found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CREDITS + "999";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
