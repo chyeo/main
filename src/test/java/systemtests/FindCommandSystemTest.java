@@ -3,10 +3,12 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_MODULES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.testutil.TypicalModules.BENSON;
 import static seedu.address.testutil.TypicalModules.CARL;
 import static seedu.address.testutil.TypicalModules.DANIEL;
+import static seedu.address.testutil.TypicalModules.GEORGE;
 import static seedu.address.testutil.TypicalModules.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
@@ -120,6 +122,24 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find code of module in address book -> 0 modules found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + DANIEL.getCode().value;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        // TODO: Update the test case again after proper attribute is given in TypicalModules
+        /* Case: find code of module in address book with correct PREFIX -> 3 modules found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CODE + DANIEL.getCode().value;
+        ModelHelper.setFilteredList(expectedModel, DANIEL, GEORGE, CARL);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find module not in address book with PREFIX_CODE -> 0 modules found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CODE + "NotExisting";
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find module in address book, code is substring of keyword -> 0 modules found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CODE + "stre";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
