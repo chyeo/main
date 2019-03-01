@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.Arrays;
@@ -10,6 +11,7 @@ import java.util.Arrays;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.CodeContainsKeywordsPredicate;
+import seedu.address.model.module.CreditsContainsKeywordsPredicate;
 import seedu.address.model.module.KeywordsPredicate;
 import seedu.address.model.module.NameContainsKeywordsPredicate;
 
@@ -32,7 +34,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CODE);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CODE, PREFIX_CREDITS);
         KeywordsPredicate predicate = null;
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             String[] nameKeywords = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get())
@@ -42,6 +44,10 @@ public class FindCommandParser implements Parser<FindCommand> {
             String[] codeKeywords = ParserUtil.parseCode(argMultimap.getValue(PREFIX_CODE)
                     .get()).toString().split("\\s+");
             predicate = new CodeContainsKeywordsPredicate(Arrays.asList(codeKeywords));
+        } else if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
+            String[] creditKeywords = ParserUtil.parseCredits(argMultimap.getValue(PREFIX_CREDITS)
+                    .get()).toString().split("\\s+");
+            predicate = new CreditsContainsKeywordsPredicate(Arrays.asList(creditKeywords));
         } else {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
