@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.module.CodeContainsKeywordsPredicate;
+import seedu.address.model.module.CreditsContainsKeywordsPredicate;
 import seedu.address.model.module.NameContainsKeywordsPredicate;
 
 /**
@@ -88,6 +89,17 @@ public class FindCommandTest {
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredModuleList());
     }
 
+    @Test
+    public void execute_multipleCreditsKeywords_multipleModulesFound() {
+        String expectedMessage = String.format(MESSAGE_MODULES_LISTED_OVERVIEW, 3);
+        // TODO: update the module credits after TypicalModule attribute are updated
+        CreditsContainsKeywordsPredicate predicate = prepareCreditsPredicate("95352563 9482224 9482427");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredModuleList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredModuleList());
+    }
+
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
@@ -100,6 +112,13 @@ public class FindCommandTest {
      */
     private CodeContainsKeywordsPredicate prepareCodePredicate(String userInput) {
         return new CodeContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code CreditsContainsKeywordsPredicate}.
+     */
+    private CreditsContainsKeywordsPredicate prepareCreditsPredicate(String userInput) {
+        return new CreditsContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 
 }
