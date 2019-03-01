@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.commons.core.Messages;
@@ -17,12 +18,13 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all modules whose names or code "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all modules whose names, code or credits"
             + "contain any of the specified keywords (case-insensitive)"
             + " and displays them as a list with index numbers.\n"
             + "Parameters: "
             + "[" + PREFIX_NAME + "NAME name...]"
             + "[" + PREFIX_CODE + "CODE code...]\n"
+            + "[" + PREFIX_CREDITS + "CREDITS credits ...]"
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "alice bob charlie\n";
 
     private final KeywordsPredicate predicate;
