@@ -59,7 +59,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noModuleFound() {
         String expectedMessage = String.format(MESSAGE_MODULES_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        NameContainsKeywordsPredicate predicate = prepareNamePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredModuleList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -67,9 +67,9 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleModulesFound() {
+    public void execute_multipleNameKeywords_multipleModulesFound() {
         String expectedMessage = String.format(MESSAGE_MODULES_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        NameContainsKeywordsPredicate predicate = prepareNamePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredModuleList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -79,7 +79,8 @@ public class FindCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
+    private NameContainsKeywordsPredicate prepareNamePredicate(String userInput) {
         return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
+
 }
