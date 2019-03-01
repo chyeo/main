@@ -24,11 +24,11 @@ public class FindCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand =
+        FindCommand expectedFindNameCommand =
                 new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "find " + PREFIX_NAME + "Alice Bob", expectedFindCommand);
+        assertParseSuccess(parser, "find " + PREFIX_NAME + "Alice Bob", expectedFindNameCommand);
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, "find " + PREFIX_NAME + "  Alice       Bob     ", expectedFindCommand);
+        assertParseSuccess(parser, "find " + PREFIX_NAME + "  Alice       Bob     ", expectedFindNameCommand);
     }
 
 }
