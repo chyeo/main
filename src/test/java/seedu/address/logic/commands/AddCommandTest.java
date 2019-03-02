@@ -22,8 +22,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyDegreePlannerList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.module.Module;
+import seedu.address.model.planner.DegreePlanner;
 import seedu.address.testutil.ModuleBuilder;
 
 public class AddCommandTest {
@@ -122,6 +124,14 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override public Path getDegreePlannerListFilePath() {
+            return null;
+        }
+
+        @Override public void setDegreePlannerListFilePath(Path degreePlannerListFilePath) {
+
+        }
+
         @Override
         public void addModule(Module module) {
             throw new AssertionError("This method should not be called.");
@@ -200,6 +210,54 @@ public class AddCommandTest {
         @Override
         public void setSelectedModule(Module module) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override public ReadOnlyDegreePlannerList getDegreePlannerList() {
+            return null;
+        }
+
+        @Override public boolean hasDegreePlanner(DegreePlanner degreePlanner) {
+            return false;
+        }
+
+        @Override public void deleteDegreePlanner(DegreePlanner degreePlanner) {
+
+        }
+
+        @Override public void addDegreePlanner(DegreePlanner degreePlanner) {
+
+        }
+
+        @Override public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
+
+        }
+
+        @Override public ObservableList<DegreePlanner> getFilteredDegreePlannerList() {
+            return null;
+        }
+
+        @Override public void updateFilteredDegreePlannerList(Predicate<DegreePlanner> predicate) {
+
+        }
+
+        @Override public boolean canUndoDegreePlannerList() {
+            return false;
+        }
+
+        @Override public boolean canRedoDegreePlannerList() {
+            return false;
+        }
+
+        @Override public void undoDegreePlannerList() {
+
+        }
+
+        @Override public void redoDegreePlannerList() {
+
+        }
+
+        @Override public void commitDegreePlannerList() {
+
         }
     }
 
