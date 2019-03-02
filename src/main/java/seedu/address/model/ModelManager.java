@@ -254,7 +254,7 @@ public class ModelManager implements Model {
                 && filteredModules.equals(other.filteredModules)
                 && Objects.equals(selectedModule.get(), other.selectedModule.get());
     }
-
+    
     //=========== DegreePlannerList Methods =================================================================
 
     @Override
