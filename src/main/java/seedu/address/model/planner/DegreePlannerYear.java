@@ -27,14 +27,14 @@ public class DegreePlannerYear {
      */
     public DegreePlannerYear(String Year) {
         requireNonNull(Year);
-        checkArgument(isValidDate(Year), MESSAGE_YEAR_CONSTRAINTS);
+        checkArgument(isValidYear(Year), MESSAGE_YEAR_CONSTRAINTS);
         plannerYear = Year;
     }
 
     /**
      * Returns true if a given string is a valid year.
      */
-    public static boolean isValidDate(String test) {
+    public static boolean isValidYear(String test) {
         return test.matches(YEAR_VALIDATION_REGEX);
     }
 
