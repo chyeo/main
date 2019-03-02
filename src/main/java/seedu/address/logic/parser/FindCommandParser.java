@@ -33,6 +33,11 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
+        KeywordsPredicate predicate = getKeywordsPredicate(args);
+        return new FindCommand(predicate);
+    }
+
+    private KeywordsPredicate getKeywordsPredicate(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CODE, PREFIX_CREDITS);
         KeywordsPredicate predicate = null;
@@ -52,6 +57,6 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
-        return new FindCommand(predicate);
+        return predicate;
     }
 }
