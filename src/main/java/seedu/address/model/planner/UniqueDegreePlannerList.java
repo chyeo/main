@@ -55,7 +55,7 @@ public class UniqueDegreePlannerList implements Iterable<DegreePlanner> {
      * The planner module identity of {@code editedDegreePlanner} must not be the same as another existing degreePlanner
      * in the list.
      */
-    public void setPlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
+    public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
         requireAllNonNull(target, editedDegreePlanner);
 
         int index = internalList.indexOf(target);
@@ -81,18 +81,18 @@ public class UniqueDegreePlannerList implements Iterable<DegreePlanner> {
         }
     }
 
-    public void setPlanners(UniqueDegreePlannerList replacement) {
+    public void setDegreePlanners(UniqueDegreePlannerList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code defreePlanners}.
+     * Replaces the contents of this list with {@code degreePlanners}.
      * {@code degreePlanners} must not contain duplicate degreePlanners.
      */
-    public void setPlanners(List<DegreePlanner> degreePlanners) {
+    public void setDegreePlanners(List<DegreePlanner> degreePlanners) {
         requireAllNonNull(degreePlanners);
-        if (!plannersAreUnique(degreePlanners)) {
+        if (!degreePlannersAreUnique(degreePlanners)) {
             throw new DuplicateDegreePlannerException();
         }
 
@@ -126,7 +126,7 @@ public class UniqueDegreePlannerList implements Iterable<DegreePlanner> {
     /**
      * Returns true if {@code degreePlanners} contains only unique planner modules.
      */
-    private boolean plannersAreUnique(List<DegreePlanner> degreePlanners) {
+    private boolean degreePlannersAreUnique(List<DegreePlanner> degreePlanners) {
         for (int i = 0; i < degreePlanners.size() - 1; i++) {
             for (int j = i + 1; j < degreePlanners.size(); j++) {
                 if (degreePlanners.get(i).isSameDegreePlanner(degreePlanners.get(j))) {
