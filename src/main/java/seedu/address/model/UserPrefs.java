@@ -14,8 +14,9 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path addressBookFilePath = Paths.get("data", "addressbook.json");
     private Path degreePlannerListFilePath = Paths.get("data", "degreePlannerList.json");
+    private Path requirementListFilePath = Paths.get("data", "requirementList.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -38,6 +39,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setDegreePlannerListFilePath(newUserPrefs.getDegreePlannerListFilePath());
+
+        setRequirementListFilePath(newUserPrefs.getRequirementListFilePath());
+
     }
 
     public GuiSettings getGuiSettings() {
@@ -65,6 +69,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setDegreePlannerListFilePath(Path degreePlannerListFilePath) {
         requireNonNull(degreePlannerListFilePath);
         this.degreePlannerListFilePath = degreePlannerListFilePath;
+    }
+
+    public Path getRequirementListFilePath() {
+        return requirementListFilePath;
+    }
+
+    public void setRequirementListFilePath(Path requirementListFilePath) {
+        requireNonNull(requirementListFilePath);
+        this.requirementListFilePath = requirementListFilePath;
     }
 
     @Override

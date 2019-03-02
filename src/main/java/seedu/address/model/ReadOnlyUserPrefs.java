@@ -12,5 +12,8 @@ public interface ReadOnlyUserPrefs {
     GuiSettings getGuiSettings();
 
     Path getAddressBookFilePath();
+
     Path getDegreePlannerListFilePath();
+
+    Path getRequirementListFilePath();
 }
