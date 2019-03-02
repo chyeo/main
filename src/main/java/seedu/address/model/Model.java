@@ -10,6 +10,7 @@ import seedu.address.model.module.Module;
 
 /**
  * The API of the Model component.
+    ToDo: extends DegreePlannerModel
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
@@ -82,6 +83,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered module list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
