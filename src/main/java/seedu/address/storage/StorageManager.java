@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyDegreePlannerList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -19,11 +20,13 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private DegreePlannerListStorage degreePlannerListStorage;
 
-
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, DegreePlannerListStorage degreePlannerListStorage,
+            UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
+        this.degreePlannerListStorage = degreePlannerListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -74,4 +77,33 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ DegreePlannerList methods ========================
+
+    @Override
+    public Path getDegreePlannerListFilePath() {
+        return degreePlannerListStorage.getDegreePlannerListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyDegreePlannerList> readDegreePlannerList() throws DataConversionException, IOException {
+        return readDegreePlannerList(degreePlannerListStorage.getDegreePlannerListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyDegreePlannerList> readDegreePlannerList(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return degreePlannerListStorage.readDegreePlannerList(filePath);
+    }
+
+    @Override
+    public void saveDegreePlannerList(ReadOnlyDegreePlannerList degreePlannerList) throws IOException {
+        saveDegreePlannerList(degreePlannerList, degreePlannerListStorage.getDegreePlannerListFilePath());
+    }
+
+    @Override
+    public void saveDegreePlannerList(ReadOnlyDegreePlannerList degreePlannerList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        degreePlannerListStorage.saveDegreePlannerList(degreePlannerList, filePath);
+    }
 }
