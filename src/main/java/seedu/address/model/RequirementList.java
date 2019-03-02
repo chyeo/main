@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.requirement.Requirement;
 import seedu.address.model.requirement.UniqueRequirementList;
@@ -14,7 +15,6 @@ import seedu.address.model.requirement.UniqueRequirementList;
  * Wraps all data at the requirement-list level
  * Duplicates are not allowed (by .isSameRequirement comparison)
  */
-
 public class RequirementList implements ReadOnlyRequirementList {
 
     private final UniqueRequirementList requirements;

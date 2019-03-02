@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -55,6 +54,10 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void init() throws Exception {
@@ -227,9 +230,5 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

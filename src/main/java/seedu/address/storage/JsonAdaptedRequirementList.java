@@ -8,11 +8,12 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.requirement.Requirement;
-import seedu.address.model.requirement.ModuleList;
 import seedu.address.model.module.Credits;
 import seedu.address.model.module.Name;
+import seedu.address.model.requirement.ModuleList;
+import seedu.address.model.requirement.Requirement;
 
 /**
  * Jackson-friendly version of {@link Requirement}.

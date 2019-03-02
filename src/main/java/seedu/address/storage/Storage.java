@@ -7,8 +7,8 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDegreePlannerList;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyRequirementList;
+import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**

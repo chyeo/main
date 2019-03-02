@@ -16,9 +16,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.module.Module;
-import seedu.address.model.requirement.Requirement;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.planner.DegreePlanner;
+import seedu.address.model.requirement.Requirement;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -69,14 +69,14 @@ public class ModelManager implements Model {
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -126,13 +126,13 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public ReadOnlyAddressBook getAddressBook() {
+        return versionedAddressBook;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        versionedAddressBook.resetData(addressBook);
     }
 
     @Override

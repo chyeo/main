@@ -16,7 +16,8 @@ import seedu.address.model.requirement.exceptions.RequirementNotFoundException;
  * A code is considered unique by comparing using {@code Requirement#isSameRequirement(Requirement)}. As such,
  * adding and updating of requirement uses Requirement#isSameRequirement(Requirement) for equality so as to
  * ensure that the requirement being added or updated is unique in terms of identity in the UniqueRequirementList.
- * However, the removal of a requirement uses Requirement#equals(Object) so as to ensure that the requirement with exactly
+ * However, the removal of a requirement uses Requirement#equals(Object) so as to ensure that the requirement with
+ * exactly
  * the same fields will be removed.
  * <p>
  * Supports a minimal set of list operations.

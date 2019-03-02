@@ -18,14 +18,14 @@ public interface Model {
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
     /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
-     */
-    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
-
-    /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
+
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
      * Returns the user prefs' GUI settings.
@@ -57,13 +57,13 @@ public interface Model {
      */
     void setDegreePlannerListFilePath(Path degreePlannerListFilePath);
 
+    /** Returns the AddressBook */
+    ReadOnlyAddressBook getAddressBook();
+
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
 
     /**
      * Returns true if a module with the same identity as {@code module} exists in the address book.
