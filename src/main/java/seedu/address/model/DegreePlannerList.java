@@ -17,18 +17,18 @@ import seedu.address.model.planner.UniqueDegreePlannerList;
 
 public class DegreePlannerList implements ReadOnlyDegreePlannerList {
 
-    private final UniqueDegreePlannerList planners;
+    private final UniqueDegreePlannerList degreePlanners;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     public DegreePlannerList() {
-        planners = new UniqueDegreePlannerList();
+        degreePlanners = new UniqueDegreePlannerList();
     }
 
     /**
      * @param toBeCopied
      */
     public DegreePlannerList(ReadOnlyDegreePlannerList toBeCopied) {
-        planners = new UniqueDegreePlannerList();
+        degreePlanners = new UniqueDegreePlannerList();
         resetData(toBeCopied);
     }
 
@@ -38,8 +38,8 @@ public class DegreePlannerList implements ReadOnlyDegreePlannerList {
      * Replaces the contents of the planner list with {@code degreePlanners}.
      * {@code degreePlanners} must not contain duplicate degreePlanners.
      */
-    public void setPlanners(List<DegreePlanner> degreePlanners) {
-        this.planners.setPlanners(degreePlanners);
+    public void setDegreePlanners(List<DegreePlanner> degreePlanners) {
+        this.degreePlanners.setDegreePlanners(degreePlanners);
     }
 
     /**
@@ -47,67 +47,68 @@ public class DegreePlannerList implements ReadOnlyDegreePlannerList {
      */
     public void resetData(ReadOnlyDegreePlannerList newData) {
         requireNonNull(newData);
-        this.setPlanners(newData.getPlannerList());
+        this.setDegreePlanners(newData.getDegreePlannerList());
     }
 
     //// planner-level operations
 
     /**
-     * Returns true if an degreePlanner with the same identity as {@code degreePlanner} exists in the address book.
+     * Returns true if an degreePlanner with the same identity as {@code degreePlanner} exists in the degreePlanner.
      */
-    public boolean hasPlanner(DegreePlanner degreePlanner) {
+    public boolean hasDegreePlanner(DegreePlanner degreePlanner) {
         requireNonNull(degreePlanner);
-        return planners.contains(degreePlanner);
+        return degreePlanners.contains(degreePlanner);
     }
 
     /**
-     * Adds an planner to the address book.
-     * The planner must not already exist in the planner list.
+     * Adds a degreePlanner to the degreePlanner list.
+     * The degreePlanner must not already exist in the degreePlanner list.
      */
-    public void addPlanner(DegreePlanner p) {
-        planners.add(p);
+    public void addDegreePlanner(DegreePlanner p) {
+        degreePlanners.add(p);
     }
 
     /**
      * Replaces the given planner {@code target} in the list with {@code editedDegreePlanner}.
-     * {@code target} must exist in the planner list.
-     * The identity of {@code editedDegreePlanner} must not be the same as another existing planner in the planner list.
+     * {@code target} must exist in the degreePlanner list.
+     * The identity of {@code editedDegreePlanner} must not be the same as another existing degreePlanner in the
+     * degreePlanner list.
      */
-    public void setPlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
+    public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
         requireNonNull(editedDegreePlanner);
 
-        planners.setPlanner(target, editedDegreePlanner);
+        degreePlanners.setDegreePlanner(target, editedDegreePlanner);
     }
 
     /**
      * Removes {@code key} from this {@code DegreePlannerList}.
-     * {@code key} must exist in the planner list.
+     * {@code key} must exist in the degreePlanner list.
      */
-    public void removePlanner(DegreePlanner key) {
-        planners.remove(key);
+    public void removeDegreePlanner(DegreePlanner key) {
+        degreePlanners.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return planners.asUnmodifiableObservableList().size() + " planners";
+        return degreePlanners.asUnmodifiableObservableList().size() + " degreePlanners";
     }
 
-    public ObservableList<DegreePlanner> getPlannerList() {
-        return planners.asUnmodifiableObservableList();
+    public ObservableList<DegreePlanner> getDegreePlannerList() {
+        return degreePlanners.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DegreePlannerList// instanceof handles nulls
-                && planners.equals(((DegreePlannerList) other).planners));
+                && degreePlanners.equals(((DegreePlannerList) other).degreePlanners));
     }
 
     @Override
     public int hashCode() {
-        return planners.hashCode();
+        return degreePlanners.hashCode();
     }
 
     @Override public void addListener(InvalidationListener listener) {

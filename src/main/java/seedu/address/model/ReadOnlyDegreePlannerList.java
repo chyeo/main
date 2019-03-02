@@ -10,9 +10,9 @@ import seedu.address.model.planner.DegreePlanner;
 public interface ReadOnlyDegreePlannerList extends Observable {
 
     /**
-     * Returns an unmodifiable view of the planner list.
-     * This list will not contain any duplicate modules in a planner.
+     * Returns an unmodifiable view of the degreePlanner list.
+     * This list will not contain any duplicate degreePlanner.
      */
-    ObservableList<DegreePlanner> getPlannerList();
+    ObservableList<DegreePlanner> getDegreePlannerList();
 
 }

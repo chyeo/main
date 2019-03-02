@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedDegreePlannerList extends DegreePlannerList {
 
-    private final List<ReadOnlyDegreePlannerList> plannerStateList;
+    private final List<ReadOnlyDegreePlannerList> degreePlannerStateList;
     private int currentStatePointer;
 
     public VersionedDegreePlannerList(ReadOnlyDegreePlannerList initialState) {
         super(initialState);
 
-        plannerStateList = new ArrayList<>();
-        plannerStateList.add(new DegreePlannerList(initialState));
+        degreePlannerStateList = new ArrayList<>();
+        degreePlannerStateList.add(new DegreePlannerList(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,13 +25,13 @@ public class VersionedDegreePlannerList extends DegreePlannerList {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        plannerStateList.add(new DegreePlannerList(this));
+        degreePlannerStateList.add(new DegreePlannerList(this));
         currentStatePointer++;
         indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {
-        plannerStateList.subList(currentStatePointer + 1, plannerStateList.size()).clear();
+        degreePlannerStateList.subList(currentStatePointer + 1, degreePlannerStateList.size()).clear();
     }
 
     /**
@@ -42,7 +42,7 @@ public class VersionedDegreePlannerList extends DegreePlannerList {
             throw new VersionedDegreePlannerList.NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(plannerStateList.get(currentStatePointer));
+        resetData(degreePlannerStateList.get(currentStatePointer));
     }
 
     /**
@@ -53,7 +53,7 @@ public class VersionedDegreePlannerList extends DegreePlannerList {
             throw new VersionedDegreePlannerList.NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(plannerStateList.get(currentStatePointer));
+        resetData(degreePlannerStateList.get(currentStatePointer));
     }
 
     /**
@@ -67,7 +67,7 @@ public class VersionedDegreePlannerList extends DegreePlannerList {
      * Returns true if {@code redo()} has planner states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < plannerStateList.size() - 1;
+        return currentStatePointer < degreePlannerStateList.size() - 1;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class VersionedDegreePlannerList extends DegreePlannerList {
 
         // state check
         return super.equals(otherVersionedPlannerList)
-                && plannerStateList.equals(otherVersionedPlannerList.plannerStateList)
+                && degreePlannerStateList.equals(otherVersionedPlannerList.degreePlannerStateList)
                 && currentStatePointer == otherVersionedPlannerList.currentStatePointer;
     }
 
