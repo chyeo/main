@@ -62,8 +62,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        DegreePlannerListStorage degreePlannerListStorage = new JsonDegreePlannerListStorage(userPrefs.getDegreePlannerListFilePath());
-        storage = new StorageManager(addressBookStorage, degreePlannerListStorage,userPrefsStorage);
+        DegreePlannerListStorage degreePlannerListStorage =
+                new JsonDegreePlannerListStorage(userPrefs.getDegreePlannerListFilePath());
+        storage = new StorageManager(addressBookStorage, degreePlannerListStorage, userPrefsStorage);
 
         initLogging(config);
 
