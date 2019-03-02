@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDegreePlannerList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyRequirementList;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -20,14 +21,18 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+
     private DegreePlannerListStorage degreePlannerListStorage;
+    private RequirementListStorage requirementListStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, DegreePlannerListStorage degreePlannerListStorage,
-            UserPrefsStorage userPrefsStorage) {
+            UserPrefsStorage userPrefsStorage, RequirementListStorage requirementListStorage) {
+
         super();
         this.addressBookStorage = addressBookStorage;
         this.degreePlannerListStorage = degreePlannerListStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.requirementListStorage = requirementListStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -105,5 +110,34 @@ public class StorageManager implements Storage {
     public void saveDegreePlannerList(ReadOnlyDegreePlannerList degreePlannerList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         degreePlannerListStorage.saveDegreePlannerList(degreePlannerList, filePath);
+    }
+    // ================ Requirement methods =================================================================
+
+    @Override
+    public Path getRequirementListFilePath() {
+        return requirementListStorage.getRequirementListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyRequirementList> readRequirementList() throws DataConversionException, IOException {
+        return readRequirementList(requirementListStorage.getRequirementListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyRequirementList> readRequirementList(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return requirementListStorage.readRequirementList(filePath);
+    }
+
+    @Override
+    public void saveRequirementList(ReadOnlyRequirementList requirementList) throws IOException {
+        saveRequirementList(requirementList, requirementListStorage.getRequirementListFilePath());
+    }
+
+    @Override
+    public void saveRequirementList(ReadOnlyRequirementList requirementList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        requirementListStorage.saveRequirementList(requirementList, filePath);
     }
 }

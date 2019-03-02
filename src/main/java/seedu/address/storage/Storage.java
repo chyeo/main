@@ -8,12 +8,15 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDegreePlannerList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyRequirementList;
 import seedu.address.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, DegreePlannerListStorage {
+
+public interface Storage
+        extends AddressBookStorage, UserPrefsStorage, DegreePlannerListStorage, RequirementListStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -38,5 +41,13 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, DegreePla
 
     @Override
     void saveDegreePlannerList(ReadOnlyDegreePlannerList degreePlannerList) throws IOException;
+
+    Path getRequirementListFilePath();
+
+    @Override
+    Optional<ReadOnlyRequirementList> readRequirementList() throws DataConversionException, IOException;
+
+    @Override
+    void saveRequirementList(ReadOnlyRequirementList requirementList) throws IOException;
 
 }
