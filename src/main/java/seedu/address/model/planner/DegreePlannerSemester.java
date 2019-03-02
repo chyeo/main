@@ -27,14 +27,14 @@ public class DegreePlannerSemester {
      */
     public DegreePlannerSemester(String semester) {
         requireNonNull(semester);
-        checkArgument(isValidDate(semester), MESSAGE_SEMESTER_CONSTRAINTS);
+        checkArgument(isValidSemester(semester), MESSAGE_SEMESTER_CONSTRAINTS);
         plannerSemester = semester;
     }
 
     /**
      * Returns true if a given string is a valid date.
      */
-    public static boolean isValidDate(String test) {
+    public static boolean isValidSemester(String test) {
         return test.matches(SEMESTER_VALIDATION_REGEX);
     }
 
