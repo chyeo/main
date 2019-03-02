@@ -95,6 +95,17 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
+    @Override
+    public Path getDegreePlannerListFilePath() {
+        return userPrefs.getDegreePlannerListFilePath();
+    }
+
+    @Override
+    public void setDegreePlannerListFilePath(Path degreePlannerListFilePath) {
+        requireNonNull(degreePlannerListFilePath);
+        userPrefs.setDegreePlannerListFilePath(degreePlannerListFilePath);
+    }
+
     //=========== AddressBook ================================================================================
 
     @Override

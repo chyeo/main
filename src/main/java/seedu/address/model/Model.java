@@ -47,6 +47,16 @@ public interface Model extends DegreePlannerModel {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
+     * Returns the user prefs' degreePlanner list file path.
+     */
+    Path getDegreePlannerListFilePath();
+
+    /**
+     * Sets the user prefs' degreePlanner list file path.
+     */
+    void setDegreePlannerListFilePath(Path degreePlannerListFilePath);
+
+    /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
