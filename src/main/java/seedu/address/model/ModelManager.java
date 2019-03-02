@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.module.Module;
+import seedu.address.model.requirement.Requirement;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.planner.DegreePlanner;
 
@@ -26,8 +27,10 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
+    private final VersionedRequirementList versionedRequirementList;
     private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
+    private final FilteredList<Requirement> filteredRequirement;
     private final SimpleObjectProperty<Module> selectedModule = new SimpleObjectProperty<>();
 
     private final VersionedDegreePlannerList versionedDegreePlannerList;
@@ -37,15 +40,18 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyDegreePlannerList degreePlannerList,
-            ReadOnlyUserPrefs userPrefs) {
+            ReadOnlyUserPrefs userPrefs, ReadOnlyRequirementList requirementList) {
         super();
         requireAllNonNull(addressBook, degreePlannerList, userPrefs);
+        requireAllNonNull(addressBook, degreePlannerList, userPrefs, requirementList);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedRequirementList = new VersionedRequirementList(requirementList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(versionedAddressBook.getModuleList());
+        filteredRequirement = new FilteredList<>(versionedRequirementList.getRequirementList());
         filteredModules.addListener(this::ensureSelectedModuleIsValid);
 
         versionedDegreePlannerList = new VersionedDegreePlannerList(degreePlannerList);
@@ -57,7 +63,7 @@ public class ModelManager implements Model {
      * ToDo: Add DegreePlannerList
      */
     public ModelManager() {
-        this(new AddressBook(), new DegreePlannerList(), new UserPrefs());
+        this(new AddressBook(), new DegreePlannerList(), new UserPrefs(), new RequirementList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -104,6 +110,17 @@ public class ModelManager implements Model {
     public void setDegreePlannerListFilePath(Path degreePlannerListFilePath) {
         requireNonNull(degreePlannerListFilePath);
         userPrefs.setDegreePlannerListFilePath(degreePlannerListFilePath);
+    }
+
+    @Override
+    public Path getRequirementListFilePath() {
+        return userPrefs.getRequirementListFilePath();
+    }
+
+    @Override
+    public void setRequirementListFilePath(Path requirementListFilePath) {
+        requireNonNull(requirementListFilePath);
+        userPrefs.setRequirementListFilePath(requirementListFilePath);
     }
 
     //=========== AddressBook ================================================================================
@@ -186,6 +203,31 @@ public class ModelManager implements Model {
         versionedAddressBook.commit();
     }
 
+    @Override
+    public boolean canUndoRequirementList() {
+        return versionedRequirementList.canUndo();
+    }
+
+    @Override
+    public boolean canRedoRequirementList() {
+        return versionedRequirementList.canRedo();
+    }
+
+    @Override
+    public void undoRequirementList() {
+        versionedRequirementList.undo();
+    }
+
+    @Override
+    public void redoRequirementList() {
+        versionedRequirementList.redo();
+    }
+
+    @Override
+    public void commitRequirementList() {
+        versionedRequirementList.commit();
+    }
+
     //=========== Selected module ===========================================================================
 
     @Override
@@ -254,7 +296,7 @@ public class ModelManager implements Model {
                 && filteredModules.equals(other.filteredModules)
                 && Objects.equals(selectedModule.get(), other.selectedModule.get());
     }
-    
+
     //=========== DegreePlannerList Methods =================================================================
 
     @Override
@@ -310,5 +352,46 @@ public class ModelManager implements Model {
 
     @Override public void commitDegreePlannerList() {
         versionedDegreePlannerList.commit();
+    }
+    //=========== Requirement ================================================================================
+
+    @Override
+    public ReadOnlyRequirementList getRequirementList() {
+        return versionedRequirementList;
+    }
+
+    @Override
+    public boolean hasRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+        return versionedRequirementList.hasRequirement(requirement);
+    }
+
+    @Override
+    public void deleteRequirement(Requirement requirement) {
+        versionedRequirementList.removeRequirement(requirement);
+    }
+
+    @Override
+    public void addRequirement(Requirement requirement) {
+        versionedRequirementList.addRequirement(requirement);
+        /*updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);*/
+    }
+
+    @Override
+    public void setRequirement(Requirement target, Requirement editedRequirement) {
+        requireAllNonNull(target, editedRequirement);
+
+        versionedRequirementList.setRequirement(target, editedRequirement);
+    }
+
+    @Override
+    public ObservableList<Requirement> getFilteredRequirementList() {
+        return filteredRequirement;
+    }
+
+    @Override
+    public void updateFilteredRequirementList(Predicate<Requirement> predicate) {
+        requireNonNull(predicate);
+        filteredRequirement.setPredicate(predicate);
     }
 }

@@ -94,8 +94,8 @@ public class Requirement {
                 .append(getName())
                 .append(" Credits: ")
                 .append(getCredits())
-                .append(" Module List: ")
-                .append(getModuleList());
+                .append(" Module List: ");
+        getModuleList().forEach(builder::append);
         return builder.toString();
     }
 
