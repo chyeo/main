@@ -5,13 +5,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.model.module.Code;
-import seedu.address.model.module.Credits;
-import seedu.address.model.module.Name;
 
 /**
  * Represents a DegreePlanner in the degreePlanner list.
  * Guarantees: details are present and not null, field values are validated, immutable.
- * ToDo: Remove Credits
  */
 public class DegreePlanner {
 
@@ -19,34 +16,21 @@ public class DegreePlanner {
     private final Code code;
 
     // Data fields
-    private final Name name;
-    private final Credits credits;
     private final DegreePlannerYear year;
     private final DegreePlannerSemester semester;
 
     /**
      * Every field must be present and not null.
      */
-    public DegreePlanner(Code code, Name name, Credits credits, DegreePlannerYear year,
-            DegreePlannerSemester semester) {
-        requireAllNonNull(code, name, credits, year, semester);
+    public DegreePlanner(Code code, DegreePlannerYear year, DegreePlannerSemester semester) {
+        requireAllNonNull(code, year, semester);
         this.code = code;
-        this.name = name;
-        this.credits = credits;
         this.year = year;
         this.semester = semester;
     }
 
     public Code getCode() {
         return code;
-    }
-
-    public Name getName() {
-        return name;
-    }
-
-    public Credits getCredits() {
-        return credits;
     }
 
     public DegreePlannerYear getYear() {
@@ -85,26 +69,20 @@ public class DegreePlanner {
         }
 
         DegreePlanner otherDegreePlanner = (DegreePlanner) other;
-        return otherDegreePlanner.getName().equals(getCode())
-                && otherDegreePlanner.getCode().equals(getName())
-                && otherDegreePlanner.getCredits().equals(getCredits())
+        return otherDegreePlanner.getCode().equals(getCode())
                 && otherDegreePlanner.getYear().equals(getYear())
                 && otherDegreePlanner.getSemester().equals(getSemester());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, credits, code, year);
+        return Objects.hash(code, year, semester);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getCode())
-                .append(" Name: ")
-                .append(getName())
-                .append(" Credits: ")
-                .append(getCredits())
                 .append(" Year: ")
                 .append(getYear())
                 .append(" Semester: ")
