@@ -23,11 +23,11 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDegreePlannerList;
-import seedu.address.model.ReadOnlyRequirementList;
+import seedu.address.model.ReadOnlyRequirementCategoryList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.module.Module;
 import seedu.address.model.planner.DegreePlanner;
-import seedu.address.model.requirement.Requirement;
+import seedu.address.model.requirementCategory.RequirementCategory;
 import seedu.address.testutil.ModuleBuilder;
 
 public class AddCommandTest {
@@ -135,14 +135,12 @@ public class AddCommandTest {
             //ToDo: implement error check
         }
 
-        @Override
-        public Path getRequirementListFilePath() {
-            return null;
+        @Override public Path getRequirementCategoryListFilePath() {
+            throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void setRequirementListFilePath(Path requirementListPath) {
-            //ToDo: implement error check
+        @Override public void setRequirementCategoryListFilePath(Path requirementCategoryListFilePath) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -225,21 +223,12 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override public ReadOnlyDegreePlannerList getDegreePlannerList() {
-            return null;
-        }
-
-        @Override public ReadOnlyRequirementList getRequirementList() {
-            //ToDo: implement error check
+        @Override
+        public ReadOnlyDegreePlannerList getDegreePlannerList() {
             return null;
         }
 
         @Override public boolean hasDegreePlanner(DegreePlanner degreePlanner) {
-            return false;
-        }
-
-        @Override public boolean hasRequirement(Requirement requirement) {
-            //ToDo: implement error check
             return false;
         }
 
@@ -264,38 +253,11 @@ public class AddCommandTest {
         }
 
         @Override public boolean canUndoDegreePlannerList() {
-        }
-
-        @Override public void deleteRequirement(Requirement requirement) {
             //ToDo: implement AssertionError
-        }
-
-        @Override public void addRequirement(Requirement requirement) {
-            //ToDo: implement error check
-        }
-
-        @Override public void setRequirement(Requirement target, Requirement editedRequirement) {
-            //ToDo: implement error check
-        }
-
-        @Override public ObservableList<Requirement> getFilteredRequirementList() {
-            return null;
-        }
-
-        @Override public void updateFilteredRequirementList(Predicate<Requirement> predicate) {
-            //ToDo: implement error check
-        }
-
-        @Override public boolean canUndoRequirementList() {
-            //ToDo: implement error check
             return false;
         }
 
         @Override public boolean canRedoDegreePlannerList() {
-            return false;
-        }
-
-        @Override public boolean canRedoRequirementList() {
             //ToDo: implement error check
             return false;
         }
@@ -309,17 +271,59 @@ public class AddCommandTest {
         }
 
         @Override public void commitDegreePlannerList() {
-        }
-
-        @Override public void undoRequirementList() {
             //ToDo: implement error check
         }
 
-        @Override public void redoRequirementList() {
+        @Override public ReadOnlyRequirementCategoryList getRequirementCategoryList() {
+            //ToDo: implement error check
+            return null;
+        }
+
+        @Override public boolean hasRequirementCategory(RequirementCategory degreePlanner) {
+            //ToDo: implement error check
+            return false;
+        }
+
+        @Override public void deleteRequirementCategory(RequirementCategory degreePlanner) {
+            //ToDo: implement AssertionError
+        }
+
+        @Override public void addRequirementCategory(RequirementCategory degreePlanner) {
             //ToDo: implement error check
         }
 
-        @Override public void commitRequirementList() {
+        @Override public void setRequirementCategory(RequirementCategory target,
+                RequirementCategory editedDegreePlanner) {
+            //ToDo: implement error check
+        }
+
+        @Override public ObservableList<RequirementCategory> getFilteredRequirementCategoryList() {
+            return null;
+        }
+
+        @Override public void updateFilteredRequirementCategoryList(Predicate<RequirementCategory> predicate) {
+            //ToDo: implement error check
+        }
+
+        @Override public boolean canUndoRequirementCategoryList() {
+            //ToDo: implement error check
+            return false;
+        }
+
+        @Override public boolean canRedoRequirementCategoryList() {
+            //ToDo: implement error check
+            return false;
+        }
+
+        @Override public void undoRequirementCategoryList() {
+            //ToDo: implement error check
+        }
+
+        @Override public void redoRequirementCategoryList() {
+            //ToDo: implement error check
+        }
+
+        @Override public void commitRequirementCategoryList() {
             //ToDo: implement error check
         }
     }
@@ -370,5 +374,5 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-    
+
 }

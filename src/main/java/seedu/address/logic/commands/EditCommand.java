@@ -51,7 +51,7 @@ public class EditCommand extends Command {
     private final EditModuleDescriptor editModuleDescriptor;
 
     /**
-     * @param index                of the module in the filtered module list to edit
+     * @param index of the module in the filtered module list to edit
      * @param editModuleDescriptor details to edit the module with
      */
     public EditCommand(Index index, EditModuleDescriptor editModuleDescriptor) {
@@ -60,21 +60,6 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editModuleDescriptor = new EditModuleDescriptor(editModuleDescriptor);
-    }
-
-    /**
-     * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
-     * edited with {@code editModuleDescriptor}.
-     */
-    private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
-        assert moduleToEdit != null;
-
-        Name updatedName = editModuleDescriptor.getName().orElse(moduleToEdit.getName());
-        Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
-        Code updatedCode = editModuleDescriptor.getCode().orElse(moduleToEdit.getCode());
-        Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
-
-        return new Module(updatedName, updatedCredits, updatedCode, updatedTags);
     }
 
     @Override
@@ -97,6 +82,21 @@ public class EditCommand extends Command {
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
+    }
+
+    /**
+     * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
+     * edited with {@code editModuleDescriptor}.
+     */
+    private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
+        assert moduleToEdit != null;
+
+        Name updatedName = editModuleDescriptor.getName().orElse(moduleToEdit.getName());
+        Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
+        Code updatedCode = editModuleDescriptor.getCode().orElse(moduleToEdit.getCode());
+        Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
+
+        return new Module(updatedName, updatedCredits, updatedCode, updatedTags);
     }
 
     @Override
@@ -147,28 +147,36 @@ public class EditCommand extends Command {
             return CollectionUtil.isAnyNonNull(name, credits, code, tags);
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
         public void setName(Name name) {
             this.name = name;
         }
 
-        public Optional<Credits> getCredits() {
-            return Optional.ofNullable(credits);
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
         }
 
         public void setCredits(Credits credits) {
             this.credits = credits;
         }
 
-        public Optional<Code> getCode() {
-            return Optional.ofNullable(code);
+        public Optional<Credits> getCredits() {
+            return Optional.ofNullable(credits);
         }
 
         public void setCode(Code code) {
             this.code = code;
+        }
+
+        public Optional<Code> getCode() {
+            return Optional.ofNullable(code);
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTags(Set<Tag> tags) {
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         /**
@@ -178,14 +186,6 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         @Override

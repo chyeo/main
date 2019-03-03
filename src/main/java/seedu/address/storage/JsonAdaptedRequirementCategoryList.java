@@ -10,55 +10,54 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Credits;
 import seedu.address.model.module.Name;
-import seedu.address.model.requirement.ModuleList;
-import seedu.address.model.requirement.Requirement;
+import seedu.address.model.requirementCategory.RequirementCategory;
 
 /**
- * Jackson-friendly version of {@link Requirement}.
+ * Jackson-friendly version of {@link RequirementCategory}.
  */
-public class JsonAdaptedRequirementList {
+public class JsonAdaptedRequirementCategoryList {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "requirement's %s field is missing!";
 
     private final String name;
     private final String credits;
-    private final List<JsonAdaptedModuleList> moduleList = new ArrayList<>();
+    private final List<JsonAdaptedCode> codeList = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedModule} with the given requirement details.
+     * Constructs a {@code JsonAdaptedRequirementCategoryList} with the given requirement details.
      */
     @JsonCreator
-    public JsonAdaptedRequirementList(@JsonProperty("name") String name, @JsonProperty("credits") String credits,
-            @JsonProperty("moduleList") List<JsonAdaptedModuleList> moduleList) {
+    public JsonAdaptedRequirementCategoryList(@JsonProperty("name") String name,
+            @JsonProperty("credits") String credits,
+            @JsonProperty("codeList") List<JsonAdaptedCode> codeList) {
         this.name = name;
         this.credits = credits;
-        if (moduleList != null) {
-            this.moduleList.addAll(moduleList);
+        if (codeList != null) {
+            this.codeList.addAll(codeList);
         }
     }
 
     /**
-     * Converts a given {@code Requirement} into this class for Jackson use.
+     * Converts a given {@code RequirementCategory} into this class for Jackson use.
      */
-    public JsonAdaptedRequirementList(Requirement source) {
+    public JsonAdaptedRequirementCategoryList(RequirementCategory source) {
         name = source.getName().fullName;
         credits = source.getCredits().value;
-        moduleList.addAll(source.getModuleList().stream()
-                .map(JsonAdaptedModuleList::new)
-                .collect(Collectors.toList()));
+        codeList.addAll(source.getCodeList().stream().map(JsonAdaptedCode::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this Jackson-friendly adapted requirement object into the model's {@code Requirement} object.
+     * Converts this Jackson-friendly adapted requirement object into the model's {@code RequirementCategory} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted requirement.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted requirementCategory.
      */
-    public Requirement toModelType() throws IllegalValueException {
-        final List<ModuleList> moduleTags = new ArrayList<>();
-        for (JsonAdaptedModuleList tag : moduleList) {
-            moduleTags.add(tag.toModelType());
+    public RequirementCategory toModelType() throws IllegalValueException {
+        final List<Code> codes = new ArrayList<>();
+        for (JsonAdaptedCode code : codeList) {
+            codes.add(code.toModelType());
         }
 
         if (name == null) {
@@ -77,7 +76,7 @@ public class JsonAdaptedRequirementList {
         }
         final Credits modelCredits = new Credits(credits);
 
-        final Set<ModuleList> modelTags = new HashSet<>(moduleTags);
-        return new Requirement(modelName, modelCredits, modelTags);
+        final Set<Code> modelCodes= new HashSet<>(codes);
+        return new RequirementCategory(modelName, modelCredits, modelCodes);
     }
 }

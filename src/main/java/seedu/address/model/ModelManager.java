@@ -18,7 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.planner.DegreePlanner;
-import seedu.address.model.requirement.Requirement;
+import seedu.address.model.requirementCategory.RequirementCategory;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -27,56 +27,58 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
-    private final VersionedRequirementList versionedRequirementList;
     private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
-    private final FilteredList<Requirement> filteredRequirement;
     private final SimpleObjectProperty<Module> selectedModule = new SimpleObjectProperty<>();
 
     private final VersionedDegreePlannerList versionedDegreePlannerList;
     private final FilteredList<DegreePlanner> filteredDegreePlanners;
 
+    private final VersionedRequirementCategoryList versionedRequirementCategoryList;
+    private final FilteredList<RequirementCategory> filteredRequirementCategory;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyDegreePlannerList degreePlannerList,
-            ReadOnlyUserPrefs userPrefs, ReadOnlyRequirementList requirementList) {
+            ReadOnlyRequirementCategoryList requirementCategoryList, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, degreePlannerList, userPrefs);
-        requireAllNonNull(addressBook, degreePlannerList, userPrefs, requirementList);
+        requireAllNonNull(addressBook, degreePlannerList, requirementCategoryList, userPrefs);
+
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        versionedRequirementList = new VersionedRequirementList(requirementList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(versionedAddressBook.getModuleList());
-        filteredRequirement = new FilteredList<>(versionedRequirementList.getRequirementList());
         filteredModules.addListener(this::ensureSelectedModuleIsValid);
 
         versionedDegreePlannerList = new VersionedDegreePlannerList(degreePlannerList);
         filteredDegreePlanners = new FilteredList<>((versionedDegreePlannerList.getDegreePlannerList()));
 
+        versionedRequirementCategoryList = new VersionedRequirementCategoryList(requirementCategoryList);
+        filteredRequirementCategory =
+                new FilteredList<>((versionedRequirementCategoryList.getRequirementCategoryList()));
     }
 
     /**
      * ToDo: Add DegreePlannerList
      */
     public ModelManager() {
-        this(new AddressBook(), new DegreePlannerList(), new UserPrefs(), new RequirementList());
+        this(new AddressBook(), new DegreePlannerList(), new RequirementCategoryList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
-    }
-
-    @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
+    }
+
+    @Override
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
@@ -113,26 +115,26 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getRequirementListFilePath() {
-        return userPrefs.getRequirementListFilePath();
+    public Path getRequirementCategoryListFilePath() {
+        return userPrefs.getRequirementCategoryListFilePath();
     }
 
     @Override
-    public void setRequirementListFilePath(Path requirementListFilePath) {
-        requireNonNull(requirementListFilePath);
-        userPrefs.setRequirementListFilePath(requirementListFilePath);
+    public void setRequirementCategoryListFilePath(Path requirementCategoryListFilePath) {
+        requireNonNull(requirementCategoryListFilePath);
+        userPrefs.setDegreePlannerListFilePath(requirementCategoryListFilePath);
     }
 
     //=========== AddressBook ================================================================================
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        versionedAddressBook.resetData(addressBook);
     }
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public ReadOnlyAddressBook getAddressBook() {
+        return versionedAddressBook;
     }
 
     @Override
@@ -201,31 +203,6 @@ public class ModelManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
-    }
-
-    @Override
-    public boolean canUndoRequirementList() {
-        return versionedRequirementList.canUndo();
-    }
-
-    @Override
-    public boolean canRedoRequirementList() {
-        return versionedRequirementList.canRedo();
-    }
-
-    @Override
-    public void undoRequirementList() {
-        versionedRequirementList.undo();
-    }
-
-    @Override
-    public void redoRequirementList() {
-        versionedRequirementList.redo();
-    }
-
-    @Override
-    public void commitRequirementList() {
-        versionedRequirementList.commit();
     }
 
     //=========== Selected module ===========================================================================
@@ -353,45 +330,62 @@ public class ModelManager implements Model {
     @Override public void commitDegreePlannerList() {
         versionedDegreePlannerList.commit();
     }
-    //=========== Requirement ================================================================================
+
+    //=========== RequirementCategoryList Methods =================================================================
 
     @Override
-    public ReadOnlyRequirementList getRequirementList() {
-        return versionedRequirementList;
+    public ReadOnlyRequirementCategoryList getRequirementCategoryList() {
+        return versionedRequirementCategoryList;
     }
 
     @Override
-    public boolean hasRequirement(Requirement requirement) {
-        requireNonNull(requirement);
-        return versionedRequirementList.hasRequirement(requirement);
+    public boolean hasRequirementCategory(RequirementCategory planner) {
+        requireNonNull(planner);
+        return versionedRequirementCategoryList.hasRequirementCategory(planner);
     }
 
-    @Override
-    public void deleteRequirement(Requirement requirement) {
-        versionedRequirementList.removeRequirement(requirement);
+    @Override public void deleteRequirementCategory(RequirementCategory target) {
+        versionedRequirementCategoryList.removeRequirementCategory(target);
     }
 
-    @Override
-    public void addRequirement(Requirement requirement) {
-        versionedRequirementList.addRequirement(requirement);
-        /*updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);*/
+    @Override public void addRequirementCategory(RequirementCategory degreePlanner) {
+        versionedRequirementCategoryList.addRequirementCategory(degreePlanner);
     }
 
-    @Override
-    public void setRequirement(Requirement target, Requirement editedRequirement) {
-        requireAllNonNull(target, editedRequirement);
+    @Override public void setRequirementCategory(RequirementCategory target,
+            RequirementCategory editedRequirementCategory) {
+        requireAllNonNull(target, editedRequirementCategory);
 
-        versionedRequirementList.setRequirement(target, editedRequirement);
+        versionedRequirementCategoryList.setRequirementCategory(target, editedRequirementCategory);
     }
 
-    @Override
-    public ObservableList<Requirement> getFilteredRequirementList() {
-        return filteredRequirement;
+    @Override public ObservableList<RequirementCategory> getFilteredRequirementCategoryList() {
+        return filteredRequirementCategory;
     }
 
-    @Override
-    public void updateFilteredRequirementList(Predicate<Requirement> predicate) {
+    @Override public void updateFilteredRequirementCategoryList(Predicate<RequirementCategory> predicate) {
         requireNonNull(predicate);
-        filteredRequirement.setPredicate(predicate);
+        filteredRequirementCategory.setPredicate(predicate);
+    }
+
+    //=========== Undo/Redo =================================================================================
+    @Override public boolean canUndoRequirementCategoryList() {
+        return versionedRequirementCategoryList.canUndo();
+    }
+
+    @Override public boolean canRedoRequirementCategoryList() {
+        return versionedRequirementCategoryList.canRedo();
+    }
+
+    @Override public void undoRequirementCategoryList() {
+        versionedRequirementCategoryList.undo();
+    }
+
+    @Override public void redoRequirementCategoryList() {
+        versionedRequirementCategoryList.redo();
+    }
+
+    @Override public void commitRequirementCategoryList() {
+        versionedRequirementCategoryList.commit();
     }
 }

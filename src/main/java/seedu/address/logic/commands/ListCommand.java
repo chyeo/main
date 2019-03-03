@@ -15,6 +15,7 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all modules";
 
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);

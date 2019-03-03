@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.module.Module;
 import seedu.address.model.planner.DegreePlanner;
-import seedu.address.model.requirement.Requirement;
+import seedu.address.model.requirementCategory.RequirementCategory;
 
 /**
  * The API of the Model component.
@@ -18,14 +18,14 @@ public interface Model {
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
     /**
-     * Returns the user prefs.
-     */
-    ReadOnlyUserPrefs getUserPrefs();
-
-    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+
+    /**
+     * Returns the user prefs.
+     */
+    ReadOnlyUserPrefs getUserPrefs();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -59,6 +59,16 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /**
+     * Returns the user prefs' requirementCategory list file path.
+     */
+    Path getRequirementCategoryListFilePath();
+
+    /**
+     * Sets the user prefs' degreePlanner list file path.
+     */
+    void setRequirementCategoryListFilePath(Path requirementCategoryListFilePath);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
@@ -205,69 +215,72 @@ public interface Model {
     void commitDegreePlannerList();
 
     /**
-     * Returns the RequirementList
+     * Returns the RequirementCategoryList
      */
-    ReadOnlyRequirementList getRequirementList();
+    ReadOnlyRequirementCategoryList getRequirementCategoryList();
 
     /**
-     * Returns true if a requirement with the code as {@code requirement} exists in the requirement list.
+     * Returns true if a requirementCategory with the code as {@code requirementCategory} exists in the
+     * requirementCategory list.
      */
-    boolean hasRequirement(Requirement requirement);
+    boolean hasRequirementCategory(RequirementCategory requirementCategory);
 
     /**
-     * Deletes the given requirement.
-     * The requirement must exist in the address book.
+     * Deletes the given requirementCategory.
+     * The requirementCategory must exist in the address book.
      */
-    void deleteRequirement(Requirement target);
+    void deleteRequirementCategory(RequirementCategory target);
 
     /**
-     * Adds the given requirement.
-     * {@code requirement} must not already exist in the requirementList.
+     * Adds the given requirementCategory.
+     * {@code requirementCategory} must not already exist in the requirementCategoryList.
      */
-    void addRequirement(Requirement requirement);
+    void addRequirementCategory(RequirementCategory requirementCategory);
 
     /**
-     * Replaces the given requirement {@code target} with {@code editedRequirement}.
-     * {@code target} must exist in the requirement list.
-     * The planner identity of {@code editedRequirement} must not be the same as another existing requirement in the
-     * requirement list.
+     * Replaces the given requirementCategory {@code target} with {@code editedRequirementCategory}.
+     * {@code target} must exist in the requirementCategory list.
+     * The planner identity of {@code editedRequirementCategory} must not be the same as another existing
+     * requirementCategory in the
+     * requirementCategory list.
      */
-    void setRequirement(Requirement target, Requirement editedRequirement);
+    void setRequirementCategory(RequirementCategory target, RequirementCategory editedRequirementCategory);
 
     /**
-     * Returns an unmodifiable view of the filtered planner list
+     * Returns an unmodifiable view of the filtered requirementCategory list
      */
-    ObservableList<Requirement> getFilteredRequirementList();
+    ObservableList<RequirementCategory> getFilteredRequirementCategoryList();
 
     /**
-     * Updates the filter of the filtered requirement list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered requirementCategory list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredRequirementList(Predicate<Requirement> predicate);
+    void updateFilteredRequirementCategoryList(Predicate<RequirementCategory> predicate);
 
     /**
-     * Returns true if the model has previous requirement list states to restore.
+     * Returns true if the model has previous requirementCategory list states to restore.
      */
-    boolean canUndoRequirementList();
+    boolean canUndoRequirementCategoryList();
 
     /**
-     * Returns true if the model has undone requirement list states to restore.
+     * Returns true if the model has undone requirementCategory list states to restore.
      */
-    boolean canRedoRequirementList();
+    boolean canRedoRequirementCategoryList();
 
     /**
-     * Restores the model's requirement list to its previous state.
+     * Restores the model's requirementCategory list to its previous state.
      */
-    void undoRequirementList();
+    void undoRequirementCategoryList();
 
     /**
-     * Restores the model's requirement list to its previously undone state.
+     * Restores the model's requirementCategory list to its previously undone state.
      */
-    void redoRequirementList();
+    void redoRequirementCategoryList();
 
     /**
      * Saves the current address book state for undo/redo.
      */
-    void commitRequirementList();
+    void commitRequirementCategoryList();
+
 }

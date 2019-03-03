@@ -15,5 +15,5 @@ public interface ReadOnlyUserPrefs {
 
     Path getDegreePlannerListFilePath();
 
-    Path getRequirementListFilePath();
+    Path getRequirementCategoryListFilePath();
 }

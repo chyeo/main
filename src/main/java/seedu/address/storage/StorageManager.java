@@ -9,7 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDegreePlannerList;
-import seedu.address.model.ReadOnlyRequirementList;
+import seedu.address.model.ReadOnlyRequirementCategoryList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -21,18 +21,16 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
-
     private DegreePlannerListStorage degreePlannerListStorage;
-    private RequirementListStorage requirementListStorage;
+    private RequirementCategoryListStorage requirementCategoryListStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, DegreePlannerListStorage degreePlannerListStorage,
-            UserPrefsStorage userPrefsStorage, RequirementListStorage requirementListStorage) {
-
+            RequirementCategoryListStorage requirementCategoryListStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.degreePlannerListStorage = degreePlannerListStorage;
+        this.requirementCategoryListStorage = requirementCategoryListStorage;
         this.userPrefsStorage = userPrefsStorage;
-        this.requirementListStorage = requirementListStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -111,33 +109,38 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         degreePlannerListStorage.saveDegreePlannerList(degreePlannerList, filePath);
     }
-    // ================ Requirement methods =================================================================
+
+    // ================ RequirementCategoryList methods ============================================================
 
     @Override
-    public Path getRequirementListFilePath() {
-        return requirementListStorage.getRequirementListFilePath();
+    public Path getRequirementCategoryListFilePath() {
+        return requirementCategoryListStorage.getRequirementCategoryListFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyRequirementList> readRequirementList() throws DataConversionException, IOException {
-        return readRequirementList(requirementListStorage.getRequirementListFilePath());
+    public Optional<ReadOnlyRequirementCategoryList> readRequirementCategoryList()
+            throws DataConversionException, IOException {
+        return readRequirementCategoryList(requirementCategoryListStorage.getRequirementCategoryListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyRequirementList> readRequirementList(Path filePath)
+    public Optional<ReadOnlyRequirementCategoryList> readRequirementCategoryList(Path filePath)
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return requirementListStorage.readRequirementList(filePath);
+        return requirementCategoryListStorage.readRequirementCategoryList(filePath);
     }
 
     @Override
-    public void saveRequirementList(ReadOnlyRequirementList requirementList) throws IOException {
-        saveRequirementList(requirementList, requirementListStorage.getRequirementListFilePath());
+    public void saveRequirementCategoryList(ReadOnlyRequirementCategoryList requirementCategoryList)
+            throws IOException {
+        saveRequirementCategoryList(requirementCategoryList,
+                requirementCategoryListStorage.getRequirementCategoryListFilePath());
     }
 
     @Override
-    public void saveRequirementList(ReadOnlyRequirementList requirementList, Path filePath) throws IOException {
+    public void saveRequirementCategoryList(ReadOnlyRequirementCategoryList requirementCategoryList, Path filePath)
+            throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        requirementListStorage.saveRequirementList(requirementList, filePath);
+        requirementCategoryListStorage.saveRequirementCategoryList(requirementCategoryList, filePath);
     }
 }
