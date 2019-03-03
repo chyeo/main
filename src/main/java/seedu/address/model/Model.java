@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.module.Module;
+import seedu.address.model.planner.DegreePlanner;
 
 /**
  * The API of the Model component.
@@ -46,6 +47,16 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
+     * Returns the user prefs' degreePlanner list file path.
+     */
+    Path getDegreePlannerListFilePath();
+
+    /**
+     * Sets the user prefs' degreePlanner list file path.
+     */
+    void setDegreePlannerListFilePath(Path degreePlannerListFilePath);
+
+    /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
@@ -82,6 +93,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered module list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
@@ -127,4 +139,68 @@ public interface Model {
      * Sets the selected module in the filtered module list.
      */
     void setSelectedModule(Module module);
+
+    /** Returns the DegreePlannerList */
+    ReadOnlyDegreePlannerList getDegreePlannerList();
+
+    /**
+     * Returns true if a degreePlanner with the same identity as {@code degreePlanner} exists in the address book.
+     */
+    boolean hasDegreePlanner(DegreePlanner degreePlanner);
+
+    /**
+     * Deletes the given degreePlanner.
+     * The degreePlanner must exist in the degreePlaner list.
+     */
+    void deleteDegreePlanner(DegreePlanner degreePlanner);
+
+    /**
+     * Adds the given degreePlanner.
+     * {@code degreePlanner} must not already exist in the address book.
+     */
+    void addDegreePlanner(DegreePlanner degreePlanner);
+
+    /**
+     * Replaces the given degreePlanner {@code target} with {@code editedDegreePlanner}.
+     * {@code target} must exist in the degreePlanner list.
+     * The degreePlanner identity of {@code editedDegreePlanner} must not be the same as another existing
+     * degreePlanner in the degreePlanner List.
+     */
+    void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner);
+
+    /** Returns an unmodifiable view of the filtered degreePlanner list */
+    ObservableList<DegreePlanner> getFilteredDegreePlannerList();
+
+    /**
+     * Updates the filter of the filtered degreePlanner list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDegreePlannerList(Predicate<DegreePlanner> predicate);
+
+    /**
+     * Returns true if the model has previous degreePlanner list states to restore.
+     */
+    boolean canUndoDegreePlannerList();
+
+    /**
+     * Returns true if the model has undone degreePlanner list states to restore.
+     */
+    boolean canRedoDegreePlannerList();
+
+    /**
+     * Restores the model's degreePlanner list to its previous state.
+     */
+    void undoDegreePlannerList();
+
+    /**
+     * Restores the model's degreePlanner list to its previously undone state.
+     */
+    void redoDegreePlannerList();
+
+    /**
+     * Saves the current degreePlanner list for undo/redo.
+     */
+    void commitDegreePlannerList();
+
 }
