@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credits;
 import seedu.address.model.module.Name;
-import seedu.address.model.requirementCategory.RequirementCategory;
+import seedu.address.model.requirement.RequirementCategory;
 
 /**
  * Jackson-friendly version of {@link RequirementCategory}.
@@ -52,7 +52,7 @@ public class JsonAdaptedRequirementCategoryList {
     /**
      * Converts this Jackson-friendly adapted requirement object into the model's {@code RequirementCategory} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted requirementCategory.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted requirement.
      */
     public RequirementCategory toModelType() throws IllegalValueException {
         final List<Code> codes = new ArrayList<>();
@@ -76,7 +76,7 @@ public class JsonAdaptedRequirementCategoryList {
         }
         final Credits modelCredits = new Credits(credits);
 
-        final Set<Code> modelCodes= new HashSet<>(codes);
+        final Set<Code> modelCodes = new HashSet<>(codes);
         return new RequirementCategory(modelName, modelCredits, modelCodes);
     }
 }

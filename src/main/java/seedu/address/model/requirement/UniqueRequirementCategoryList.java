@@ -1,4 +1,4 @@
-package seedu.address.model.requirementCategory;
+package seedu.address.model.requirement;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,19 +8,19 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.requirementCategory.exceptions.DuplicateRequirementCategoryException;
-import seedu.address.model.requirementCategory.exceptions.RequirementCategoryNotFoundException;
+import seedu.address.model.requirement.exceptions.DuplicateRequirementCategoryException;
+import seedu.address.model.requirement.exceptions.RequirementCategoryNotFoundException;
 
 /**
  * A list of requirement that enforces uniqueness between its elements and does not allow nulls.
  * A code is considered unique by comparing using {@code RequirementCategory#isSameRequirementCategory
  * (RequirementCategory)}. As such,
- * adding and updating of requirementCategory uses RequirementCategory#isSameRequirementCategory(RequirementCategory)
+ * adding and updating of requirement uses RequirementCategory#isSameRequirementCategory(RequirementCategory)
  * for equality so as to
- * ensure that the requirementCategory being added or updated is unique in terms of identity in the
+ * ensure that the requirement being added or updated is unique in terms of identity in the
  * UniqueRequirementCategoryList.
- * However, the removal of a requirementCategory uses RequirementCategory#equals(Object) so as to ensure that the
- * requirementCategory with
+ * However, the removal of a requirement uses RequirementCategory#equals(Object) so as to ensure that the
+ * requirement with
  * exactly
  * the same fields will be removed.
  * <p>
@@ -35,7 +35,7 @@ public class UniqueRequirementCategoryList implements Iterable<RequirementCatego
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent requirementCategory as the given argument.
+     * Returns true if the list contains an equivalent requirement as the given argument.
      */
     public boolean contains(RequirementCategory toCheck) {
         requireNonNull(toCheck);
@@ -43,8 +43,8 @@ public class UniqueRequirementCategoryList implements Iterable<RequirementCatego
     }
 
     /**
-     * Adds a requirementCategory to the list.
-     * The requirementCategory must not already exist in the list.
+     * Adds a requirement to the list.
+     * The requirement must not already exist in the list.
      */
     public void add(RequirementCategory toAdd) {
         requireNonNull(toAdd);
@@ -55,10 +55,10 @@ public class UniqueRequirementCategoryList implements Iterable<RequirementCatego
     }
 
     /**
-     * Replaces the requirementCategory {@code target} in the list with {@code editedRequirementCategory}.
+     * Replaces the requirement {@code target} in the list with {@code editedRequirementCategory}.
      * {@code target} must exist in the list.
-     * The requirementCategory identity of {@code editedRequirementCategory} must not be the same as another existing
-     * requirementCategory
+     * The requirement identity of {@code editedRequirementCategory} must not be the same as another existing
+     * requirement
      * in the list.
      */
     public void setRequirementCategory(RequirementCategory target, RequirementCategory editedRequirementCategory) {
@@ -77,8 +77,8 @@ public class UniqueRequirementCategoryList implements Iterable<RequirementCatego
     }
 
     /**
-     * Removes the equivalent requirementCategory from the list.
-     * The requirementCategory module must exist in the list.
+     * Removes the equivalent requirement from the list.
+     * The requirement module must exist in the list.
      */
     public void remove(RequirementCategory toRemove) {
         requireNonNull(toRemove);
@@ -93,8 +93,8 @@ public class UniqueRequirementCategoryList implements Iterable<RequirementCatego
     }
 
     /**
-     * Replaces the contents of this list with {@code requirementCategory}.
-     * {@code requirementCategory} must not contain duplicate requirementCategory.
+     * Replaces the contents of this list with {@code requirement}.
+     * {@code requirement} must not contain duplicate requirement.
      */
     public void setRequirementCategories(List<RequirementCategory> requirementCategories) {
         requireAllNonNull(requirementCategories);
@@ -130,7 +130,7 @@ public class UniqueRequirementCategoryList implements Iterable<RequirementCatego
     }
 
     /**
-     * Returns true if {@code requirementCategory} contains only unique requirementCategory modules.
+     * Returns true if {@code requirement} contains only unique requirement modules.
      */
     private boolean requirementCategoriesAreUnique(List<RequirementCategory> requirementCategories) {
         for (int i = 0; i < requirementCategories.size() - 1; i++) {

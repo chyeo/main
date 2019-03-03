@@ -7,11 +7,11 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.requirementCategory.RequirementCategory;
-import seedu.address.model.requirementCategory.UniqueRequirementCategoryList;
+import seedu.address.model.requirement.RequirementCategory;
+import seedu.address.model.requirement.UniqueRequirementCategoryList;
 
 /**
- * Wraps all data at the requirementCategory-list level
+ * Wraps all data at the requirement-list level
  * Duplicates are not allowed (by .isSameRequirementCategory comparison)
  */
 
@@ -35,8 +35,8 @@ public class RequirementCategoryList implements ReadOnlyRequirementCategoryList 
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the requirementCategory list with {@code requirementCategory}.
-     * {@code requirementCategory} must not contain duplicate requirementCategory.
+     * Replaces the contents of the requirement list with {@code requirement}.
+     * {@code requirement} must not contain duplicate requirement.
      */
     public void setRequirementCategories(List<RequirementCategory> requirementCategories) {
         this.requirementCategories.setRequirementCategories(requirementCategories);
@@ -53,8 +53,8 @@ public class RequirementCategoryList implements ReadOnlyRequirementCategoryList 
     //// planner-level operations
 
     /**
-     * Returns true if an requirementCategory with the same identity as {@code requirementCategory} exists in the
-     * requirementCategory.
+     * Returns true if an requirement with the same identity as {@code requirement} exists in the
+     * requirement.
      */
     public boolean hasRequirementCategory(RequirementCategory requirementCategory) {
         requireNonNull(requirementCategory);
@@ -62,19 +62,19 @@ public class RequirementCategoryList implements ReadOnlyRequirementCategoryList 
     }
 
     /**
-     * Adds a requirementCategory to the requirementCategoryList.
-     * The requirementCategory must not already exist in the requirementCategoryList.
+     * Adds a requirement to the requirementCategoryList.
+     * The requirement must not already exist in the requirementCategoryList.
      */
     public void addRequirementCategory(RequirementCategory p) {
         requirementCategories.add(p);
     }
 
     /**
-     * Replaces the given requirementCategory {@code target} in the list with {@code editedRequirementCategory}.
-     * {@code target} must exist in the requirementCategory list.
-     * The identity of {@code editedRequirementCategory} must not be the same as another existing requirementCategory
+     * Replaces the given requirement {@code target} in the list with {@code editedRequirementCategory}.
+     * {@code target} must exist in the requirement list.
+     * The identity of {@code editedRequirementCategory} must not be the same as another existing requirement
      * in the
-     * requirementCategory list.
+     * requirement list.
      */
     public void setRequirementCategory(RequirementCategory target, RequirementCategory editedRequirementCategory) {
         requireNonNull(editedRequirementCategory);
@@ -84,7 +84,7 @@ public class RequirementCategoryList implements ReadOnlyRequirementCategoryList 
 
     /**
      * Removes {@code key} from this {@code RequirementCategoryList}.
-     * {@code key} must exist in the requirementCategory list.
+     * {@code key} must exist in the requirement list.
      */
     public void removeRequirementCategory(RequirementCategory key) {
         requirementCategories.remove(key);
@@ -94,7 +94,7 @@ public class RequirementCategoryList implements ReadOnlyRequirementCategoryList 
 
     @Override
     public String toString() {
-        return requirementCategories.asUnmodifiableObservableList().size() + " requirementCategory";
+        return requirementCategories.asUnmodifiableObservableList().size() + " requirement";
     }
 
     public ObservableList<RequirementCategory> getRequirementCategoryList() {

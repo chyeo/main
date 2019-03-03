@@ -35,7 +35,7 @@ public class VersionedRequirementCategoryList extends RequirementCategoryList {
     }
 
     /**
-     * Restores the requirementCategory list to its previous state.
+     * Restores the requirement list to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
@@ -46,7 +46,7 @@ public class VersionedRequirementCategoryList extends RequirementCategoryList {
     }
 
     /**
-     * Restores the requirementCategory list to its previously undone state.
+     * Restores the requirement list to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
@@ -57,14 +57,14 @@ public class VersionedRequirementCategoryList extends RequirementCategoryList {
     }
 
     /**
-     * Returns true if {@code undo()} has requirementCategory states to undo.
+     * Returns true if {@code undo()} has requirement states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has requirementCategory states to redo.
+     * Returns true if {@code redo()} has requirement states to redo.
      */
     public boolean canRedo() {
         return currentStatePointer < requirementCategoryStateList.size() - 1;

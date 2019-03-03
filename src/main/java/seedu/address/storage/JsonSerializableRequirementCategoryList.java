@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyRequirementCategoryList;
 import seedu.address.model.RequirementCategoryList;
-import seedu.address.model.requirementCategory.RequirementCategory;
+import seedu.address.model.requirement.RequirementCategory;
 
 /**
  * An Immutable RequirementList that is serializable to JSON format.
@@ -45,7 +45,7 @@ public class JsonSerializableRequirementCategoryList {
     }
 
     /**
-     * Converts this requirementCategory list into the model's {@code RequirementList} object.
+     * Converts this requirement list into the model's {@code RequirementList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

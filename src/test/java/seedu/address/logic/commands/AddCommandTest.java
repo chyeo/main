@@ -27,7 +27,7 @@ import seedu.address.model.ReadOnlyRequirementCategoryList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.module.Module;
 import seedu.address.model.planner.DegreePlanner;
-import seedu.address.model.requirementCategory.RequirementCategory;
+import seedu.address.model.requirement.RequirementCategory;
 import seedu.address.testutil.ModuleBuilder;
 
 public class AddCommandTest {

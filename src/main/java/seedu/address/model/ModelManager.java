@@ -18,7 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.planner.DegreePlanner;
-import seedu.address.model.requirementCategory.RequirementCategory;
+import seedu.address.model.requirement.RequirementCategory;
 
 /**
  * Represents the in-memory model of the address book data.

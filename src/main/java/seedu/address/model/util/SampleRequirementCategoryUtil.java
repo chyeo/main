@@ -9,10 +9,10 @@ import seedu.address.model.RequirementCategoryList;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credits;
 import seedu.address.model.module.Name;
-import seedu.address.model.requirementCategory.RequirementCategory;
+import seedu.address.model.requirement.RequirementCategory;
 
 /**
- * Wraps all data at the requirementCategory-list level
+ * Wraps all data at the requirement-list level
  * Duplicates are not allowed (by .isSameRequirementCategory comparison)
  */
 public class SampleRequirementCategoryUtil {

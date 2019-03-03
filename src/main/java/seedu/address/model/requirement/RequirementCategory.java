@@ -1,4 +1,4 @@
-package seedu.address.model.requirementCategory;
+package seedu.address.model.requirement;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -12,7 +12,7 @@ import seedu.address.model.module.Credits;
 import seedu.address.model.module.Name;
 
 /**
- * Represents a RequirementCategory in the requirementCategory list.
+ * Represents a RequirementCategory in the requirement list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class RequirementCategory {
@@ -51,7 +51,7 @@ public class RequirementCategory {
     }
 
     /**
-     * Returns true if both requirementCategory in PWE have same code.
+     * Returns true if both requirement in PWE have same code.
      * This defines a weaker notion of equality between two requirement.
      */
     public boolean isSameRequirementCategory(RequirementCategory otherRequirementCategory) {
@@ -64,8 +64,8 @@ public class RequirementCategory {
     }
 
     /**
-     * Returns true if both requirementCategory in PWE have the same identity and data fields.
-     * This defines a stronger notion of equality between two requirementCategory.
+     * Returns true if both requirement in PWE have the same identity and data fields.
+     * This defines a stronger notion of equality between two requirement.
      */
     @Override
     public boolean equals(Object other) {

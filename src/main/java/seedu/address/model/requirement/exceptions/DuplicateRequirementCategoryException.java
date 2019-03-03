@@ -1,4 +1,4 @@
-package seedu.address.model.requirementCategory.exceptions;
+package seedu.address.model.requirement.exceptions;
 
 /**
  * Signals that the operation will result in duplicate RequirementCategory (RequirementCategory are considered
@@ -6,6 +6,6 @@ package seedu.address.model.requirementCategory.exceptions;
  */
 public class DuplicateRequirementCategoryException extends RuntimeException {
     public DuplicateRequirementCategoryException() {
-        super("Operation would result in duplicate requirementCategory");
+        super("Operation would result in duplicate requirement");
     }
 }
