@@ -125,11 +125,12 @@ public class AddCommandTest {
         }
 
         @Override public Path getDegreePlannerListFilePath() {
+            //ToDo: implement error check
             return null;
         }
 
         @Override public void setDegreePlannerListFilePath(Path degreePlannerListFilePath) {
-
+            //ToDo: implement error check
         }
 
         @Override
@@ -213,23 +214,25 @@ public class AddCommandTest {
         }
 
         @Override public ReadOnlyDegreePlannerList getDegreePlannerList() {
+            //ToDo: implement error check
             return null;
         }
 
         @Override public boolean hasDegreePlanner(DegreePlanner degreePlanner) {
+            //ToDo: implement error check
             return false;
         }
 
         @Override public void deleteDegreePlanner(DegreePlanner degreePlanner) {
-
+            //ToDo: implement AssertionError
         }
 
         @Override public void addDegreePlanner(DegreePlanner degreePlanner) {
-
+            //ToDo: implement error check
         }
 
         @Override public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
-
+            //ToDo: implement error check
         }
 
         @Override public ObservableList<DegreePlanner> getFilteredDegreePlannerList() {
@@ -237,27 +240,29 @@ public class AddCommandTest {
         }
 
         @Override public void updateFilteredDegreePlannerList(Predicate<DegreePlanner> predicate) {
-
+            //ToDo: implement error check
         }
 
         @Override public boolean canUndoDegreePlannerList() {
+            //ToDo: implement error check
             return false;
         }
 
         @Override public boolean canRedoDegreePlannerList() {
+            //ToDo: implement error check
             return false;
         }
 
         @Override public void undoDegreePlannerList() {
-
+            //ToDo: implement error check
         }
 
         @Override public void redoDegreePlannerList() {
-
+            //ToDo: implement error check
         }
 
         @Override public void commitDegreePlannerList() {
-
+            //ToDo: implement error check
         }
     }
 
