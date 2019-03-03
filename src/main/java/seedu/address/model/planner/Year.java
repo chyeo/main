@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a DegreePlanner's Year in the degreePlanner list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class DegreePlannerYear {
+public class Year {
 
     public static final String MESSAGE_YEAR_CONSTRAINTS =
             "Year in an university should only be given in Y (e.g. 1) format and in valid form.";
@@ -18,17 +18,17 @@ public class DegreePlannerYear {
     public static final String YEAR_VALIDATION_REGEX =
             "[1-4]{1}";
 
-    public final String plannerYear;
+    public final String year;
 
     /**
-     * Constructs a {@code DegreePlannerYear}.
+     * Constructs a {@code Year}.
      *
-     * @param year A valid year.
+     * @param Year A valid year.
      */
-    public DegreePlannerYear(String Year) {
+    public Year(String Year) {
         requireNonNull(Year);
         checkArgument(isValidYear(Year), MESSAGE_YEAR_CONSTRAINTS);
-        plannerYear = Year;
+        year = Year;
     }
 
     /**
@@ -40,18 +40,18 @@ public class DegreePlannerYear {
 
     @Override
     public String toString() {
-        return plannerYear;
+        return year;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DegreePlannerYear // instanceof handles nulls
-                && plannerYear.equals(((DegreePlannerYear) other).plannerYear)); // state check
+                || (other instanceof Year // instanceof handles nulls
+                && year.equals(((Year) other).year)); // state check
     }
 
     @Override
     public int hashCode() {
-        return plannerYear.hashCode();
+        return year.hashCode();
     }
 }

@@ -12,7 +12,7 @@ import seedu.address.model.planner.DegreePlanner;
 /**
  * The API of the Model component.
  */
-public interface Model extends DegreePlannerModel {
+public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 

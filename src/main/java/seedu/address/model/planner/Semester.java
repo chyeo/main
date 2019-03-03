@@ -7,10 +7,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a DegreePlanner's Semester in the degreePlanner list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class DegreePlannerSemester {
+public class Semester {
 
     public static final String MESSAGE_SEMESTER_CONSTRAINTS =
-            "Semester should only be given in S (e.g. 1) format and in valid form.";
+            "Semester should only be given in a number range from 1 to 4, S (e.g. 1) format and in valid form.";
 
     /*
      * The semester should be valid and in the correct S format.
@@ -21,11 +21,11 @@ public class DegreePlannerSemester {
     public final String plannerSemester;
 
     /**
-     * Constructs a {@code DegreePlannerSemester}.
+     * Constructs a {@code Semester}.
      *
      * @param semester A valid semester.
      */
-    public DegreePlannerSemester(String semester) {
+    public Semester(String semester) {
         requireNonNull(semester);
         checkArgument(isValidSemester(semester), MESSAGE_SEMESTER_CONSTRAINTS);
         plannerSemester = semester;
@@ -46,8 +46,8 @@ public class DegreePlannerSemester {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DegreePlannerSemester // instanceof handles nulls
-                && plannerSemester.equals(((DegreePlannerSemester) other).plannerSemester)); // state check
+                || (other instanceof Semester // instanceof handles nulls
+                && plannerSemester.equals(((Semester) other).plannerSemester)); // state check
     }
 
     @Override

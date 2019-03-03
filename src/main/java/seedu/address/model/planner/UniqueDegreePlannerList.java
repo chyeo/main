@@ -124,7 +124,7 @@ public class UniqueDegreePlannerList implements Iterable<DegreePlanner> {
     }
 
     /**
-     * Returns true if {@code degreePlanners} contains only unique planner modules.
+     * Returns true if {@code degreePlanners} contains only unique degreePlanner.
      */
     private boolean degreePlannersAreUnique(List<DegreePlanner> degreePlanners) {
         for (int i = 0; i < degreePlanners.size() - 1; i++) {
