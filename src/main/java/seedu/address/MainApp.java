@@ -16,7 +16,6 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
-import seedu.address.model.DegreePlannerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -84,7 +83,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyDegreePlannerList> degreePlannerListOptional;
         ReadOnlyAddressBook initialData;
-        ReadOnlyDegreePlannerList initalDegreePlannerListData;
+        ReadOnlyDegreePlannerList initialDegreePlannerListData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -104,16 +103,16 @@ public class MainApp extends Application {
             if (!degreePlannerListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample DegreePlannerList");
             }
-            initalDegreePlannerListData =
+            initialDegreePlannerListData =
                     degreePlannerListOptional.orElseGet(SampleDegreePlannerUtil::getSampleDegreePlannerList);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty DegreePlannerList");
-            initalDegreePlannerListData = new DegreePlannerList();
+            logger.warning("Data file not in the correct format. Will be starting with a sample DegreePlannerList");
+            initialDegreePlannerListData = SampleDegreePlannerUtil.getSampleDegreePlannerList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty DegreePlannerList");
-            initalDegreePlannerListData = new DegreePlannerList();
+            logger.warning("Problem while reading from the file. Will be starting with a sample DegreePlannerList");
+            initialDegreePlannerListData = SampleDegreePlannerUtil.getSampleDegreePlannerList();
         }
-        return new ModelManager(initialData, initalDegreePlannerListData, userPrefs);
+        return new ModelManager(initialData, initialDegreePlannerListData, userPrefs);
     }
 
     private void initLogging(Config config) {
