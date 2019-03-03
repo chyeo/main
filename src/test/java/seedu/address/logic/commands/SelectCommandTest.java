@@ -18,6 +18,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.DegreePlannerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.RequirementList;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -25,8 +26,10 @@ import seedu.address.model.UserPrefs;
  */
 public class SelectCommandTest {
     //ToDo: Implement getTypicalDegreePlannerList for DegreePlannerList and update the codes below
-    private Model model = new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new UserPrefs());
+    private Model model =
+            new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new UserPrefs(), new RequirementList());
+    private Model expectedModel =
+            new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new UserPrefs(), new RequirementList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

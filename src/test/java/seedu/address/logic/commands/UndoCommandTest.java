@@ -12,14 +12,16 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.DegreePlannerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.RequirementList;
 import seedu.address.model.UserPrefs;
 
 public class UndoCommandTest {
 
     //ToDo: Implement getTypicalDegreePlannerList for DegreePlannerList and update the codes below
-    private final Model model = new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new UserPrefs());
+    private final Model model =
+            new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new UserPrefs(), new RequirementList());
     private final Model expectedModel =
-            new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new UserPrefs());
+            new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new UserPrefs(), new RequirementList());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

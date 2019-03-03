@@ -18,17 +18,17 @@ import seedu.address.model.requirement.Requirement;
 public class SampleRequirementUtil {
     public static Requirement[] getSampleRequirements() {
         return new Requirement[] {
-            new Requirement(new Name("Computing Foundation"), new Credits("20"),
+            new Requirement(new Name("Computing Foundation"), new Credits("220"),
                 getModuleSet("CS2100")),
-            new Requirement(new Name("Information Security Requirements"), new Credits("24"),
+            new Requirement(new Name("Information Security Requirements"), new Credits("224"),
                 getModuleSet("CS4238")),
-            new Requirement(new Name("Information Security Electives"), new Credits("12"),
+            new Requirement(new Name("Information Security Electives"), new Credits("122"),
                 getModuleSet("IFS4103")),
-            new Requirement(new Name("Computing Breadth"), new Credits("12"),
+            new Requirement(new Name("Computing Breadth"), new Credits("122"),
                 getModuleSet("CS1231")),
-            new Requirement(new Name("IT Professionalism"), new Credits("8"),
+            new Requirement(new Name("IT Professionalism"), new Credits("228"),
                 getModuleSet("IS4231")),
-            new Requirement(new Name("Mathematics"), new Credits("12"),
+            new Requirement(new Name("Mathematics"), new Credits("122"),
                 getModuleSet("CS1231"))
         };
     }

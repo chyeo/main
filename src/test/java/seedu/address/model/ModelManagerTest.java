@@ -158,9 +158,13 @@ public class ModelManagerTest {
         DegreePlannerList degreePlannerList = new DegreePlannerList();
         DegreePlannerList differentDegreePlannerList = new DegreePlannerList();
 
+        RequirementList requirementList = new RequirementList();
+        RequirementList differentRequirementList = new RequirementList();
+
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, degreePlannerList, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, degreePlannerList, userPrefs);
+        modelManager = new ModelManager(addressBook, degreePlannerList, userPrefs, requirementList);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, degreePlannerList, userPrefs, requirementList);
+
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -173,12 +177,14 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, differentDegreePlannerList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, differentDegreePlannerList, userPrefs,
+                differentRequirementList)));
+
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredModuleList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, degreePlannerList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, degreePlannerList, userPrefs, requirementList)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
@@ -186,6 +192,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, degreePlannerList, differentUserPrefs)));
+        assertFalse(modelManager
+                .equals(new ModelManager(addressBook, degreePlannerList, differentUserPrefs, requirementList)));
     }
 }

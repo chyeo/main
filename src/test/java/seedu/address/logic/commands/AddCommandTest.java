@@ -23,9 +23,11 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDegreePlannerList;
+import seedu.address.model.ReadOnlyRequirementList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.module.Module;
 import seedu.address.model.planner.DegreePlanner;
+import seedu.address.model.requirement.Requirement;
 import seedu.address.testutil.ModuleBuilder;
 
 public class AddCommandTest {
@@ -134,6 +136,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getRequirementListFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setRequirementListFilePath(Path requirementListPath) {
+            //ToDo: implement error check
+        }
+
+        @Override
         public void addModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
@@ -214,11 +226,19 @@ public class AddCommandTest {
         }
 
         @Override public ReadOnlyDegreePlannerList getDegreePlannerList() {
+            return null;
+        }
+
+        @Override public ReadOnlyRequirementList getRequirementList() {
             //ToDo: implement error check
             return null;
         }
 
         @Override public boolean hasDegreePlanner(DegreePlanner degreePlanner) {
+            return false;
+        }
+
+        @Override public boolean hasRequirement(Requirement requirement) {
             //ToDo: implement error check
             return false;
         }
@@ -244,11 +264,38 @@ public class AddCommandTest {
         }
 
         @Override public boolean canUndoDegreePlannerList() {
+        }
+
+        @Override public void deleteRequirement(Requirement requirement) {
+            //ToDo: implement AssertionError
+        }
+
+        @Override public void addRequirement(Requirement requirement) {
+            //ToDo: implement error check
+        }
+
+        @Override public void setRequirement(Requirement target, Requirement editedRequirement) {
+            //ToDo: implement error check
+        }
+
+        @Override public ObservableList<Requirement> getFilteredRequirementList() {
+            return null;
+        }
+
+        @Override public void updateFilteredRequirementList(Predicate<Requirement> predicate) {
+            //ToDo: implement error check
+        }
+
+        @Override public boolean canUndoRequirementList() {
             //ToDo: implement error check
             return false;
         }
 
         @Override public boolean canRedoDegreePlannerList() {
+            return false;
+        }
+
+        @Override public boolean canRedoRequirementList() {
             //ToDo: implement error check
             return false;
         }
@@ -262,6 +309,17 @@ public class AddCommandTest {
         }
 
         @Override public void commitDegreePlannerList() {
+        }
+
+        @Override public void undoRequirementList() {
+            //ToDo: implement error check
+        }
+
+        @Override public void redoRequirementList() {
+            //ToDo: implement error check
+        }
+
+        @Override public void commitRequirementList() {
             //ToDo: implement error check
         }
     }
@@ -312,5 +370,5 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
+    
 }
