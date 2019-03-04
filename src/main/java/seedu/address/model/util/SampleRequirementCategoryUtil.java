@@ -18,17 +18,17 @@ import seedu.address.model.requirement.RequirementCategory;
 public class SampleRequirementCategoryUtil {
     public static RequirementCategory[] getSampleRequirementCategories() {
         return new RequirementCategory[] {
-            new RequirementCategory(new Name("Computing Foundation"), new Credits("220"),
+            new RequirementCategory(new Name("Computing Foundation"), new Credits("036"),
                     getCodeSet()),
-            new RequirementCategory(new Name("Information Security Requirements"), new Credits("224"),
+            new RequirementCategory(new Name("Information Security Requirements"), new Credits("032"),
                     getCodeSet()),
-            new RequirementCategory(new Name("Information Security Electives"), new Credits("122"),
+            new RequirementCategory(new Name("Information Security Electives"), new Credits("012"),
                     getCodeSet()),
-            new RequirementCategory(new Name("Computing Breadth"), new Credits("122"),
+            new RequirementCategory(new Name("Computing Breadth"), new Credits("020"),
                     getCodeSet()),
-            new RequirementCategory(new Name("IT Professionalism"), new Credits("228"),
+            new RequirementCategory(new Name("IT Professionalism"), new Credits("008"),
                     getCodeSet()),
-            new RequirementCategory(new Name("Mathematics"), new Credits("122"),
+            new RequirementCategory(new Name("Mathematics"), new Credits("012"),
                     getCodeSet())
         };
     }
