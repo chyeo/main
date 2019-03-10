@@ -80,6 +80,9 @@ public class SampleDataUtil {
         for (Module sampleModule : getSampleModules()) {
             sampleAb.addModule(sampleModule);
         }
+        for (RequirementCategory sampleRequirementCategory : getSampleRequirementCategories()) {
+            sampleAb.addRequirementCategory(sampleRequirementCategory);
+        }
         return sampleAb;
     }
 

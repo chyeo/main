@@ -271,7 +271,8 @@ public class ModelManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredModules.equals(other.filteredModules)
-                && Objects.equals(selectedModule.get(), other.selectedModule.get());
+                && Objects.equals(selectedModule.get(), other.selectedModule.get())
+                && Objects.equals(selectedRequirementCategory.get(), other.selectedRequirementCategory.get());
     }
 
     //=========== DegreePlannerList Methods =================================================================
