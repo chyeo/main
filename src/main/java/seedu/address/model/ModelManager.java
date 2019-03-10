@@ -344,8 +344,9 @@ public class ModelManager implements Model {
         versionedAddressBook.removeRequirementCategory(target);
     }
 
-    @Override public void addRequirementCategory(RequirementCategory degreePlanner) {
-        versionedAddressBook.addRequirementCategory(degreePlanner);
+    @Override public void addRequirementCategory(RequirementCategory requirementCategory) {
+        versionedAddressBook.addRequirementCategory(requirementCategory);
+        updateFilteredRequirementCategoryList(PREDICATE_SHOW_ALL_REQUIREMENT_CATEGORIES);
     }
 
     @Override public void setRequirementCategory(RequirementCategory target,

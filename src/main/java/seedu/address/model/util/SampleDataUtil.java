@@ -71,6 +71,10 @@ public class SampleDataUtil {
                 new RequirementCategory(new Name("IT Professionalism"), new Credits("008"),
                         getCodeSet()),
                 new RequirementCategory(new Name("Mathematics"), new Credits("012"),
+                        getCodeSet()),
+                new RequirementCategory(new Name("General Education"), new Credits("020"),
+                        getCodeSet()),
+                new RequirementCategory(new Name("Unrestricted Electives"), new Credits("012"),
                         getCodeSet())
         };
     }
