@@ -27,16 +27,21 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         this.filePath = filePath;
     }
 
+
     public Path getAddressBookFilePath() {
         return filePath;
     }
+    public Path getRequirementCategoryListFilePath() { return filePath; }
 
     @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
         return readAddressBook(filePath);
     }
 
-
+    @Override
+    public Optional<ReadOnlyAddressBook> readRequirementCategoryList() throws DataConversionException {
+        return readRequirementCategoryList(filePath);
+    }
     /**
      * Similar to {@link #readAddressBook()}.
      *
@@ -76,6 +81,51 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+    }
+
+
+    /**
+     * Similar to {@link #readRequirementCategoryList()}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     * @throws DataConversionException if the file is not in the correct format.
+     */
+    public Optional<ReadOnlyAddressBook> readRequirementCategoryList(Path filePath)
+            throws DataConversionException {
+        requireNonNull(filePath);
+
+        Optional<JsonSerializableAddressBook> jsonRequirementCategoryList = JsonUtil.readJsonFile(
+                filePath, JsonSerializableAddressBook.class);
+        if (!jsonRequirementCategoryList.isPresent()) {
+            return Optional.empty();
+        }
+
+        try {
+            return Optional.of(jsonRequirementCategoryList.get().toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
+    @Override
+    public void saveRequirementCategoryList(ReadOnlyAddressBook requirementCategoryList)
+            throws IOException {
+        saveRequirementCategoryList(requirementCategoryList, filePath);
+    }
+
+    /**
+     * Similar to {@link #saveRequirementCategoryList(ReadOnlyAddressBook)}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     */
+    public void saveRequirementCategoryList(ReadOnlyAddressBook requirementCategoryList, Path filePath)
+            throws IOException {
+        requireNonNull(requirementCategoryList);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(requirementCategoryList), filePath);
     }
 
 }

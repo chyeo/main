@@ -15,7 +15,7 @@ import seedu.address.model.UserPrefs;
  */
 
 public interface Storage
-        extends AddressBookStorage, UserPrefsStorage, DegreePlannerListStorage, RequirementCategoryListStorage {
+        extends AddressBookStorage, UserPrefsStorage, DegreePlannerListStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;

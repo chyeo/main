@@ -7,29 +7,33 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-
 import seedu.address.commons.exceptions.IllegalValueException;
-
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.module.Module;
+import seedu.address.model.requirement.RequirementCategory;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "addressbook") class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_MODULE = "Modules list contains duplicate module(s).";
+    public static final String MESSAGE_DUPLICATE_REQUIREMENT_CATEGORY =
+            "Requirement list contains duplicate requirements(s).";
 
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
+    private final List<JsonAdaptedRequirementCategoryList> requirementCategories = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given modules.
      */
+
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("modules") List<JsonAdaptedModule> modules) {
+    public JsonSerializableAddressBook(@JsonProperty("modules") List<JsonAdaptedModule> modules,
+            @JsonProperty("requirementCategories") List<JsonAdaptedRequirementCategoryList> requirementCategories) {
         this.modules.addAll(modules);
+        this.requirementCategories.addAll(requirementCategories);
     }
 
     /**
@@ -39,6 +43,9 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         modules.addAll(source.getModuleList().stream().map(JsonAdaptedModule::new).collect(Collectors.toList()));
+        requirementCategories
+                .addAll(source.getRequirementCategoryList().stream().map(JsonAdaptedRequirementCategoryList::new)
+                        .collect(Collectors.toList()));
     }
 
     /**
@@ -55,6 +62,15 @@ class JsonSerializableAddressBook {
             }
             addressBook.addModule(module);
         }
+
+        for (JsonAdaptedRequirementCategoryList jsonAdaptedRequirementCategoryList : requirementCategories) {
+            RequirementCategory requirementCategory = jsonAdaptedRequirementCategoryList.toModelType();
+            if (addressBook.hasRequirementCategory(requirementCategory)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_REQUIREMENT_CATEGORY);
+            }
+            addressBook.addRequirementCategory(requirementCategory);
+        }
+
         return addressBook;
     }
 

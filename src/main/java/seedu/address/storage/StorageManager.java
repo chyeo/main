@@ -19,12 +19,12 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private AddressBookStorage requirementCategoryListStorage;
     private UserPrefsStorage userPrefsStorage;
     private DegreePlannerListStorage degreePlannerListStorage;
-    private RequirementCategoryListStorage requirementCategoryListStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, DegreePlannerListStorage degreePlannerListStorage,
-            RequirementCategoryListStorage requirementCategoryListStorage, UserPrefsStorage userPrefsStorage) {
+            AddressBookStorage requirementCategoryListStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.degreePlannerListStorage = degreePlannerListStorage;
