@@ -9,7 +9,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDegreePlannerList;
-import seedu.address.model.ReadOnlyRequirementCategoryList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -118,27 +117,27 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyRequirementCategoryList> readRequirementCategoryList()
+    public Optional<ReadOnlyAddressBook> readRequirementCategoryList()
             throws DataConversionException, IOException {
         return readRequirementCategoryList(requirementCategoryListStorage.getRequirementCategoryListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyRequirementCategoryList> readRequirementCategoryList(Path filePath)
+    public Optional<ReadOnlyAddressBook> readRequirementCategoryList(Path filePath)
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return requirementCategoryListStorage.readRequirementCategoryList(filePath);
     }
 
     @Override
-    public void saveRequirementCategoryList(ReadOnlyRequirementCategoryList requirementCategoryList)
+    public void saveRequirementCategoryList(ReadOnlyAddressBook requirementCategoryList)
             throws IOException {
         saveRequirementCategoryList(requirementCategoryList,
                 requirementCategoryListStorage.getRequirementCategoryListFilePath());
     }
 
     @Override
-    public void saveRequirementCategoryList(ReadOnlyRequirementCategoryList requirementCategoryList, Path filePath)
+    public void saveRequirementCategoryList(ReadOnlyAddressBook requirementCategoryList, Path filePath)
             throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         requirementCategoryListStorage.saveRequirementCategoryList(requirementCategoryList, filePath);

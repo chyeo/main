@@ -7,7 +7,6 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyDegreePlannerList;
-import seedu.address.model.ReadOnlyRequirementCategoryList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -46,10 +45,10 @@ public interface Storage
     Path getRequirementCategoryListFilePath();
 
     @Override
-    Optional<ReadOnlyRequirementCategoryList> readRequirementCategoryList() throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readRequirementCategoryList() throws DataConversionException, IOException;
 
     @Override
-    void saveRequirementCategoryList(ReadOnlyRequirementCategoryList requirementCategoryList) throws IOException;
+    void saveRequirementCategoryList(ReadOnlyAddressBook requirementCategoryList) throws IOException;
 
 
 }

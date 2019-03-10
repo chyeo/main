@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.ReadOnlyRequirementCategoryList;
-import seedu.address.model.RequirementCategoryList;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.requirement.RequirementCategory;
 
 /**
@@ -38,7 +38,7 @@ public class JsonSerializableRequirementCategoryList {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableRequirementList}.
      */
-    public JsonSerializableRequirementCategoryList(ReadOnlyRequirementCategoryList source) {
+    public JsonSerializableRequirementCategoryList(ReadOnlyAddressBook source) {
         requirementCategories
                 .addAll(source.getRequirementCategoryList().stream().map(JsonAdaptedRequirementCategoryList::new)
                         .collect(Collectors.toList()));
@@ -49,8 +49,8 @@ public class JsonSerializableRequirementCategoryList {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public RequirementCategoryList toModelType() throws IllegalValueException {
-        RequirementCategoryList requirementCategoryList = new RequirementCategoryList();
+    public AddressBook toModelType() throws IllegalValueException {
+        AddressBook requirementCategoryList = new AddressBook();
         for (JsonAdaptedRequirementCategoryList jsonAdaptedRequirementCategoryList : requirementCategories) {
             RequirementCategory requirementCategory = jsonAdaptedRequirementCategoryList.toModelType();
             if (requirementCategoryList.hasRequirementCategory(requirementCategory)) {
