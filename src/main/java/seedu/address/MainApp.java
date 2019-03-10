@@ -28,9 +28,7 @@ import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.DegreePlannerListStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonDegreePlannerListStorage;
-import seedu.address.storage.JsonRequirementCategoryListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.RequirementCategoryListStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -67,8 +65,8 @@ public class MainApp extends Application {
         DegreePlannerListStorage degreePlannerListStorage =
                 new JsonDegreePlannerListStorage(userPrefs.getDegreePlannerListFilePath());
 
-        RequirementCategoryListStorage requirementCategoryListStorage =
-                new JsonRequirementCategoryListStorage(userPrefs.getRequirementCategoryListFilePath());
+        AddressBookStorage requirementCategoryListStorage =
+                new JsonAddressBookStorage(userPrefs.getRequirementCategoryListFilePath());
         storage = new StorageManager(addressBookStorage, degreePlannerListStorage, requirementCategoryListStorage,
                 userPrefsStorage);
 
