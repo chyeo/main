@@ -27,20 +27,17 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         this.filePath = filePath;
     }
 
-
     public Path getAddressBookFilePath() {
         return filePath;
     }
-    public Path getRequirementCategoryListFilePath() { return filePath; }
+
+    public Path getRequirementCategoryListFilePath() {
+        return filePath;
+    }
 
     @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
         return readAddressBook(filePath);
-    }
-
-    @Override
-    public Optional<ReadOnlyAddressBook> readRequirementCategoryList() throws DataConversionException {
-        return readRequirementCategoryList(filePath);
     }
     /**
      * Similar to {@link #readAddressBook()}.
@@ -50,7 +47,6 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      */
     public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
-
         Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableAddressBook.class);
         if (!jsonAddressBook.isPresent()) {
@@ -69,7 +65,6 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         saveAddressBook(addressBook, filePath);
     }
-
     /**
      * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
      *
@@ -83,7 +78,10 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
 
-
+    @Override
+    public Optional<ReadOnlyAddressBook> readRequirementCategoryList() throws DataConversionException {
+        return readRequirementCategoryList(filePath);
+    }
     /**
      * Similar to {@link #readRequirementCategoryList()}.
      *
@@ -113,7 +111,6 @@ public class JsonAddressBookStorage implements AddressBookStorage {
             throws IOException {
         saveRequirementCategoryList(requirementCategoryList, filePath);
     }
-
     /**
      * Similar to {@link #saveRequirementCategoryList(ReadOnlyAddressBook)}.
      *

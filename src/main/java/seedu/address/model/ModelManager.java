@@ -386,15 +386,17 @@ public class ModelManager implements Model {
     /**
      * Ensures {@code selectedRequirementCategory} is a valid module in {@code selectedRequirementCategory}.
      */
-    private void ensureSelectedRequirementCategoryIsValid(ListChangeListener.Change<? extends RequirementCategory> change) {
+    private void ensureSelectedRequirementCategoryIsValid(
+            ListChangeListener.Change<? extends RequirementCategory> change) {
         while (change.next()) {
             if (selectedRequirementCategory.getValue() == null) {
                 // null is always a valid selected module, so we do not need to check that it is valid anymore.
                 return;
             }
 
-            boolean wasSelectedRequirementCategoryReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedRequirementCategory.getValue());
+            boolean wasSelectedRequirementCategoryReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                            && change.getRemoved().contains(selectedRequirementCategory.getValue());
             if (wasSelectedRequirementCategoryReplaced) {
                 // Update selectedModule to its new value.
                 int index = change.getRemoved().indexOf(selectedRequirementCategory.getValue());
@@ -403,11 +405,13 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedRequirementCategoryRemoved = change.getRemoved().stream()
-                    .anyMatch(removedRequirementCategory -> selectedRequirementCategory.getValue().isSameRequirementCategory(removedRequirementCategory));
+                    .anyMatch(removedRequirementCategory -> selectedRequirementCategory.getValue()
+                            .isSameRequirementCategory(removedRequirementCategory));
             if (wasSelectedRequirementCategoryRemoved) {
                 // Select the module that came before it in the list,
                 // or clear the selection if there is no such module.
-                selectedRequirementCategory.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+                selectedRequirementCategory
+                        .setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

@@ -19,7 +19,6 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonDegreePlannerListStorage;
-import seedu.address.storage.JsonRequirementCategoryListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 
@@ -40,8 +39,8 @@ public class MainWindowCloseTest extends GuiUnitTest {
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonDegreePlannerListStorage jsonDegreePlannerListStorage =
                 new JsonDegreePlannerListStorage(temporaryFolder.newFile().toPath());
-        JsonRequirementCategoryListStorage jsonRequirementCategoryListStorage =
-                new JsonRequirementCategoryListStorage(temporaryFolder.newFile().toPath());
+        JsonAddressBookStorage jsonRequirementCategoryListStorage =
+                new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storageManager =
                 new StorageManager(jsonAddressBookStorage, jsonDegreePlannerListStorage,
                         jsonRequirementCategoryListStorage, jsonUserPrefsStorage);

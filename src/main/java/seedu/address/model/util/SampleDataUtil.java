@@ -60,22 +60,22 @@ public class SampleDataUtil {
 
     public static RequirementCategory[] getSampleRequirementCategories() {
         return new RequirementCategory[] {
-                new RequirementCategory(new Name("Computing Foundation"), new Credits("036"),
-                        getCodeSet()),
-                new RequirementCategory(new Name("Information Security Requirements"), new Credits("032"),
-                        getCodeSet()),
-                new RequirementCategory(new Name("Information Security Electives"), new Credits("012"),
-                        getCodeSet()),
-                new RequirementCategory(new Name("Computing Breadth"), new Credits("020"),
-                        getCodeSet()),
-                new RequirementCategory(new Name("IT Professionalism"), new Credits("008"),
-                        getCodeSet()),
-                new RequirementCategory(new Name("Mathematics"), new Credits("012"),
-                        getCodeSet()),
-                new RequirementCategory(new Name("General Education"), new Credits("020"),
-                        getCodeSet()),
-                new RequirementCategory(new Name("Unrestricted Electives"), new Credits("012"),
-                        getCodeSet())
+            new RequirementCategory(new Name("Computing Foundation"), new Credits("036"),
+                getCodeSet()),
+            new RequirementCategory(new Name("Information Security Requirements"), new Credits("032"),
+                getCodeSet()),
+            new RequirementCategory(new Name("Information Security Electives"), new Credits("012"),
+                getCodeSet()),
+            new RequirementCategory(new Name("Computing Breadth"), new Credits("020"),
+                getCodeSet()),
+            new RequirementCategory(new Name("IT Professionalism"), new Credits("008"),
+                getCodeSet()),
+            new RequirementCategory(new Name("Mathematics"), new Credits("012"),
+                getCodeSet()),
+            new RequirementCategory(new Name("General Education"), new Credits("020"),
+                getCodeSet()),
+            new RequirementCategory(new Name("Unrestricted Electives"), new Credits("012"),
+                getCodeSet())
         };
     }
 

@@ -129,7 +129,9 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<RequirementCategory> getRequirementCategoryList(){ return requirementCategories; }
+        public ObservableList<RequirementCategory> getRequirementCategoryList() {
+            return requirementCategories;
+        }
 
         @Override
         public void addListener(InvalidationListener listener) {
