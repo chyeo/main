@@ -30,7 +30,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.module.Module;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonDegreePlannerListStorage;
-import seedu.address.storage.JsonRequirementCategoryListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.ModuleBuilder;
@@ -53,8 +52,8 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonDegreePlannerListStorage degreePlannerListStorage =
                 new JsonDegreePlannerListStorage(temporaryFolder.newFile().toPath());
-        JsonRequirementCategoryListStorage requirementCategoryListStorage =
-                new JsonRequirementCategoryListStorage(temporaryFolder.newFile().toPath());
+        JsonAddressBookStorage requirementCategoryListStorage =
+                new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storage =
                 new StorageManager(addressBookStorage, degreePlannerListStorage, requirementCategoryListStorage,
                         userPrefsStorage);
@@ -90,8 +89,8 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonDegreePlannerListStorage degreePlannerListStorage =
                 new JsonDegreePlannerListStorage(temporaryFolder.newFile().toPath());
-        JsonRequirementCategoryListStorage requirementCategoryListStorage =
-                new JsonRequirementCategoryListStorage(temporaryFolder.newFile().toPath());
+        JsonAddressBookStorage requirementCategoryListStorage =
+                new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storage =
                 new StorageManager(addressBookStorage, degreePlannerListStorage, requirementCategoryListStorage,
                         userPrefsStorage);
@@ -149,7 +148,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getDegreePlannerList(),
-                model.getRequirementCategoryList(), new UserPrefs());
+                 new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

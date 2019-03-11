@@ -10,7 +10,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.DegreePlannerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.RequirementCategoryList;
 import seedu.address.model.UserPrefs;
 
 public class ClearCommandTest {
@@ -29,10 +28,10 @@ public class ClearCommandTest {
     @Test
     public void execute_nonEmptyAddressBook_success() {
         //ToDo: Implement getTypicalDegreePlannerList for DegreePlannerList and update the codes below
-        Model model = new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new RequirementCategoryList(),
+        Model model = new ModelManager(getTypicalAddressBook(), new DegreePlannerList(),
                 new UserPrefs());
         Model expectedModel =
-                new ModelManager(getTypicalAddressBook(), new DegreePlannerList(), new RequirementCategoryList(),
+                new ModelManager(getTypicalAddressBook(), new DegreePlannerList(),
                         new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
         expectedModel.commitAddressBook();

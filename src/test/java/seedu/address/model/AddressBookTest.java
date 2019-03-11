@@ -22,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.exceptions.DuplicateModuleException;
+import seedu.address.model.requirement.RequirementCategory;
 import seedu.address.testutil.ModuleBuilder;
 
 public class AddressBookTest {
@@ -116,6 +117,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Module> modules = FXCollections.observableArrayList();
+        private final ObservableList<RequirementCategory> requirementCategories = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Module> modules) {
             this.modules.setAll(modules);
@@ -125,6 +127,9 @@ public class AddressBookTest {
         public ObservableList<Module> getModuleList() {
             return modules;
         }
+
+        @Override
+        public ObservableList<RequirementCategory> getRequirementCategoryList(){ return requirementCategories; }
 
         @Override
         public void addListener(InvalidationListener listener) {
