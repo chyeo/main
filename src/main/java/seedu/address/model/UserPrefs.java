@@ -17,7 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private Path addressBookFilePath = Paths.get("data", "addressbook.json");
     private Path degreePlannerListFilePath = Paths.get("data", "degreePlannerList.json");
-    //private Path requirementCategoryListFilePath = Paths.get("data", "requirementCategoryList.json");
+    private Path requirementCategoryListFilePath = Paths.get("data", "requirementCategoryList.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -72,12 +72,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     public Path getRequirementCategoryListFilePath() {
-        return addressBookFilePath;
+        return requirementCategoryListFilePath;
     }
 
     public void setRequirementCategoryListFilePath(Path requirementCategoryListFilePath) {
         requireNonNull(requirementCategoryListFilePath);
-        this.addressBookFilePath = requirementCategoryListFilePath;
+        this.requirementCategoryListFilePath = requirementCategoryListFilePath;
     }
 
     @Override

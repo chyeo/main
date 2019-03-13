@@ -12,7 +12,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.module.Module;
-import seedu.address.model.requirement.RequirementCategory;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -20,21 +19,16 @@ import seedu.address.model.requirement.RequirementCategory;
 @JsonRootName(value = "addressbook") class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_MODULE = "Modules list contains duplicate module(s).";
-    public static final String MESSAGE_DUPLICATE_REQUIREMENT_CATEGORY =
-            "Requirement list contains duplicate requirements(s).";
 
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
-    private final List<JsonAdaptedRequirementCategoryList> requirementCategories = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given modules.
      */
 
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("modules") List<JsonAdaptedModule> modules,
-            @JsonProperty("requirementCategories") List<JsonAdaptedRequirementCategoryList> requirementCategories) {
+    public JsonSerializableAddressBook(@JsonProperty("modules") List<JsonAdaptedModule> modules) {
         this.modules.addAll(modules);
-        this.requirementCategories.addAll(requirementCategories);
     }
 
     /**
@@ -44,9 +38,6 @@ import seedu.address.model.requirement.RequirementCategory;
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         modules.addAll(source.getModuleList().stream().map(JsonAdaptedModule::new).collect(Collectors.toList()));
-        requirementCategories
-                .addAll(source.getRequirementCategoryList().stream().map(JsonAdaptedRequirementCategoryList::new)
-                        .collect(Collectors.toList()));
     }
 
     /**
@@ -63,15 +54,6 @@ import seedu.address.model.requirement.RequirementCategory;
             }
             addressBook.addModule(module);
         }
-
-        for (JsonAdaptedRequirementCategoryList jsonAdaptedRequirementCategoryList : requirementCategories) {
-            RequirementCategory requirementCategory = jsonAdaptedRequirementCategoryList.toModelType();
-            if (addressBook.hasRequirementCategory(requirementCategory)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_REQUIREMENT_CATEGORY);
-            }
-            addressBook.addRequirementCategory(requirementCategory);
-        }
-
         return addressBook;
     }
 
