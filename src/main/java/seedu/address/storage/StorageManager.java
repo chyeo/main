@@ -69,6 +69,12 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public void saveApplication(ReadOnlyAddressBook addressBook) throws IOException {
+        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+        saveRequirementCategoryList(addressBook, requirementCategoryListStorage.getRequirementCategoryListFilePath());
+    }
+
+    @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
     }

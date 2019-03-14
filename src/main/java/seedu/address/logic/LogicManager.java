@@ -58,7 +58,7 @@ public class LogicManager implements Logic {
         if (addressBookModified) {
             logger.info("Address book modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.saveApplication(model.getAddressBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -66,12 +66,6 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveDegreePlannerList(model.getDegreePlannerList());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-
-        try {
-            storage.saveRequirementCategoryList(model.getAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

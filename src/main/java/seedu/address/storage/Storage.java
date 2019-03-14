@@ -24,6 +24,9 @@ public interface Storage
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
+    void saveApplication(ReadOnlyAddressBook addressBook) throws IOException;
+
+    @Override
     Path getAddressBookFilePath();
 
     @Override
