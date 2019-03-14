@@ -32,11 +32,14 @@ public class JsonAddressBookStorageTest {
     @Test
     public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readAddressBook(null, null);
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String moduleListFilePath,
+            String requirementCategoryListFilePath) throws Exception {
+        return new JsonAddressBookStorage(Paths.get(moduleListFilePath), Paths.get(requirementCategoryListFilePath))
+                .readAddressBook(addToTestDataPathIfNotNull(moduleListFilePath),
+                        addToTestDataPathIfNotNull(requirementCategoryListFilePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -47,14 +50,14 @@ public class JsonAddressBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readAddressBook("NonExistentFile1.json", "NonExistentFile2.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("notJsonFormatAddressBook.json");
+        readAddressBook("notJsonFormatAddressBook.json", "notJsonFormatAddressBook.json");
 
         // IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
         // That means you should not have more than one exception test in one method
@@ -63,36 +66,40 @@ public class JsonAddressBookStorageTest {
     @Test
     public void readAddressBook_invalidModuleAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidModuleAddressBook.json");
+        readAddressBook("invalidModuleAddressBook.json", "invalidModuleAddressBook.json");
     }
 
     @Test
     public void readAddressBook_invalidAndValidModuleAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidModuleAddressBook.json");
+        readAddressBook("invalidAndValidModuleAddressBook.json", "invalidAndValidModuleAddressBook.json");
     }
 
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
+        Path moduleListFilePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
+        Path requirementCategoryListFilePath = testFolder.getRoot().toPath().resolve("TempAddressBook1.json");
         AddressBook original = getTypicalAddressBook();
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
+        JsonAddressBookStorage jsonAddressBookStorage =
+                new JsonAddressBookStorage(moduleListFilePath, requirementCategoryListFilePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonAddressBookStorage.saveModuleList(original, moduleListFilePath);
+        jsonAddressBookStorage.saveRequirementCategoryList(original, requirementCategoryListFilePath);
+        ReadOnlyAddressBook readBack =
+                jsonAddressBookStorage.readAddressBook(moduleListFilePath, requirementCategoryListFilePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addModule(HOON);
         original.removeModule(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonAddressBookStorage.saveModuleList(original, moduleListFilePath);
+        readBack = jsonAddressBookStorage.readAddressBook(moduleListFilePath, requirementCategoryListFilePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         // Save and read without specifying file path
         original.addModule(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
+        jsonAddressBookStorage.saveModuleList(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AddressBook(readBack));
 
@@ -101,16 +108,17 @@ public class JsonAddressBookStorageTest {
     @Test
     public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.json");
+        saveAddressBook(null, "SomeFile1.json", "SomeFile2.json");
     }
 
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+    private void saveAddressBook(ReadOnlyAddressBook addressBook, String moduleListFilePath,
+            String requirementCategoryListFilePath) {
         try {
-            new JsonAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new JsonAddressBookStorage(Paths.get(moduleListFilePath), Paths.get(requirementCategoryListFilePath))
+                    .saveModuleList(addressBook, addToTestDataPathIfNotNull(moduleListFilePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
@@ -119,6 +127,6 @@ public class JsonAddressBookStorageTest {
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new AddressBook(), null);
+        saveAddressBook(new AddressBook(), null, null);
     }
 }

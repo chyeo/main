@@ -25,15 +25,14 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonAddressBookStorage addressBookStorage =
+                new JsonAddressBookStorage(getTempFilePath("ab"), getTempFilePath("reqCat"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
 
         JsonDegreePlannerListStorage degreePlannerListStorage =
                 new JsonDegreePlannerListStorage(getTempFilePath("planner"));
-        JsonAddressBookStorage requirementCategoryListStorage =
-                new JsonAddressBookStorage(getTempFilePath("reqCat"));
         storageManager =
-                new StorageManager(addressBookStorage, degreePlannerListStorage, requirementCategoryListStorage,
+                new StorageManager(addressBookStorage, degreePlannerListStorage,
                         userPrefsStorage);
     }
 
@@ -70,7 +69,7 @@ public class StorageManagerTest {
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getModuleListFilePath());
     }
 
 }

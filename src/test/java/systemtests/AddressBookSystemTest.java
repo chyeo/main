@@ -64,7 +64,8 @@ public abstract class AddressBookSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        testApp = setupHelper.setupApplication(this::getInitialData, getModuleListFileLocation(),
+                getRequirementCategoryListFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());
@@ -77,7 +78,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
+     * Returns the data to be loaded into the file in {@link #getModuleListFileLocation()}.
      */
     protected AddressBook getInitialData() {
         return TypicalModules.getTypicalAddressBook();
@@ -86,8 +87,12 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the directory of the data file.
      */
-    protected Path getDataFileLocation() {
-        return TestApp.SAVE_LOCATION_FOR_TESTING;
+    protected Path getModuleListFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_MODULE_LIST_TESTING;
+    }
+
+    protected Path getRequirementCategoryListFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_REQUIREMENT_CATEGORY_LIST_TESTING;
     }
 
     public MainWindowHandle getMainWindowHandle() {
@@ -193,6 +198,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
      * default page.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
@@ -203,6 +209,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the browser's url is changed to display the details of the module in the module list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see ModuleListPanelHandle#isSelectedModuleCardChanged()
      */
@@ -222,6 +229,7 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that the browser's url and the selected card in the module list panel remain unchanged.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see ModuleListPanelHandle#isSelectedModuleCardChanged()
      */
