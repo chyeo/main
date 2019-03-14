@@ -24,16 +24,16 @@ public interface Storage
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    void saveApplication(ReadOnlyAddressBook addressBook) throws IOException;
-
-    @Override
-    Path getAddressBookFilePath();
-
-    @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
-
-    @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+
+    @Override
+    Path getModuleListFilePath();
+
+    @Override
+    Optional<ReadOnlyAddressBook> readModuleList() throws DataConversionException, IOException;
+
+    @Override
+    void saveModuleList(ReadOnlyAddressBook addressBook) throws IOException;
 
     @Override
     Path getDegreePlannerListFilePath();

@@ -49,40 +49,40 @@ public class StorageManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
+    @Override
+    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        saveModuleList(addressBook, addressBookStorage.getModuleListFilePath());
+        saveRequirementCategoryList(addressBook, requirementCategoryListStorage.getRequirementCategoryListFilePath());
+    }
+
 
     // ================ AddressBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getModuleListFilePath() {
+        return addressBookStorage.getModuleListFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyAddressBook> readModuleList() throws DataConversionException, IOException {
+        return readModuleList(addressBookStorage.getModuleListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readModuleList(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return addressBookStorage.readModuleList(filePath);
     }
 
     @Override
-    public void saveApplication(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
-        saveRequirementCategoryList(addressBook, requirementCategoryListStorage.getRequirementCategoryListFilePath());
+    public void saveModuleList(ReadOnlyAddressBook addressBook) throws IOException {
+        saveModuleList(addressBook, addressBookStorage.getModuleListFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
-    }
-
-    @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveModuleList(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        addressBookStorage.saveModuleList(addressBook, filePath);
     }
 
     // ================ DegreePlannerList methods ========================

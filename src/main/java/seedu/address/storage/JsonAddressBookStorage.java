@@ -15,13 +15,13 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 
 /**
- * A class to call JsonSerializableApplication methods
+ * A class to call JsonSerializableAddressBook methods
  */
 public class JsonAddressBookStorage implements AddressBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonSerializableApplication.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonSerializableAddressBook.class);
 
-    private JsonSerializableApplication application = new JsonSerializableApplication();
+    private JsonSerializableAddressBook application = new JsonSerializableAddressBook();
 
     private Path filePath;
 
@@ -29,7 +29,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getModuleListFilePath() {
         return filePath;
     }
 
@@ -38,22 +38,22 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveApplication(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, getAddressBookFilePath());
+    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        saveModuleList(addressBook, getModuleListFilePath());
         saveRequirementCategoryList(addressBook, getRequirementCategoryListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyAddressBook> readModuleList() throws DataConversionException {
+        return readModuleList(filePath);
     }
 
     /**
      * @param filePath location of the data. Cannot be null.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyAddressBook> readModuleList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableModuleList> jsonAddressBook = JsonUtil.readJsonFile(
                 filePath, application.getJsonSerializableAddressBookClass());
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
@@ -68,18 +68,18 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveModuleList(ReadOnlyAddressBook addressBook) throws IOException {
+        saveModuleList(addressBook, filePath);
     }
 
     /**
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveModuleList(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableModuleList(addressBook), filePath);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
      */
     public Optional<ReadOnlyAddressBook> readRequirementCategoryList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
-        Optional<JsonSerializableAddressBook> jsonRequirementCategoryList = JsonUtil.readJsonFile(
+        Optional<JsonSerializableRequirementCategoryList> jsonRequirementCategoryList = JsonUtil.readJsonFile(
                 filePath, application.getJsonSerializableRequirementCategoryListClass());
         if (!jsonRequirementCategoryList.isPresent()) {
             return Optional.empty();

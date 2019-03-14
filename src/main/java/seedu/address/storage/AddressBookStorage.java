@@ -15,7 +15,7 @@ public interface AddressBookStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getModuleListFilePath();
     Path getRequirementCategoryListFilePath();
 
     /**
@@ -24,19 +24,12 @@ public interface AddressBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readModuleList() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getModuleListFilePath()
      */
-    Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException;
-
-    /**
-     * Saves the given {@link ReadOnlyAddressBook} to the storage.
-     * @param addressBook cannot be null.
-     * @throws IOException if there was any problem writing to the file.
-     */
-    void saveApplication(ReadOnlyAddressBook addressBook) throws IOException;
+    Optional<ReadOnlyAddressBook> readModuleList(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAddressBook} to the storage.
@@ -46,9 +39,16 @@ public interface AddressBookStorage {
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
     /**
+     * Saves the given {@link ReadOnlyAddressBook} to the storage.
+     * @param addressBook cannot be null.
+     * @throws IOException if there was any problem writing to the file.
+     */
+    void saveModuleList(ReadOnlyAddressBook addressBook) throws IOException;
+
+    /**
      * @see #saveAddressBook(ReadOnlyAddressBook)
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+    void saveModuleList(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
 
     /**
      * Returns RequirementList data as a {@link ReadOnlyAddressBook}.
