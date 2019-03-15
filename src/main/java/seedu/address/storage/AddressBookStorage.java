@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.module.Module;
+import seedu.address.model.requirement.RequirementCategory;
 
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
@@ -16,23 +19,34 @@ public interface AddressBookStorage {
      * Returns the file path of the data file.
      */
     Path getModuleListFilePath();
+
     Path getRequirementCategoryListFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
      * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
+     * @throws IOException             if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readModuleList() throws DataConversionException, IOException;
+    Optional<ObservableList<Module>> readModuleList() throws DataConversionException, IOException;
 
     /**
      * @see #getModuleListFilePath()
      */
-    Optional<ReadOnlyAddressBook> readModuleList(Path filePath) throws DataConversionException, IOException;
+    Optional<ObservableList<Module>> readModuleList(Path filePath) throws DataConversionException, IOException;
+
+    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+
+    /**
+     * @see #getModuleListFilePath()
+     */
+    Optional<ReadOnlyAddressBook> readAddressBook(Path moduleListFilePath, Path requirementCategoryListFilePath)
+            throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAddressBook} to the storage.
+     *
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
@@ -40,6 +54,7 @@ public interface AddressBookStorage {
 
     /**
      * Saves the given {@link ReadOnlyAddressBook} to the storage.
+     *
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
@@ -57,12 +72,13 @@ public interface AddressBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException             if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readRequirementCategoryList() throws DataConversionException, IOException;
+    Optional<ObservableList<RequirementCategory>> readRequirementCategoryList()
+            throws DataConversionException, IOException;
 
     /**
      * @see #getRequirementCategoryListFilePath() ()
      */
-    Optional<ReadOnlyAddressBook> readRequirementCategoryList(Path filePath)
+    Optional<ObservableList<RequirementCategory>> readRequirementCategoryList(Path filePath)
             throws DataConversionException, IOException;
 
     /**

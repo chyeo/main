@@ -7,12 +7,15 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.module.Module;
+import seedu.address.model.requirement.RequirementCategory;
 
 /**
  * A class to call JsonSerializableAddressBook methods
@@ -21,20 +24,20 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonSerializableAddressBook.class);
 
-    private JsonSerializableAddressBook application = new JsonSerializableAddressBook();
+    private Path moduleListFilePath;
+    private Path requirementCategoryListFilePath;
 
-    private Path filePath;
-
-    public JsonAddressBookStorage(Path filePath) {
-        this.filePath = filePath;
+    public JsonAddressBookStorage(Path moduleListFilePath, Path requirementCategoryListFilePath) {
+        this.moduleListFilePath = moduleListFilePath;
+        this.requirementCategoryListFilePath = requirementCategoryListFilePath;
     }
 
     public Path getModuleListFilePath() {
-        return filePath;
+        return moduleListFilePath;
     }
 
     public Path getRequirementCategoryListFilePath() {
-        return filePath;
+        return requirementCategoryListFilePath;
     }
 
     @Override
@@ -44,17 +47,52 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readModuleList() throws DataConversionException {
-        return readModuleList(filePath);
+    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
+        return readAddressBook(moduleListFilePath, requirementCategoryListFilePath);
+    }
+
+    /**
+     * @param moduleListFilePath and @param requirementCategoryListFilePath location of the data. Cannot be null.
+     */
+    public Optional<ReadOnlyAddressBook> readAddressBook(Path moduleListFilePath, Path requirementCategoryListFilePath)
+            throws DataConversionException {
+        requireNonNull(moduleListFilePath);
+        requireNonNull(requirementCategoryListFilePath);
+        Optional<ObservableList<Module>> optionalModuleObservableList = readModuleList(moduleListFilePath);
+        Optional<ObservableList<RequirementCategory>> optionalRequirementCategoryObservableList =
+                readRequirementCategoryList(requirementCategoryListFilePath);
+
+        if (!optionalModuleObservableList.isPresent()) {
+            return Optional.empty();
+        } else if (!optionalRequirementCategoryObservableList.isPresent()) {
+            return Optional.empty();
+        }
+
+        try {
+            JsonSerializableAddressBook addressBook =
+                    new JsonSerializableAddressBook(optionalModuleObservableList.get(),
+                            optionalRequirementCategoryObservableList.get());
+            ReadOnlyAddressBook jsonAddressBook = addressBook.toModelType();
+            return Optional.of(jsonAddressBook);
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + moduleListFilePath + ": " + ive.getMessage());
+            logger.info("Illegal values found in " + requirementCategoryListFilePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
+    @Override
+    public Optional<ObservableList<Module>> readModuleList() throws DataConversionException {
+        return readModuleList(moduleListFilePath);
     }
 
     /**
      * @param filePath location of the data. Cannot be null.
      */
-    public Optional<ReadOnlyAddressBook> readModuleList(Path filePath) throws DataConversionException {
+    public Optional<ObservableList<Module>> readModuleList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
         Optional<JsonSerializableModuleList> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, application.getJsonSerializableAddressBookClass());
+                filePath, JsonSerializableAddressBook.getJsonSerializableModuleListClass());
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
@@ -69,7 +107,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
     @Override
     public void saveModuleList(ReadOnlyAddressBook addressBook) throws IOException {
-        saveModuleList(addressBook, filePath);
+        saveModuleList(addressBook, moduleListFilePath);
     }
 
     /**
@@ -83,23 +121,24 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readRequirementCategoryList() throws DataConversionException {
-        return readRequirementCategoryList(filePath);
+    public Optional<ObservableList<RequirementCategory>> readRequirementCategoryList() throws DataConversionException {
+        return readRequirementCategoryList(requirementCategoryListFilePath);
     }
 
     /**
      * @param filePath location of the data. Cannot be null.
      */
-    public Optional<ReadOnlyAddressBook> readRequirementCategoryList(Path filePath) throws DataConversionException {
+    public Optional<ObservableList<RequirementCategory>> readRequirementCategoryList(Path filePath)
+            throws DataConversionException {
         requireNonNull(filePath);
-        Optional<JsonSerializableRequirementCategoryList> jsonRequirementCategoryList = JsonUtil.readJsonFile(
-                filePath, application.getJsonSerializableRequirementCategoryListClass());
-        if (!jsonRequirementCategoryList.isPresent()) {
+        Optional<JsonSerializableRequirementCategoryList> jsonAddressBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableAddressBook.getJsonSerializableRequirementCategoryListClass());
+        if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonRequirementCategoryList.get().toModelType());
+            return Optional.of(jsonAddressBook.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -109,7 +148,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     @Override
     public void saveRequirementCategoryList(ReadOnlyAddressBook requirementCategoryList)
             throws IOException {
-        saveRequirementCategoryList(requirementCategoryList, filePath);
+        saveRequirementCategoryList(requirementCategoryList, requirementCategoryListFilePath);
     }
 
     /**

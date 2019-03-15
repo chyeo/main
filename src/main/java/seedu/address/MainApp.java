@@ -60,14 +60,13 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath(),
+                userPrefs.getRequirementCategoryListFilePath());
 
         DegreePlannerListStorage degreePlannerListStorage =
                 new JsonDegreePlannerListStorage(userPrefs.getDegreePlannerListFilePath());
 
-        AddressBookStorage requirementCategoryListStorage =
-                new JsonAddressBookStorage(userPrefs.getRequirementCategoryListFilePath());
-        storage = new StorageManager(addressBookStorage, degreePlannerListStorage, requirementCategoryListStorage,
+        storage = new StorageManager(addressBookStorage, degreePlannerListStorage,
                 userPrefsStorage);
 
         initLogging(config);
@@ -92,7 +91,7 @@ public class MainApp extends Application {
         ReadOnlyDegreePlannerList initialDegreePlannerListData;
 
         try {
-            addressBookOptional = storage.readModuleList();
+            addressBookOptional = storage.readAddressBook();
 
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");

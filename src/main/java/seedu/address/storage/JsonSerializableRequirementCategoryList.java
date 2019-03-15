@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
-
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.requirement.RequirementCategory;
@@ -21,7 +21,7 @@ import seedu.address.model.requirement.RequirementCategory;
 public class JsonSerializableRequirementCategoryList {
 
     public static final String MESSAGE_DUPLICATE_REQUIREMENT_CATEGORY =
-            "Requirement list contains duplicate requirementCategory(ies).";
+            "Requirement category list contains duplicate requirement categories.";
 
     private final List<JsonAdaptedRequirementCategoryList> requirementCategories = new ArrayList<>();
 
@@ -51,7 +51,7 @@ public class JsonSerializableRequirementCategoryList {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
+    public ObservableList<RequirementCategory> toModelType() throws IllegalValueException {
         AddressBook requirementCategoryList = new AddressBook();
         for (JsonAdaptedRequirementCategoryList jsonAdaptedRequirementCategoryList : requirementCategories) {
             RequirementCategory requirementCategory = jsonAdaptedRequirementCategoryList.toModelType();
@@ -60,6 +60,6 @@ public class JsonSerializableRequirementCategoryList {
             }
             requirementCategoryList.addRequirementCategory(requirementCategory);
         }
-        return requirementCategoryList;
+        return requirementCategoryList.getRequirementCategoryList();
     }
 }

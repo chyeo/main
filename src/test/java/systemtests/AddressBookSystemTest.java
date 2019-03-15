@@ -4,6 +4,8 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalModules.getTypicalModuleList;
+import static seedu.address.testutil.TypicalRequirementCategories.getTypicalRequirementCategoriesList;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
@@ -30,13 +32,14 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalModules;
+import seedu.address.storage.JsonSerializableAddressBook;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -81,7 +84,16 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getModuleListFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalModules.getTypicalAddressBook();
+
+        AddressBook addressBook = new AddressBook();
+        try {
+            addressBook =
+                    new JsonSerializableAddressBook(getTypicalModuleList(), getTypicalRequirementCategoriesList())
+                            .toModelType();
+        } catch (IllegalValueException ive) {
+            assertCommandBoxShowsErrorStyle();
+        }
+        return addressBook;
     }
 
     /**

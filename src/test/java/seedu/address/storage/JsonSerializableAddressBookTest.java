@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.testutil.TypicalModules;
+import seedu.address.testutil.TypicalRequirementCategories;
 
 public class JsonSerializableAddressBookTest {
 
@@ -32,10 +33,15 @@ public class JsonSerializableAddressBookTest {
                 JsonSerializableModuleList.class).get();
         JsonSerializableRequirementCategoryList dataFromFile2 = JsonUtil.readJsonFile(TYPICAL_REQUIREMENT_CATEGORY_FILE,
                 JsonSerializableRequirementCategoryList.class).get();
-        JsonSerializableAddressBook jsonSerializableAddressBook = new JsonSerializableAddressBook();
+        JsonSerializableAddressBook jsonSerializableAddressBook =
+                new JsonSerializableAddressBook(dataFromFile.toModelType(), dataFromFile2.toModelType());
         AddressBook addressBookFromFile =
-                jsonSerializableAddressBook.toModelType(dataFromFile.toModelType(), dataFromFile2.toModelType());
-        AddressBook typicalModulesAddressBook = TypicalModules.getTypicalAddressBook();
+                jsonSerializableAddressBook.toModelType();
+        JsonSerializableAddressBook typicalAddressBookData =
+                new JsonSerializableAddressBook(TypicalModules.getTypicalModuleList(),
+                        TypicalRequirementCategories.getTypicalRequirementCategoriesList());
+        AddressBook typicalModulesAddressBook =
+                typicalAddressBookData.toModelType();
         assertEquals(addressBookFromFile, typicalModulesAddressBook);
     }
 

@@ -5,7 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalModules.ALICE;
 import static seedu.address.testutil.TypicalModules.HOON;
 import static seedu.address.testutil.TypicalModules.IDA;
-import static seedu.address.testutil.TypicalModules.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModules.getTypicalModuleList;
+import static seedu.address.testutil.TypicalRequirementCategories.getTypicalRequirementCategoriesList;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -79,7 +80,9 @@ public class JsonAddressBookStorageTest {
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path moduleListFilePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
         Path requirementCategoryListFilePath = testFolder.getRoot().toPath().resolve("TempAddressBook1.json");
-        AddressBook original = getTypicalAddressBook();
+        AddressBook original =
+                new JsonSerializableAddressBook(getTypicalModuleList(), getTypicalRequirementCategoriesList())
+                        .toModelType();
         JsonAddressBookStorage jsonAddressBookStorage =
                 new JsonAddressBookStorage(moduleListFilePath, requirementCategoryListFilePath);
 
