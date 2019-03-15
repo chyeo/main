@@ -187,6 +187,49 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
 
+    @Test
+    public void multiFind() {
+        /* Case: find module with name daniel, code 'CS1231' and credts '95352563'-> 3 modules return */
+        String command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + "Daniel " + PREFIX_CODE + "CS1231 "
+                + PREFIX_CREDITS + "95352563";
+        Model expectedModel = getModel();
+        ModelHelper.setFilteredList(expectedModel, DANIEL, BENSON, CARL);
+        assertCommandSuccess(command, expectedModel);
+
+        /* Case: find module with name, code and credits in different order -> 3 modules return */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CODE + "CS1231 "
+                + PREFIX_CREDITS + "95352563 " + PREFIX_NAME + "Daniel ";
+        assertCommandSuccess(command, expectedModel);
+
+        /* Case: find module with name daniel, credits '95352563' and invalid code -> 2 modules return */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + "Daniel " + PREFIX_CODE + "AZ0000 "
+                + PREFIX_CREDITS + "95352563";
+        expectedModel = getModel();
+        ModelHelper.setFilteredList(expectedModel, DANIEL, CARL);
+        assertCommandSuccess(command, expectedModel);
+
+        /* Case: find module with valid name, code but invalid credits -> 2 modules return */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + "Daniel " + PREFIX_CODE + "CS1231 "
+                + PREFIX_CREDITS + "0004";
+        expectedModel = getModel();
+        ModelHelper.setFilteredList(expectedModel, DANIEL, BENSON);
+        assertCommandSuccess(command, expectedModel);
+
+        /* Case: find module with valid name but invalid code and credits -> 1 modules return */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + "Daniel " + PREFIX_CODE + "FAS1234 "
+                + PREFIX_CREDITS + "0004";
+        expectedModel = getModel();
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertCommandSuccess(command, expectedModel);
+
+        /* Case: find module with invalid name, code and credits -> 0 modules return */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + "Programmmmming " + PREFIX_CODE + "FAS1234 "
+                + PREFIX_CREDITS + "0004";
+        expectedModel = getModel();
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+    }
+
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
      * box displays {@code Messages#MESSAGE_MODULES_LISTED_OVERVIEW} with the number of modules in the filtered list,
