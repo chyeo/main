@@ -154,6 +154,33 @@ public class AddressBook implements ReadOnlyAddressBook {
         requirementCategories.remove(key);
     }
 
+    /**
+     * Adds module to the given requirement category.
+     * {@code requirementCategoryModule} must not already exist in the requirementCategoryList.
+     */
+    public void addModuleToRequirementCategory(RequirementCategory requirementCategoryModule) {
+        requireNonNull(requirementCategoryModule);
+        requirementCategories.addModuleToRequirementCategory(requirementCategoryModule);
+    }
+
+    /**
+     * Returns true if a module with the same identity as {@code requirementCategory} exists in the
+     * requirement category to be added to.
+     */
+    public boolean isModuleInRequirementCategory(RequirementCategory requirementCategory) {
+        requireNonNull(requirementCategory);
+        return requirementCategories.isModuleInRequirementCategory(requirementCategory);
+    }
+
+    /**
+     * Returns false if a module with the same identity as {@code requirementCategory} does not exists
+     * in the current moduleList.
+     */
+    //TODO refine this method to use methods in PR#91
+    public boolean doesModuleExistInApplication(RequirementCategory requirementCategory, Model model) {
+        requireNonNull(requirementCategory);
+        return requirementCategories.doesModuleExistInApplication(requirementCategory, model);
+    }
 
     //// listener methods
 
