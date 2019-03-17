@@ -53,7 +53,8 @@ public class SampleDataUtil {
     );
 
     private static final RequirementCategory COMPUTING_FOUNDATION = new RequirementCategory(
-            new Name("Computing Foundation"), new Credits("36"), getCodeSet()
+            new Name("Computing Foundation"), new Credits("36"),
+            getCodeSet("CS1010", "CS1231", "CS2040C", "CS2100", "CS2102")
     );
     private static final RequirementCategory INFORMATION_SECURITY_REQUIREMENTS = new RequirementCategory(
             new Name("Information Security Requirements"), new Credits("32"), getCodeSet()
@@ -114,7 +115,7 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a Code set containing the list of strings given.
+     * Returns a code set containing the list of strings given.
      */
     public static Set<Code> getCodeSet(String... strings) {
         return Arrays.stream(strings)
