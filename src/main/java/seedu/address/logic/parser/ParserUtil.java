@@ -177,4 +177,16 @@ public class ParserUtil {
         }
         return codeList;
     }
+
+    /**
+     * Parses {@code Collection<String> corequisites} into a {@code Set<Code>}.
+     */
+    public static Set<Code> parseCorequisites(Collection<String> corequisites) throws ParseException {
+        requireNonNull(corequisites);
+        final Set<Code> corequisitesSet = new HashSet<>();
+        for (String corequisite : corequisites) {
+            corequisitesSet.add(parseCode(corequisite));
+        }
+        return corequisitesSet;
+    }
 }

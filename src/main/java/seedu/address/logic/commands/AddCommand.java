@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COREQUISITE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -23,15 +24,16 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_CODE + "CODE "
             + PREFIX_CREDITS + "CREDITS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_COREQUISITE + "COREQUISITE]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Programming Methodology "
-            + PREFIX_CODE + "CS1010 "
+            + PREFIX_NAME + "Data Structures and Algorithms "
+            + PREFIX_CODE + "CS2040C "
             + PREFIX_CREDITS + "4 "
-            + PREFIX_TAG + "programming "
-            + PREFIX_TAG + "algorithms "
-            + PREFIX_TAG + "c "
-            + PREFIX_TAG + "imperative";
+            + PREFIX_TAG + "linkedlist "
+            + PREFIX_TAG + "stack "
+            + PREFIX_TAG + "queue "
+            + PREFIX_COREQUISITE + "CS1010";
 
     public static final String MESSAGE_SUCCESS = "New module added: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the module list";
