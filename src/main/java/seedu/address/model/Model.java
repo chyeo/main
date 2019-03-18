@@ -248,6 +248,24 @@ public interface Model {
     void setRequirementCategory(RequirementCategory target, RequirementCategory editedRequirementCategory);
 
     /**
+     * Adds module to the given requirement category.
+     * {@code requirementCategoryModule} must not already exist in the requirementCategoryList.
+     */
+    void addModuleToRequirementCategory(RequirementCategory requirementCategoryModule);
+
+    /**
+     * Returns true if a module with the same identity as {@code requirementCategory} exists in the
+     * requirement category to be added to.
+     */
+    boolean isModuleInRequirementCategory(RequirementCategory requirementCategory);
+
+    /**
+     * Returns false if a module with the same identity as {@code requirementCategory} does not exists
+     * in the current moduleList.
+     */
+    boolean doesModuleExistInApplication(RequirementCategory requirementCategory, Model model);
+
+    /**
      * Returns an unmodifiable view of the filtered requirement list
      */
     ObservableList<RequirementCategory> getFilteredRequirementCategoryList();

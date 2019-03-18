@@ -291,6 +291,21 @@ public class AddCommandTest {
             //ToDo: implement error check
         }
 
+        @Override
+        public boolean isModuleInRequirementCategory(RequirementCategory requirementCategoryModule) {
+            return false;
+        }
+
+        @Override
+        public void addModuleToRequirementCategory(RequirementCategory requirementCategoryModule) {
+            //ToDo: implement error check
+        }
+
+        @Override
+        public boolean doesModuleExistInApplication(RequirementCategory requirementCategory, Model model) {
+            return false;
+        }
+
         @Override public ObservableList<RequirementCategory> getFilteredRequirementCategoryList() {
             return null;
         }

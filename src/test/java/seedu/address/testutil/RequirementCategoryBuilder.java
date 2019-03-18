@@ -10,7 +10,7 @@ import seedu.address.model.requirement.RequirementCategory;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Module objects.
+ * A utility class to help with building RequirementCategory objects.
  */
 public class RequirementCategoryBuilder {
 
@@ -28,16 +28,16 @@ public class RequirementCategoryBuilder {
     }
 
     /**
-     * Initializes the ModuleBuilder with the data of {@code moduleToCopy}.
+     * Initializes the RequirementCategoryBuilder with the data of {@code requirementCategoryToCopy}.
      */
     public RequirementCategoryBuilder(RequirementCategory requirementCategoryToCopy) {
         name = requirementCategoryToCopy.getName();
         credits = requirementCategoryToCopy.getCredits();
-        codeList = new HashSet<Code>(requirementCategoryToCopy.getCodeList());
+        codeList = new HashSet<>(requirementCategoryToCopy.getCodeList());
     }
 
     /**
-     * Sets the {@code Name} of the {@code Module} that we are building.
+     * Sets the {@code Name} of the {@code RequirementCategory} that we are building.
      */
     public RequirementCategoryBuilder withName(String name) {
         this.name = new Name(name);
@@ -45,15 +45,16 @@ public class RequirementCategoryBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Module} that we are building.
+     * Parses the {@code codeList} into a {@code Set<Code>} and set it to the {@code RequirementCategory} that we are
+     * building.
      */
-    public RequirementCategoryBuilder withCodes(String ... codes) {
-        this.codeList = SampleDataUtil.getCodeSet(codes);
+    public RequirementCategoryBuilder withCodes(Set<Code> codeList) {
+        this.codeList = SampleDataUtil.getCodeSet();
         return this;
     }
 
     /**
-     * Sets the {@code Credits} of the {@code Module} that we are building.
+     * Sets the {@code Credits} of the {@code RequirementCategory} that we are building.
      */
     public RequirementCategoryBuilder withCredits(String credits) {
         this.credits = new Credits(credits);

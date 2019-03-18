@@ -335,9 +335,9 @@ public class ModelManager implements Model {
     //=========== RequirementCategoryList Methods =================================================================
 
     @Override
-    public boolean hasRequirementCategory(RequirementCategory planner) {
-        requireNonNull(planner);
-        return versionedAddressBook.hasRequirementCategory(planner);
+    public boolean hasRequirementCategory(RequirementCategory requirementCategory) {
+        requireNonNull(requirementCategory);
+        return versionedAddressBook.hasRequirementCategory(requirementCategory);
     }
 
     @Override public void deleteRequirementCategory(RequirementCategory target) {
@@ -368,6 +368,24 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyProperty<RequirementCategory> selectedRequirementCategoryProperty() {
         return selectedRequirementCategory;
+    }
+
+    @Override
+    public void addModuleToRequirementCategory(RequirementCategory requirementCategoryModule) {
+        versionedAddressBook.addModuleToRequirementCategory(requirementCategoryModule);
+        updateFilteredRequirementCategoryList(PREDICATE_SHOW_ALL_REQUIREMENT_CATEGORIES);
+    }
+
+    @Override
+    public boolean isModuleInRequirementCategory(RequirementCategory requirementCategory) {
+        requireNonNull(requirementCategory);
+        return versionedAddressBook.isModuleInRequirementCategory(requirementCategory);
+    }
+
+    @Override
+    public boolean doesModuleExistInApplication(RequirementCategory requirementCategory, Model model) {
+        requireNonNull(requirementCategory);
+        return versionedAddressBook.doesModuleExistInApplication(requirementCategory, model);
     }
 
     @Override
