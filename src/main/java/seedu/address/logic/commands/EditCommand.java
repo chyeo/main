@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COREQUISITE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -39,7 +40,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_CODE + "CODE] "
             + "[" + PREFIX_CREDITS + "CREDITS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_COREQUISITE + "COREQUISITE]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CREDITS + "8 ";
 
@@ -95,8 +97,9 @@ public class EditCommand extends Command {
         Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
         Code updatedCode = editModuleDescriptor.getCode().orElse(moduleToEdit.getCode());
         Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
+        Set<Code> updatedCorequisites = editModuleDescriptor.getCorequisites().orElse(moduleToEdit.getCorequisites());
 
-        return new Module(updatedName, updatedCredits, updatedCode, updatedTags, null);
+        return new Module(updatedName, updatedCredits, updatedCode, updatedTags, updatedCorequisites);
     }
 
     @Override
@@ -126,6 +129,7 @@ public class EditCommand extends Command {
         private Credits credits;
         private Code code;
         private Set<Tag> tags;
+        private Set<Code> corequisites;
 
         public EditModuleDescriptor() {}
 
@@ -138,13 +142,14 @@ public class EditCommand extends Command {
             setCredits(toCopy.credits);
             setCode(toCopy.code);
             setTags(toCopy.tags);
+            setCorequisites(toCopy.corequisites);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, credits, code, tags);
+            return CollectionUtil.isAnyNonNull(name, credits, code, tags, corequisites);
         }
 
         public void setName(Name name) {
@@ -188,6 +193,23 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        /**
+         * Sets {@code corequisites} to this object's {@code corequisites}.
+         * A defensive copy of {@code corequisites} is used internally.
+         */
+        public void setCorequisites(Set<Code> corequisites) {
+            this.corequisites = (corequisites != null) ? new HashSet<>(corequisites) : null;
+        }
+
+        /**
+         * Returns an unmodifiable {@code Code} set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code corequisites} is null.
+         */
+        public Optional<Set<Code>> getCorequisites() {
+            return (corequisites != null) ? Optional.of(Collections.unmodifiableSet(corequisites)) : Optional.empty();
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -206,7 +228,8 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getCredits().equals(e.getCredits())
                     && getCode().equals(e.getCode())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getCorequisites().equals(e.getCorequisites());
         }
     }
 }
