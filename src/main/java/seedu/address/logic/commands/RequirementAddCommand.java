@@ -18,11 +18,11 @@ public class RequirementAddCommand extends Command {
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Adds a module to a requirement category. " + "Parameters: "
-                    + PREFIX_NAME + "NAME " +
-                    "[" + PREFIX_CODE + "CODE]...\n"
+                    + PREFIX_NAME + "NAME "
+                    + "[" + PREFIX_CODE + "CODE]...\n"
                     + "Example: " + COMMAND_WORD + " "
-                    + PREFIX_NAME +
-                    "IT Professionalism " + PREFIX_CODE + "IS4231 ";
+                    + PREFIX_NAME
+                    + "IT Professionalism " + PREFIX_CODE + "IS4231 ";
 
     public static final String MESSAGE_SUCCESS = "Module added to %1$s ";
     public static final String MESSAGE_REQUIREMENT_CATEGORY_DOES_NOT_EXIST =
