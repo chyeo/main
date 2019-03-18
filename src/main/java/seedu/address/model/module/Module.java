@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.model.tag.Tag;
 
@@ -116,7 +117,20 @@ public class Module {
                 .append(" Code: ")
                 .append(getCode())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
+
+        if (getTags().isEmpty()) {
+            builder.append("None");
+        } else {
+            getTags().forEach(builder::append);
+        }
+
+        builder.append(" Co-requisites: ");
+        if (getCorequisites().isEmpty()) {
+            builder.append("None");
+        } else {
+            builder.append(getCorequisites().stream().map(Code::toString).collect(Collectors.joining(", ")));
+        }
+
         return builder.toString();
     }
 
