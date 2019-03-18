@@ -2,8 +2,10 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
@@ -120,6 +122,18 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeModule(Module key) {
         modules.remove(key);
+
+        ObservableList<Module> moduleList = modules.asUnmodifiableObservableList();
+        for (Module module : moduleList) {
+            if (module.getCorequisites().contains(key.getCode())) {
+                Set<Code> editedCorequisites = new HashSet<>(module.getCorequisites());
+                editedCorequisites.remove(key.getCode());
+
+                Module editedModule = new Module(module.getName(), module.getCredits(), module.getCode(),
+                        module.getTags(), editedCorequisites);
+                modules.setModule(module, editedModule);
+            }
+        }
         indicateModified();
     }
 
