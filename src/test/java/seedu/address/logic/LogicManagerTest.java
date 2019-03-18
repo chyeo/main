@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalModules.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -21,13 +22,16 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.PlannerListAllCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.planner.DegreePlanner;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonDegreePlannerListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -78,6 +82,28 @@ public class LogicManagerTest {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
+    }
+
+    @Test
+    public void execute_validPlannerListCommand_success() {
+        String plannerListCommand = PlannerListAllCommand.COMMAND_WORD;
+        StringBuilder degreePlannerListContent = new StringBuilder();
+        for (DegreePlanner degreePlanner : model.getFilteredDegreePlannerList()) {
+            degreePlannerListContent
+                    .append("Year: " + degreePlanner.getYear() + " Semester: " + degreePlanner.getSemester() + "\n");
+            if (degreePlanner.getCodes().isEmpty()) {
+                degreePlannerListContent.append("No module inside");
+            } else {
+                degreePlannerListContent
+                        .append("Modules: " + degreePlanner.getCodes().stream().map(Code::toString).collect(
+                                Collectors.joining(", ")));
+            }
+            degreePlannerListContent.append("\n\n");
+        }
+        String expectedMessage =
+                String.format(PlannerListAllCommand.MESSAGE_SUCCESS, degreePlannerListContent.toString());
+        assertCommandSuccess(plannerListCommand, expectedMessage, model);
+        assertHistoryCorrect(plannerListCommand);
     }
 
     @Test
