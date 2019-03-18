@@ -81,7 +81,7 @@ public class ModuleListPanelTest extends GuiUnitTest {
             Name name = new Name(i + "a");
             Credits credits = new Credits("999");
             Code code = new Code("CS1010");
-            Module module = new Module(name, credits, code, Collections.emptySet());
+            Module module = new Module(name, credits, code, Collections.emptySet(), Collections.emptySet());
             backingList.add(module);
         }
         return backingList;

@@ -41,7 +41,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Code code = ParserUtil.parseCode(argMultimap.getValue(PREFIX_CODE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Module module = new Module(name, credits, code, tagList);
+        Module module = new Module(name, credits, code, tagList, null);
 
         return new AddCommand(module);
     }

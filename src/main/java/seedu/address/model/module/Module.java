@@ -22,16 +22,21 @@ public class Module {
     private final Name name;
     private final Credits credits;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Code> corequisites = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Module(Name name, Credits credits, Code code, Set<Tag> tags) {
+    public Module(Name name, Credits credits, Code code, Set<Tag> tags, Set<Code> corequisites) {
         requireAllNonNull(name, credits, code, tags);
         this.name = name;
         this.credits = credits;
         this.code = code;
         this.tags.addAll(tags);
+
+        if (corequisites != null) {
+            this.corequisites.addAll(corequisites);
+        }
     }
 
     public Name getName() {
@@ -52,6 +57,14 @@ public class Module {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable {@code Code} set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Code> getCorequisites() {
+        return Collections.unmodifiableSet(corequisites);
     }
 
     /**
@@ -84,13 +97,14 @@ public class Module {
         return otherModule.getName().equals(getName())
                 && otherModule.getCredits().equals(getCredits())
                 && otherModule.getCode().equals(getCode())
-                && otherModule.getTags().equals(getTags());
+                && otherModule.getTags().equals(getTags())
+                && otherModule.getCorequisites().equals(getCorequisites());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, credits, code, tags);
+        return Objects.hash(name, credits, code, tags, corequisites);
     }
 
     @Override

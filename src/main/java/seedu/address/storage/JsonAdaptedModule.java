@@ -90,7 +90,7 @@ class JsonAdaptedModule {
         final Code modelCode = new Code(code);
 
         final Set<Tag> modelTags = new HashSet<>(moduleTags);
-        return new Module(modelName, modelCredits, modelCode, modelTags);
+        return new Module(modelName, modelCredits, modelCode, modelTags, null);
     }
 
 }

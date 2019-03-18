@@ -74,7 +74,7 @@ public class ModuleBuilder {
     }
 
     public Module build() {
-        return new Module(name, credits, code, tags);
+        return new Module(name, credits, code, tags, null);
     }
 
 }
