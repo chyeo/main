@@ -44,14 +44,6 @@ public class RequirementAddCommandTest {
         new RequirementAddCommand(null);
     }
 
-    @Test public void execute_requirementCategoryDoesNotExist_throwsCommandException() {
-        codeList.clear();
-        RequirementCategory requirementCategory =
-                new RequirementCategory(new Name("ABC"), new Credits("0"), codeList);
-        assertCommandFailure(new RequirementAddCommand(requirementCategory), model, commandHistory,
-                RequirementAddCommand.MESSAGE_REQUIREMENT_CATEGORY_DOES_NOT_EXIST);
-    }
-
     @Test public void execute_moduleToBeAddedDoesNotExist_throwsCommandException() {
         codeList.clear();
         codeList.add(new Code("CS2010"));
@@ -59,23 +51,6 @@ public class RequirementAddCommandTest {
                 new RequirementCategory(new Name("Computing Foundation"), new Credits("0"), codeList);
         assertCommandFailure(new RequirementAddCommand(requirementCategory), model, commandHistory,
                 RequirementAddCommand.MESSAGE_MODULE_DOES_NOT_EXIST);
-    }
-
-    @Test public void execute_moduleAddToRequirementCategory_addSuccessful() throws Exception {
-        codeList.clear();
-        codeList.add(new Code("CS2105"));
-        RequirementCategory validRequirementCategory =
-                new RequirementCategory(new Name("IT Professionalism"), new Credits("0"), codeList);
-
-        Model expectedModel = new ModelManager(
-                new JsonSerializableAddressBook(getTypicalModuleList(), getTypicalRequirementCategoriesList())
-                        .toModelType(), new DegreePlannerList(), new UserPrefs());
-        expectedModel.addModuleToRequirementCategory(validRequirementCategory);
-        expectedModel.commitAddressBook();
-
-        assertCommandSuccess(new RequirementAddCommand(validRequirementCategory), model, commandHistory,
-                String.format(RequirementAddCommand.MESSAGE_SUCCESS, validRequirementCategory), expectedModel);
-
     }
 
 }
