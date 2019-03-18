@@ -21,35 +21,40 @@ public class SampleDataUtil {
             new Name("Programming Methodology"),
             new Credits("4"),
             new Code("CS1010"),
-            getTagSet("programming", "algorithms", "c", "imperative")
+            getTagSet("programming", "algorithms", "c", "imperative"),
+            getCodeSet()
     );
 
     private static final Module CS1231 = new Module(
             new Name("Discrete Structures"),
             new Credits("4"),
             new Code("CS1231"),
-            getTagSet("math", "logic", "proving")
+            getTagSet("math", "logic", "proving"),
+            getCodeSet()
     );
 
     private static final Module CS2040C = new Module(
             new Name("Data Structures and Algorithms"),
             new Credits("4"),
             new Code("CS2040C"),
-            getTagSet("linkedlist", "stack", "queue", "hashtable", "heap", "avltree", "graph", "sssp")
+            getTagSet("linkedlist", "stack", "queue", "hashtable", "heap", "avltree", "graph", "sssp"),
+            getCodeSet()
     );
 
     private static final Module CS2100 = new Module(
             new Name("Computer Organisation"),
             new Credits("4"),
             new Code("CS2100"),
-            getTagSet("boolean", "mips", "assembly", "circuit", "flipflop", "pipelining", "cache")
+            getTagSet("boolean", "mips", "assembly", "circuit", "flipflop", "pipelining", "cache"),
+            getCodeSet()
     );
 
     private static final Module CS2102 = new Module(
             new Name("Database Systems"),
             new Credits("4"),
             new Code("CS2102"),
-            getTagSet("database", "rdbms", "entity", "sql", "normalisation")
+            getTagSet("database", "rdbms", "entity", "sql", "normalisation"),
+            getCodeSet()
     );
 
     private static final RequirementCategory COMPUTING_FOUNDATION = new RequirementCategory(

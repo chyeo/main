@@ -4,36 +4,43 @@
     "name" : "Alice Pauline",
     "credits" : "0",
     "code" : "CS1010",
-    "tagged" : [ "friends" ]
+    "tagged" : [ "friends" ],
+    "corequisites": [ ]
   }, {
     "name" : "Benson Meier",
     "credits" : "1",
     "code" : "CS1231",
-    "tagged" : [ "owesMoney", "friends" ]
+    "tagged" : [ "owesMoney", "friends" ],
+    "corequisites": [ ]
   }, {
     "name" : "Carl Kurz",
     "credits" : "2",
     "code" : "CS2040C",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "corequisites": [ ]
   }, {
     "name" : "Daniel Meier",
     "credits" : "3",
     "code" : "CS2100",
-    "tagged" : [ "friends" ]
+    "tagged" : [ "friends" ],
+    "corequisites": [ ]
   }, {
     "name" : "Elle Meyer",
     "credits" : "4",
     "code" : "CS2101",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "corequisites": [ ]
   }, {
     "name" : "Fiona Kunz",
     "credits" : "5",
     "code" : "CS2102",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "corequisites": [ "CS1231" ]
   }, {
     "name" : "George Best",
     "credits" : "6",
     "code" : "CS2105",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "corequisites": [  ]
   } ]
 }

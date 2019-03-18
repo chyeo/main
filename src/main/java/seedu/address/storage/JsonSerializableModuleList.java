@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 
 /**
@@ -21,6 +22,10 @@ import seedu.address.model.module.Module;
 class JsonSerializableModuleList {
 
     public static final String MESSAGE_DUPLICATE_MODULE = "Modules list contains duplicate module(s).";
+    public static final String MESSAGE_INVALID_COREQUISITE =
+            "The module code (%1$s) cannot be a co-requisite of itself!";
+    public static final String MESSAGE_NON_EXISTENT_COREQUISITE =
+            "The corequisite module code (%1$s) does not exists in the module list";
 
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
 
@@ -53,6 +58,14 @@ class JsonSerializableModuleList {
             Module module = jsonAdaptedModule.toModelType();
             if (addressBook.hasModule(module)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
+            }
+
+            for (Code corequisite : module.getCorequisites()) {
+                if (module.getCode().equals(corequisite)) {
+                    throw new IllegalValueException(String.format(MESSAGE_INVALID_COREQUISITE, corequisite));
+                } else if (!addressBook.hasModuleCode(corequisite)) {
+                    throw new IllegalValueException(String.format(MESSAGE_NON_EXISTENT_COREQUISITE, corequisite));
+                }
             }
             addressBook.addModule(module);
         }
