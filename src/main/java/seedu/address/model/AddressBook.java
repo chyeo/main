@@ -8,6 +8,7 @@ import java.util.Objects;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.requirement.RequirementCategory;
@@ -82,6 +83,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasModule(Module module) {
         requireNonNull(module);
         return modules.contains(module);
+    }
+
+    /**
+     * Returns true if a {@code Module} with the specified {@code Code} exists in the address book.
+     */
+    public boolean hasModuleCode(Code code) {
+        requireNonNull(code);
+        return modules.asUnmodifiableObservableList().stream().anyMatch((module) -> module.getCode().equals(code));
     }
 
     /**

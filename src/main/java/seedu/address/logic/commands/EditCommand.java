@@ -48,6 +48,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the address book.";
+    public static final String MESSAGE_INVALID_COREQUISITE =
+            "The module code (%1$s) cannot be a co-requisite of itself!";
+    public static final String MESSAGE_NON_EXISTENT_COREQUISITE =
+            "The corequisite module code (%1$s) does not exists in the module list";
 
     private final Index index;
     private final EditModuleDescriptor editModuleDescriptor;
@@ -78,6 +82,13 @@ public class EditCommand extends Command {
 
         if (!moduleToEdit.isSameModule(editedModule) && model.hasModule(editedModule)) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
+        }
+        for (Code corequisite : editedModule.getCorequisites()) {
+            if (moduleToEdit.getCode().equals(corequisite)) {
+                throw new CommandException(String.format(MESSAGE_INVALID_COREQUISITE, corequisite));
+            } else if (!model.hasModuleCode(corequisite)) {
+                throw new CommandException(String.format(MESSAGE_NON_EXISTENT_COREQUISITE, corequisite));
+            }
         }
 
         model.setModule(moduleToEdit, editedModule);

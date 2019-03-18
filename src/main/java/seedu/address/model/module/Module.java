@@ -29,15 +29,12 @@ public class Module {
      * Every field must be present and not null.
      */
     public Module(Name name, Credits credits, Code code, Set<Tag> tags, Set<Code> corequisites) {
-        requireAllNonNull(name, credits, code, tags);
+        requireAllNonNull(name, credits, code, tags, corequisites);
         this.name = name;
         this.credits = credits;
         this.code = code;
         this.tags.addAll(tags);
-
-        if (corequisites != null) {
-            this.corequisites.addAll(corequisites);
-        }
+        this.corequisites.addAll(corequisites);
     }
 
     public Name getName() {

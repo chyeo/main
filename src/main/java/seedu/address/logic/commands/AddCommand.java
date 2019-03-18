@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 
 /**
@@ -37,6 +38,8 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New module added: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the module list";
+    public static final String MESSAGE_NON_EXISTENT_COREQUISITE =
+            "The corequisite module code (%1$s) does not exists in the module list";
 
     private final Module toAdd;
 
@@ -54,6 +57,12 @@ public class AddCommand extends Command {
 
         if (model.hasModule(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
+        }
+
+        for (Code corequisite : toAdd.getCorequisites()) {
+            if (!model.hasModuleCode(corequisite)) {
+                throw new CommandException(String.format(MESSAGE_NON_EXISTENT_COREQUISITE, corequisite));
+            }
         }
 
         model.addModule(toAdd);
