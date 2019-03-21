@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showModuleAtIndex;
+import static seedu.address.testutil.TypicalDegreePlanners.getTypicalDegreePlannerList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static seedu.address.testutil.TypicalModules.getTypicalModuleList;
 import static seedu.address.testutil.TypicalRequirementCategories.getTypicalRequirementCategoriesList;
@@ -11,7 +12,6 @@ import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.DegreePlannerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -30,11 +30,10 @@ public class ListCommandTest {
     public void setUp() throws IllegalValueException {
         //ToDo: Implement getTypicalDegreePlannerList for DegreePlannerList and update the codes below
         model = new ModelManager(
-                new JsonSerializableAddressBook(getTypicalModuleList(), getTypicalRequirementCategoriesList())
-                        .toModelType(), new DegreePlannerList(),
-                new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), model.getDegreePlannerList(),
-                new UserPrefs());
+                new JsonSerializableAddressBook(getTypicalModuleList(), getTypicalDegreePlannerList(),
+                        getTypicalRequirementCategoriesList())
+                        .toModelType(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
     }
 
     @Test
