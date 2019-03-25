@@ -54,7 +54,7 @@
             <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <StackPane fx:id="degreePlannerListPanelPlaceholder" prefWidth="340" >
+          <StackPane id="plannerStackPane" fx:id="degreePlannerListPanelPlaceholder" prefWidth="340" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
