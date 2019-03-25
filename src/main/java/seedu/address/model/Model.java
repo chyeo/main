@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Name;
 import seedu.address.model.planner.DegreePlanner;
 import seedu.address.model.requirement.RequirementCategory;
 
@@ -204,16 +205,22 @@ public interface Model {
     ///// RequirementCategory Methods
 
     /**
-     * Returns true if a requirement with the code as {@code requirement} exists in the
+     * Returns true if a requirement with the name as {@code requirement} exists in the
+     * requirement list.
+     */
+    boolean hasRequirementCategory(Name requirementCategoryName);
+
+    /**
+     * Returns true if a requirement with the name as {@code requirement} exists in the
      * requirement list.
      */
     boolean hasRequirementCategory(RequirementCategory requirementCategory);
 
     /**
-     * Deletes the given requirement.
-     * The requirement must exist in the address book.
+     * Returns true if a requirement with the code as {@code requirement} exists in the
+     * requirement list.
      */
-    void deleteRequirementCategory(RequirementCategory target);
+    RequirementCategory getRequirementCategory(Name requirementCategoryName);
 
     /**
      * Adds the given requirement.
@@ -229,24 +236,6 @@ public interface Model {
      * requirement list.
      */
     void setRequirementCategory(RequirementCategory target, RequirementCategory editedRequirementCategory);
-
-    /**
-     * Adds module to the given requirement category.
-     * {@code requirementCategoryModule} must not already exist in the requirementCategoryList.
-     */
-    void addModuleToRequirementCategory(RequirementCategory requirementCategoryModule);
-
-    /**
-     * Returns true if a module with the same identity as {@code requirementCategory} exists in the
-     * requirement category to be added to.
-     */
-    boolean isModuleInRequirementCategory(RequirementCategory requirementCategory);
-
-    /**
-     * Returns false if a module with the same identity as {@code requirementCategory} does not exists
-     * in the current moduleList.
-     */
-    boolean doesModuleExistInApplication(RequirementCategory requirementCategory, Model model);
 
     /**
      * Returns an unmodifiable view of the filtered requirement list

@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Name;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.planner.DegreePlanner;
 import seedu.address.model.planner.UniqueDegreePlannerList;
@@ -192,12 +193,30 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// requirement-level operations
 
     /**
-     * Returns true if an requirement with the same identity as {@code requirement} exists in the
-     * requirement.
+     * Returns true if a requirement with the name as {@code requirement} exists in the
+     * requirement list.
+     */
+    public boolean hasRequirementCategory(Name requirementCategoryName) {
+        requireNonNull(requirementCategoryName);
+        return requirementCategories.contains(requirementCategoryName);
+    }
+
+    /**
+     * Returns true if a requirement object {@code requirement} exists in the
+     * requirement list.
      */
     public boolean hasRequirementCategory(RequirementCategory requirementCategory) {
         requireNonNull(requirementCategory);
         return requirementCategories.contains(requirementCategory);
+    }
+
+    /**
+     * Returns true if an requirement with the same identity as {@code requirement} exists in the
+     * requirement.
+     */
+    public RequirementCategory getRequirementCategory(Name requirementCategoryName) {
+        requireNonNull(requirementCategoryName);
+        return requirementCategories.getRequirementCategory(requirementCategoryName);
     }
 
     /**
@@ -227,34 +246,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeRequirementCategory(RequirementCategory key) {
         requirementCategories.remove(key);
-    }
-
-    /**
-     * Adds module to the given requirement category.
-     * {@code requirementCategoryModule} must not already exist in the requirementCategoryList.
-     */
-    public void addModuleToRequirementCategory(RequirementCategory requirementCategoryModule) {
-        requireNonNull(requirementCategoryModule);
-        requirementCategories.addModuleToRequirementCategory(requirementCategoryModule);
-    }
-
-    /**
-     * Returns true if a module with the same identity as {@code requirementCategory} exists in the
-     * requirement category to be added to.
-     */
-    public boolean isModuleInRequirementCategory(RequirementCategory requirementCategory) {
-        requireNonNull(requirementCategory);
-        return requirementCategories.isModuleInRequirementCategory(requirementCategory);
-    }
-
-    /**
-     * Returns false if a module with the same identity as {@code requirementCategory} does not exists
-     * in the current moduleList.
-     */
-    //TODO refine this method to use methods in PR#91
-    public boolean doesModuleExistInApplication(RequirementCategory requirementCategory, Model model) {
-        requireNonNull(requirementCategory);
-        return requirementCategories.doesModuleExistInApplication(requirementCategory, model);
     }
 
     //// listener methods

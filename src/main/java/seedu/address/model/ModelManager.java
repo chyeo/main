@@ -17,6 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Name;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.planner.DegreePlanner;
 import seedu.address.model.requirement.RequirementCategory;
@@ -311,13 +312,21 @@ public class ModelManager implements Model {
     //=========== RequirementCategoryList Methods =================================================================
 
     @Override
+    public boolean hasRequirementCategory(Name requirementCategoryName) {
+        requireNonNull(requirementCategoryName);
+        return versionedAddressBook.hasRequirementCategory(requirementCategoryName);
+    }
+
+    @Override
     public boolean hasRequirementCategory(RequirementCategory requirementCategory) {
         requireNonNull(requirementCategory);
         return versionedAddressBook.hasRequirementCategory(requirementCategory);
     }
 
-    @Override public void deleteRequirementCategory(RequirementCategory target) {
-        versionedAddressBook.removeRequirementCategory(target);
+    @Override
+    public RequirementCategory getRequirementCategory(Name requirementCategoryName) {
+        requireNonNull(requirementCategoryName);
+        return versionedAddressBook.getRequirementCategory(requirementCategoryName);
     }
 
     @Override public void addRequirementCategory(RequirementCategory requirementCategory) {
@@ -344,24 +353,6 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyProperty<RequirementCategory> selectedRequirementCategoryProperty() {
         return selectedRequirementCategory;
-    }
-
-    @Override
-    public void addModuleToRequirementCategory(RequirementCategory requirementCategoryModule) {
-        versionedAddressBook.addModuleToRequirementCategory(requirementCategoryModule);
-        updateFilteredRequirementCategoryList(PREDICATE_SHOW_ALL_REQUIREMENT_CATEGORIES);
-    }
-
-    @Override
-    public boolean isModuleInRequirementCategory(RequirementCategory requirementCategory) {
-        requireNonNull(requirementCategory);
-        return versionedAddressBook.isModuleInRequirementCategory(requirementCategory);
-    }
-
-    @Override
-    public boolean doesModuleExistInApplication(RequirementCategory requirementCategory, Model model) {
-        requireNonNull(requirementCategory);
-        return versionedAddressBook.doesModuleExistInApplication(requirementCategory, model);
     }
 
     @Override
