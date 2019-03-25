@@ -158,6 +158,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void editModule(Module target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
+
+        versionedAddressBook.editModule(target, editedModule);
+    }
+
+    @Override
     public void setModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
 
