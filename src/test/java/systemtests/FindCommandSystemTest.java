@@ -1,9 +1,13 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_MODULES_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.OPERATOR_AND;
+import static seedu.address.logic.parser.CliSyntax.OPERATOR_LEFT_BRACKET;
 import static seedu.address.logic.parser.CliSyntax.OPERATOR_OR;
+import static seedu.address.logic.parser.CliSyntax.OPERATOR_RIGHT_BRACKET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -194,7 +198,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void multiFind() {
-        /* Case: find module with name daniel, code 'CS1231' and credits '95352563'-> 3 modules return */
+        /* Case: find module with name daniel, code 'CS1231' and credits '2'-> 3 modules return */
         String command =
                 FindCommand.COMMAND_WORD + " " + PREFIX_NAME + "Daniel " + OPERATOR_OR + " " + PREFIX_CODE + "CS1231 "
                         + OPERATOR_OR + " " + PREFIX_CREDITS + "2";
@@ -234,6 +238,74 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
+    }
+
+    @Test
+    public void multiBooleanAndFind() {
+
+        /* Case: Find module name which contain both Daniel and Meier -> Return exactly 1 module
+          e.g. find ( name/Daniel && name/Meier )
+        */
+        String command = FindCommand.COMMAND_WORD + " ( " + PREFIX_NAME + "Daniel " + OPERATOR_AND + " "
+                + PREFIX_NAME + "Meier )";
+        Model expectedModel = getModel();
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        assertCommandSuccess(command, expectedModel);
+
+        /* Case: Find module name which contain both Daniel and Meier -> Return exactly 1 module
+          e.g. find name/Daniel && name/Meier
+        */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + "Daniel " + OPERATOR_AND + " "
+                + PREFIX_NAME + "Meier";
+        expectedModel = getModel();
+        assertCommandSuccess(command, expectedModel);
+
+        /* Case: Find module code which contain CS1231 and CS2100 -> Return exactly 0 module */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CODE + "CS2100 " + OPERATOR_AND + " " + PREFIX_CODE
+                + "CS1231";
+        expectedModel = getModel();
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+
+        /* Case: Find module credits that are 4 and 0 -> Return exactly 0 module */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_CREDITS + "4 " + OPERATOR_AND + " " + PREFIX_CREDITS
+                + "0";
+        expectedModel = getModel();
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+    }
+
+    @Test
+    public void complexMultiFind() {
+        /*  find code/CS2102 || ( name/Daniel && name/Meier )  -> Return 2 modules */
+        String command =
+                FindCommand.COMMAND_WORD + " " + PREFIX_CODE + "CS2040C" + " " + OPERATOR_OR + " "
+                        + OPERATOR_LEFT_BRACKET + PREFIX_NAME + "Daniel " + OPERATOR_AND + " "
+                        + PREFIX_NAME + "Meier " + OPERATOR_RIGHT_BRACKET;
+        Model expectedModel = getModel();
+        ModelHelper.setFilteredList(expectedModel, DANIEL, CARL);
+        assertCommandSuccess(command, expectedModel);
+    }
+
+    @Test
+    public void negativeTest() {
+        // invalid operator
+        String command = FindCommand.COMMAND_WORD + " name/Programming !! code/CS1231";
+        assertCommandFailure(command, String.format(FindCommand.MESSAGE_INVALID_EXPRESSION, FindCommand.MESSAGE_USAGE));
+        // invalid operator
+        command = FindCommand.COMMAND_WORD + " name/Programming ## code/CS1231";
+        assertCommandFailure(command, String.format(FindCommand.MESSAGE_INVALID_EXPRESSION, FindCommand.MESSAGE_USAGE));
+        // valid + invalid prefix
+        command = FindCommand.COMMAND_WORD + " name/Programming " + OPERATOR_OR + " nonExisting/CS1231";
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        // single invalid prefix
+        command = FindCommand.COMMAND_WORD + " nonExisting/CS1231";
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        // single invalid prefix with multiple white space
+        command = FindCommand.COMMAND_WORD + "                          nonExisting/CS1231                ";
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+
+
     }
 
     /**
