@@ -29,6 +29,9 @@ public class FindCommand extends Command {
             + "[" + PREFIX_CREDITS + "CREDITS credits ...]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "Programming Methodology\n";
 
+    public static final String MESSAGE_INVALID_EXPRESSION =
+            "Invalid command format! (Filter expression is invalid) \n%1$s ";
+
     private final Predicate<Module> predicate;
 
     public FindCommand(Predicate<Module> predicate) {
