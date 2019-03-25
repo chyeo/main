@@ -11,7 +11,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,17 +33,20 @@ import seedu.address.logic.commands.PlannerListAllCommand;
 import seedu.address.logic.commands.PlannerMoveCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RequirementListCommand;
+import seedu.address.logic.commands.RequirementRemoveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Name;
 import seedu.address.model.module.NameContainsKeywordsPredicate;
 import seedu.address.model.planner.Semester;
 import seedu.address.model.planner.Year;
 import seedu.address.testutil.EditModuleDescriptorBuilder;
 import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.ModuleUtil;
+import seedu.address.testutil.RequirementUtil;
 
 public class AddressBookParserTest {
     @Rule
@@ -141,6 +146,16 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_requirementList() throws Exception {
         assertTrue(parser.parseCommand(RequirementListCommand.COMMAND_WORD) instanceof RequirementListCommand);
+    }
+
+    @Test
+    public void parseCommand_requirementRemove() throws Exception {
+        Name name = new Name("Computing Foundation");
+        Set<Code> codeSet = new HashSet<>();
+        codeSet.add(new Code("CS1010"));
+        RequirementRemoveCommand command = (RequirementRemoveCommand)
+                parser.parseCommand(RequirementUtil.getRequirementRemoveCommand(name, codeSet));
+        assertEquals(new RequirementRemoveCommand(name, codeSet), command);
     }
 
     @Test
