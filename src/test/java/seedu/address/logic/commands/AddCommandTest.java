@@ -22,7 +22,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyDegreePlannerList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
@@ -228,11 +227,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public ReadOnlyDegreePlannerList getDegreePlannerList() {
-            return null;
-        }
-
         @Override public boolean hasDegreePlanner(DegreePlanner degreePlanner) {
             return false;
         }
@@ -254,28 +248,6 @@ public class AddCommandTest {
         }
 
         @Override public void updateFilteredDegreePlannerList(Predicate<DegreePlanner> predicate) {
-            //ToDo: implement error check
-        }
-
-        @Override public boolean canUndoDegreePlannerList() {
-            //ToDo: implement AssertionError
-            return false;
-        }
-
-        @Override public boolean canRedoDegreePlannerList() {
-            //ToDo: implement error check
-            return false;
-        }
-
-        @Override public void undoDegreePlannerList() {
-            //ToDo: implement error check
-        }
-
-        @Override public void redoDegreePlannerList() {
-            //ToDo: implement error check
-        }
-
-        @Override public void commitDegreePlannerList() {
             //ToDo: implement error check
         }
 
