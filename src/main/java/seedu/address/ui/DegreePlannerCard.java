@@ -50,7 +50,6 @@ public class DegreePlannerCard extends UiPart<Region> {
 
         degreePlannerListView.setItems(modules);
         degreePlannerCardPane.setOnMouseClicked(null);
-        degreePlannerCardPane.setPrefHeight(120);
     }
 
     @Override
