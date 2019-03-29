@@ -12,6 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credits;
 import seedu.address.model.module.Name;
+import seedu.address.model.planner.Semester;
+import seedu.address.model.planner.Year;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -79,6 +81,36 @@ public class ParserUtil {
             throw new ParseException(Code.MESSAGE_CONSTRAINTS);
         }
         return new Code(trimmedCode);
+    }
+
+    /**
+     * Parses a {@code String year} into an {@code Year}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code year} is invalid.
+     */
+    public static Year parseYear(String year) throws ParseException {
+        requireNonNull(year);
+        String trimmedYear = year.trim();
+        if (!Year.isValidYear(trimmedYear)) {
+            throw new ParseException(Year.MESSAGE_YEAR_CONSTRAINTS);
+        }
+        return new Year(trimmedYear);
+    }
+
+    /**
+     * Parses a {@code String semester} into an {@code Semester}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code year} is invalid.
+     */
+    public static Semester parseSemester(String semester) throws ParseException {
+        requireNonNull(semester);
+        String trimmedSemester = semester.trim();
+        if (!Semester.isValidSemester(trimmedSemester)) {
+            throw new ParseException(Semester.MESSAGE_SEMESTER_CONSTRAINTS);
+        }
+        return new Semester(trimmedSemester);
     }
 
     /**
