@@ -13,17 +13,13 @@ import java.util.Deque;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.module.Code;
 import seedu.address.model.module.CodeContainsKeywordsPredicate;
-import seedu.address.model.module.Credits;
 import seedu.address.model.module.CreditsContainsKeywordsPredicate;
 import seedu.address.model.module.KeywordsPredicate;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.Name;
 import seedu.address.model.module.NameContainsKeywordsPredicate;
 
 /**
@@ -38,20 +34,14 @@ public class BooleanExpressionParser {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CODE, PREFIX_CREDITS);
         KeywordsPredicate predicate = null;
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            String[] nameArgs = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
-            List<String> nameKeywords = ParserUtil.parseMultiNames(nameArgs).stream().map(Name::toString)
-                    .collect(Collectors.toList());
-            predicate = new NameContainsKeywordsPredicate(nameKeywords);
+            String nameKeyword = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()).toString();
+            predicate = new NameContainsKeywordsPredicate(List.of(nameKeyword));
         } else if (argMultimap.getValue(PREFIX_CODE).isPresent()) {
-            String[] codeArgs = argMultimap.getValue(PREFIX_CODE).get().split("\\s+");
-            List<String> codeKeywords = ParserUtil.parseMultiCodes(codeArgs).stream().map(Code::toString)
-                    .collect(Collectors.toList());
-            predicate = new CodeContainsKeywordsPredicate(codeKeywords);
+            String codeKeyword = ParserUtil.parseCode(argMultimap.getValue(PREFIX_CODE).get()).toString();
+            predicate = new CodeContainsKeywordsPredicate(List.of(codeKeyword));
         } else if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
-            String[] creditsArgs = argMultimap.getValue(PREFIX_CREDITS).get().split("\\s+");
-            List<String> creditKeywords = ParserUtil.parseMultiCredits(creditsArgs).stream()
-                    .map(Credits::toString).collect(Collectors.toList());
-            predicate = new CreditsContainsKeywordsPredicate(creditKeywords);
+            String creditKeyword = ParserUtil.parseCredits(argMultimap.getValue(PREFIX_CREDITS).get()).toString();
+            predicate = new CreditsContainsKeywordsPredicate(List.of(creditKeyword));
         } else {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
