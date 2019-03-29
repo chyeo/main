@@ -20,6 +20,7 @@ import seedu.address.logic.commands.PlannerListAllCommand;
 import seedu.address.logic.commands.PlannerMoveCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RequirementAddCommand;
+import seedu.address.logic.commands.RequirementListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -74,6 +75,9 @@ public class AddressBookParser {
 
         case RequirementAddCommand.COMMAND_WORD:
             return new RequirementAddCommandParser().parse(arguments);
+
+        case RequirementListCommand.COMMAND_WORD:
+            return new RequirementListCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

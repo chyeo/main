@@ -168,6 +168,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Module getModuleByCode(Code code) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasModuleCode(Code code) {
             throw new AssertionError("This method should not be called.");
         }

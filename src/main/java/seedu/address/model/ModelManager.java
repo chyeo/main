@@ -142,6 +142,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Module getModuleByCode(Code code) {
+        requireNonNull(code);
+        return versionedAddressBook.getModuleByCode(code);
+    }
+
+    @Override
     public boolean hasModuleCode(Code code) {
         requireNonNull(code);
         return versionedAddressBook.hasModuleCode(code);

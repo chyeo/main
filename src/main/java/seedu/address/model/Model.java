@@ -84,12 +84,17 @@ public interface Model {
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
     /**
-     * Returns true if a module with the same identity as {@code module} exists in the address book.
+     * Returns true if a module with the same identity as {@code module} exists in the application.
      */
     boolean hasModule(Module module);
 
     /**
-     * Returns true if a {@code Module} with the specified {@code Code} exists in the address book.
+     * Returns a module object if a module with the same module code as {@code code} exists in the application.
+     */
+    Module getModuleByCode(Code code);
+
+    /**
+     * Returns true if a {@code Module} with the specified {@code Code} exists in the application.
      */
     boolean hasModuleCode(Code code);
 
