@@ -31,11 +31,7 @@ import seedu.address.model.module.NameContainsKeywordsPredicate;
  */
 public class BooleanExpressionParser {
 
-    private static final String LEFT_BRACKET = "(";
-    private static final String RIGHT_BRACKET = ")";
     private static final String WHITESPACE = " ";
-    private static final String BOOLEAN_OR = "||";
-    private static final String BOOLEAN_AND = "&&";
 
     private static KeywordsPredicate getKeywordsPredicate(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -82,7 +78,7 @@ public class BooleanExpressionParser {
             while (tokenizer.hasMoreTokens()) {
                 String currentToken = tokenizer.nextToken();
                 switch (currentToken) {
-                case LEFT_BRACKET:
+                case CliSyntax.OPERATOR_LEFT_BRACKET:
                     if (isNotExpectingLeftBracket) {
                         throw new ParseException(
                                 String.format(FindCommand.MESSAGE_INVALID_EXPRESSION, FindCommand.MESSAGE_USAGE));
@@ -91,15 +87,15 @@ public class BooleanExpressionParser {
                         isNotExpectingLeftBracket = false;
                     }
                     break;
-                case RIGHT_BRACKET:
+                case CliSyntax.OPERATOR_RIGHT_BRACKET:
                     while (operatorStack.peek() != Operator.LEFT_BRACKET) {
                         output.push(applyOperator(operatorStack.pop(), output.pop(), output.pop()));
                     }
                     operatorStack.pop();
                     isNotExpectingLeftBracket = true;
                     break;
-                case BOOLEAN_OR: // Fallthrough
-                case BOOLEAN_AND:
+                case CliSyntax.OPERATOR_OR: // Fallthrough
+                case CliSyntax.OPERATOR_AND:
                     while (!operatorStack.isEmpty()
                             && hasHigherPrecedence(operatorStack.peek(), getOperatorFromString(currentToken))) {
                         output.push(applyOperator(operatorStack.pop(), output.pop(), output.pop()));
