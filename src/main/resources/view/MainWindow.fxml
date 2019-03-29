@@ -47,14 +47,22 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="moduleList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="moduleList" maxWidth="400" minWidth="310" prefWidth="300" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <StackPane id="plannerStackPane" fx:id="degreePlannerListPanelPlaceholder" prefWidth="340" >
+          <VBox fx:id="requirementCategories" maxWidth="400" minWidth="200" prefWidth="200">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="requirementCategoryListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
+          <StackPane id="plannerStackPane" fx:id="degreePlannerListPanelPlaceholder" prefWidth="120"
+                     VBox.vgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
