@@ -12,7 +12,6 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -69,11 +68,11 @@ public class BooleanExpressionParser {
      * This parse method make use of the shunting yard algorithm to convert in-fix to post fix then evaluate
      * the expression.
      *
-     * @param args the user provided argument
+     * @param stringToTokenize the user provided argument
      * @return a composite predicate
      */
-    public static Predicate<Module> parse(String args) throws ParseException {
-        StringTokenizer tokenizer = new StringTokenizer(args);
+    public static Predicate<Module> parse(String stringToTokenize, List<Prefix> prefixes) throws ParseException {
+        BooleanExpressionTokenizer tokenizer = new BooleanExpressionTokenizer(stringToTokenize, prefixes);
 
         Deque<Predicate<Module>> output = new ArrayDeque<>();
         Deque<Operator> operatorStack = new ArrayDeque<>();
