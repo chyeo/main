@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private DegreePlannerListPanel degreePlannerListPanel;
     private ModuleListPanel moduleListPanel;
+    private RequirementCategoryListPanel requirementCategoryListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -54,6 +55,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane requirementCategoryListPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -129,6 +133,10 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        requirementCategoryListPanel = new RequirementCategoryListPanel(logic.getFilteredRequirementCategoryList(),
+                logic.getAddressBook().getModuleList());
+        requirementCategoryListPanelPlaceholder.getChildren().add(requirementCategoryListPanel.getRoot());
+
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -182,6 +190,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public DegreePlannerListPanel getDegreePlannerListPanel() {
         return degreePlannerListPanel;
+    }
+
+    public RequirementCategoryListPanel getRequirementCategoryListPanel() {
+        return requirementCategoryListPanel;
     }
 
     /**
