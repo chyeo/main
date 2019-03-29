@@ -180,6 +180,11 @@ public interface Model {
     boolean hasDegreePlanner(DegreePlanner degreePlanner);
 
     /**
+     * Return the degree planner which contains the given {@code code}, otherwise returns null.
+     */
+    DegreePlanner getDegreePlannerByCode(Code code);
+
+    /**
      * Deletes the given degreePlanner.
      * The degreePlanner must exist in the degreePlaner list.
      */

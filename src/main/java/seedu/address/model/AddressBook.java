@@ -264,6 +264,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Return the degree planner which contains the given {@code code}, otherwise returns null.
+     */
+    public DegreePlanner getDegreePlannerByCode(Code code) {
+        requireNonNull(code);
+        return degreePlanners.getDegreePlannerByCode(code);
+    }
+
+    /**
      * Adds a degree planner to the degree planner list.
      * The degree planner must not already exist in the degree planner list.
      */
