@@ -103,6 +103,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns a module if there is a module with the same module code as {@code code}
+     */
+    public Module getModuleByCode(Code code) {
+        requireNonNull(code);
+        return modules.getModuleByCode(code);
+    }
+
+    /**
      * Returns true if a {@code Module} with the specified {@code Code} exists in the address book.
      */
     public boolean hasModuleCode(Code code) {
