@@ -302,6 +302,12 @@ public class ModelManager implements Model {
         versionedAddressBook.addDegreePlanner(degreePlanner);
     }
 
+    @Override
+    public DegreePlanner getDegreePlannerByCode(Code code) {
+        requireNonNull(code);
+        return versionedAddressBook.getDegreePlannerByCode(code);
+    }
+
     @Override public void setDegreePlanner(DegreePlanner target, DegreePlanner editedDegreePlanner) {
         requireAllNonNull(target, editedDegreePlanner);
 

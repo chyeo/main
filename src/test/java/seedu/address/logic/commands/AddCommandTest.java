@@ -243,6 +243,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public DegreePlanner getDegreePlannerByCode(Code toCheck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteDegreePlanner(DegreePlanner degreePlanner) {
             //ToDo: implement AssertionError
         }

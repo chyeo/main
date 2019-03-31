@@ -13,6 +13,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_CREDITS = new Prefix("credits/");
     public static final Prefix PREFIX_TAG = new Prefix("tag/");
     public static final Prefix PREFIX_COREQUISITE = new Prefix("coreq/");
+    public static final Prefix PREFIX_YEAR = new Prefix("year/");
+    public static final Prefix PREFIX_SEMESTER = new Prefix("sem/");
 
     public static final String OPERATOR_OR = "||";
     public static final String OPERATOR_AND = "&&";
