@@ -133,8 +133,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_plannerMove() throws Exception {
         PlannerMoveCommand command = (PlannerMoveCommand) parser.parseCommand(
-                PlannerMoveCommand.COMMAND_WORD + " " + PREFIX_YEAR + "1 " + PREFIX_SEMESTER + "2 " + PREFIX_CODE +
-                        "CS1010");
+                PlannerMoveCommand.COMMAND_WORD + " " + PREFIX_YEAR + "1 " + PREFIX_SEMESTER + "2 " + PREFIX_CODE
+                        + "CS1010");
         assertEquals(new PlannerMoveCommand(new Year("1"), new Semester("2"), new Code("CS1010")), command);
     }
 

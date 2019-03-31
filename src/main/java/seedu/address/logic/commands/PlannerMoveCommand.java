@@ -67,8 +67,7 @@ public class PlannerMoveCommand extends Command {
                 .orElse(null);
 
         if (sourcePlanner == null) {
-            throw new CommandException(
-                    String.format(MESSAGE_NONEXISTENT_CODE, toMove));
+            throw new CommandException(String.format(MESSAGE_NONEXISTENT_CODE, toMove));
         }
 
         if (destinationPlanner == null) {
