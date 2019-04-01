@@ -858,7 +858,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |mark modules that are exempted |keep track of exempted modules
 
-|`* * *` |user |add modules into my degree planner |know which modules to bid/take in future
+|`* * *` |user |add modules into my degree plan |know which modules to bid/take in future
+
+|`* * *` |user |remove modules from my degree plan |remove modules that I am not interested in taking
 
 |`* * *` |user |move my modules to other academic semester in my degree plan |update my plan if there are any changes
 
@@ -1034,12 +1036,12 @@ Use case ends.
 * None
 
 [discrete]
-=== Use case: Add a module to degree planner
+=== Use case: Add module(s) to degree plan
 
 *MSS*
 
-1. User requests to add a module into the Application's degree planner
-2. Application adds the module into the degree planner
+1. User requests to add module(s) into the Application's degree plan
+2. Application adds the module(s) into the degree plan
 +
 Use case ends.
 
@@ -1051,21 +1053,26 @@ Use case ends.
 ** 1a1. Application shows an error message that given input is invalid.
 +
 Use case ends.
-* 1b. The module already exists in the degree planner.
+* 1b. The module(s) already exists in the degree plan.
 [none]
-** 1b1. Application shows an error message that module specified by user already exists in degree planner.
+** 1b1. Application shows an error message that the module(s) specified by user already exists in the degree plan.
++
+Use case ends.
+* 1c. The module(s) does not exist in the module list.
+[none]
+** 1c1. Application shows an error message that the module(s) specified by user does not exist in the module list.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Delete module from degree planner
+=== Use case: Remove module(s) from degree plan
 
 *MSS*
 
-1.  User requests to list modules in the Application's degree planner
-2.  Application shows a list of modules in the degree planner
-3.  User requests to delete a specific module in the degree planner
-4.  Application deletes the module in the degree planner
+1.  User requests to list modules in the Application's degree plan
+2.  Application shows a list of modules in the degree plan
+3.  User requests to remove module(s) from the degree plan
+4.  Application removes the module(s) from the degree plan
 +
 Use case ends.
 
@@ -1082,7 +1089,12 @@ Use case ends.
 [none]
 ** 3a1. Application shows an error message that given input is invalid.
 +
-Use case resumes at step 2.
+Use case resumes from step 2.
+* 3b. The module(s) does not exist in the degree plan.
+[none]
+** 3b1. Application shows an error message that the module(s) specified by user does not exist in the degree plan.
++
+Use case resumes from step 2.
 
 [discrete]
 === Use case: Move module between academic semesters in degree plan
