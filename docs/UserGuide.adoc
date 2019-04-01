@@ -943,7 +943,6 @@ endif::[]
 ifndef::env-github[]
 image::plannermove3.png[width=970]
 endif::[]
-//end::plannermove[]
 
 //tag::plannershow[]
 ==== Showing semesters based on year/semester: `planner_show` image:https://img.shields.io/badge/planner-show-F17D3F.svg[]
