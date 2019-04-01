@@ -16,6 +16,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.PlannerAddCommand;
 import seedu.address.logic.commands.PlannerListAllCommand;
 import seedu.address.logic.commands.PlannerMoveCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -103,6 +104,9 @@ public class AddressBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case PlannerAddCommand.COMMAND_WORD:
+            return new PlannerAddCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
