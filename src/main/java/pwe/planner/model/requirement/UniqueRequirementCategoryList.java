@@ -41,7 +41,8 @@ public class UniqueRequirementCategoryList implements Iterable<RequirementCatego
     public boolean contains(Name toCheck) {
         requireNonNull(toCheck);
 
-        return internalList.stream().map(RequirementCategory::getName).anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(requirementCategory ->
+                requirementCategory.getName().toString().equalsIgnoreCase(toCheck.toString()));
     }
 
     /**
@@ -60,7 +61,7 @@ public class UniqueRequirementCategoryList implements Iterable<RequirementCatego
         requireNonNull(toCheck);
 
         return internalList.stream()
-                .filter(requirementCategory -> requirementCategory.getName().equals(toCheck))
+                .filter(requirementCategory -> requirementCategory.getName().toString().equalsIgnoreCase(toCheck.toString()))
                 .findFirst()
                 .orElse(null);
     }
