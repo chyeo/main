@@ -64,12 +64,14 @@ public class RequirementAddCommand extends Command {
             throw new CommandException(String.format(MESSAGE_NONEXISTENT_REQUIREMENT_CATEGORY, toFind));
         }
 
+        Name currentRequirementCategoryName = currentRequirementCategory.getName();
+
         if (toAdd.stream().anyMatch(code -> !model.hasModuleCode(code))) {
             throw new CommandException(MESSAGE_NONEXISTENT_CODE);
         }
 
         if (currentRequirementCategory.hasModuleCode(toAdd)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_CODE, toFind));
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_CODE, currentRequirementCategoryName));
         }
 
         Stream<RequirementCategory> requirementCategories = model.getApplication()
@@ -86,10 +88,10 @@ public class RequirementAddCommand extends Command {
         newCodeSet.addAll(toAdd);
 
         RequirementCategory editedRequirementCategory = new RequirementCategory(
-                toFind, currentRequirementCategory.getCredits(), newCodeSet);
+                currentRequirementCategoryName, currentRequirementCategory.getCredits(), newCodeSet);
         model.setRequirementCategory(currentRequirementCategory, editedRequirementCategory);
         model.commitApplication();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toFind));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, currentRequirementCategoryName));
     }
 
     @Override
