@@ -29,16 +29,16 @@ import pwe.planner.model.module.NameContainsKeywordsPredicate;
 public class BooleanExpressionParser<T> {
 
     public static final String MESSAGE_TIP = "[Tip] If you are unclear about the expected expression format, "
-            + "do check the help page.\nYou can do so by typing \"help\"";
+            + "please check the help page.\nYou can do so by typing \"help\"";
     public static final String MESSAGE_INVALID_EXPRESSION =
-            "Sorry! It look like an invalid command format! (Filter expression is invalid) \n%1$s";
+            "It looks like an invalid command format! (Filter expression is invalid) \n%1$s";
     public static final String MESSAGE_INVALID_OPERATOR = "This operator is not supported yet!";
-    public static final String MESSAGE_INVALID_OPERATOR_APPLICATION = "Perhaps you missed out one more criteria?\n"
-            + MESSAGE_TIP;
+    public static final String MESSAGE_INVALID_OPERATOR_APPLICATION =
+            "Perhaps you missed out one or more search terms?\n" + MESSAGE_TIP;
     public static final String MESSAGE_UNABLE_TO_CREATE_PREDICATE = "No valid prefixes found";
-    public static final String MESSAGE_EMPTY_OUTPUT = "There seem to be an empty condition!\n"
+    public static final String MESSAGE_EMPTY_OUTPUT = "There seems to be an empty condition!\n"
             + "Perhaps you might want to consider providing the criteria to filter?\n" + MESSAGE_TIP;
-    public static final String MESSAGE_GENERAL_FAIL = "You might want to check double check your filter expression!\n"
+    public static final String MESSAGE_GENERAL_FAIL = "You might want to double check your filter expression!\n"
             + MESSAGE_TIP;
 
 

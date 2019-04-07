@@ -46,17 +46,17 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindNameCommand =
-                new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice")));
+                new FindCommand(new NameContainsKeywordsPredicate<>(Arrays.asList("Alice")));
         // single keyword
         assertParseSuccess(parser, PREFIX_NAME + "Alice", expectedFindNameCommand);
 
         FindCommand expectedFindCodeCommand =
-                new FindCommand(new CodeContainsKeywordsPredicate(Arrays.asList("CS1231")));
+                new FindCommand(new CodeContainsKeywordsPredicate<>(Arrays.asList("CS1231")));
         // single keyword
         assertParseSuccess(parser, PREFIX_CODE + "CS1231", expectedFindCodeCommand);
 
         FindCommand expectedFindCreditsCommand =
-                new FindCommand(new CreditsContainsKeywordsPredicate(Arrays.asList("999")));
+                new FindCommand(new CreditsContainsKeywordsPredicate<>(Arrays.asList("999")));
         // single keyword
         assertParseSuccess(parser, PREFIX_CREDITS + "999", expectedFindCreditsCommand);
     }
