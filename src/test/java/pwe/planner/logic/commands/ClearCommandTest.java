@@ -26,7 +26,8 @@ public class ClearCommandTest {
         expectedModel.setApplication(getInitialApplication());
         expectedModel.commitApplication();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, commandHistory,
+                ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -40,7 +41,8 @@ public class ClearCommandTest {
         expectedModel.setApplication(getInitialApplication());
         expectedModel.commitApplication();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
 }
