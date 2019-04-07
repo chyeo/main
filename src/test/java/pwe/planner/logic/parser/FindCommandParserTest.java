@@ -4,7 +4,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import static pwe.planner.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static pwe.planner.logic.parser.CliSyntax.OPERATOR_AND;
+import static pwe.planner.logic.parser.CliSyntax.OPERATOR_LEFT_BRACKET;
 import static pwe.planner.logic.parser.CliSyntax.OPERATOR_OR;
+import static pwe.planner.logic.parser.CliSyntax.OPERATOR_RIGHT_BRACKET;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_CODE;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_NAME;
@@ -83,11 +85,40 @@ public class FindCommandParserTest {
         assertParserSuccess(parser, PREFIX_CREDITS + "4 " + WHITESPACE + OPERATOR_AND + WHITESPACE
                 + PREFIX_CREDITS + "999");
 
+        // test for boolean AND and boolean OR
+        // credits/CREDITS || credits/CREDITS && name/Programming
+        assertParserSuccess(parser, PREFIX_CREDITS + "4 " + WHITESPACE + OPERATOR_OR + WHITESPACE
+                + PREFIX_CREDITS + "999" + OPERATOR_AND + PREFIX_NAME + "programming");
+
+        // credits/4 || (name/Information && name/Security)
+        assertParserSuccess(parser, PREFIX_CREDITS + "4" + OPERATOR_OR + OPERATOR_LEFT_BRACKET + PREFIX_NAME
+                + "information" + OPERATOR_AND + PREFIX_NAME + "security" + OPERATOR_RIGHT_BRACKET);
+
     }
 
     @Test
     public void parseInvalidArgs() {
         assertParseThrowsException(parser, "invalid/DoesNotExists");
+        // name/Programming code/CS1231
+        assertParseThrowsException(parser, PREFIX_NAME + "Programming " + PREFIX_CODE + "CS1231");
+        // ()
+        assertParseThrowsException(parser, OPERATOR_LEFT_BRACKET + OPERATOR_RIGHT_BRACKET);
+        // ()()
+        assertParseThrowsException(parser, OPERATOR_LEFT_BRACKET + OPERATOR_RIGHT_BRACKET + OPERATOR_LEFT_BRACKET
+                + OPERATOR_RIGHT_BRACKET);
+        // ())
+        assertParseThrowsException(parser, OPERATOR_LEFT_BRACKET + OPERATOR_RIGHT_BRACKET + OPERATOR_RIGHT_BRACKET);
+        // name/Programming ) code/CS1231
+        assertParseThrowsException(parser, PREFIX_NAME + "Programming " + OPERATOR_RIGHT_BRACKET + PREFIX_CODE
+                + "CS1231");
+        // (name/Programming || code/CS1231
+        assertParseThrowsException(parser, OPERATOR_LEFT_BRACKET + PREFIX_NAME + "Programming" + OPERATOR_OR
+                + PREFIX_CODE + "CS1231");
+        // credits/4 || (name/Programming AND code/CS1231))
+        assertParseThrowsException(parser, PREFIX_CREDITS + "4" + OPERATOR_OR + OPERATOR_LEFT_BRACKET + PREFIX_NAME
+                + "Programming" + OPERATOR_AND + PREFIX_CODE + "CS1231" + OPERATOR_RIGHT_BRACKET
+                + OPERATOR_RIGHT_BRACKET);
+
     }
 
     /**
