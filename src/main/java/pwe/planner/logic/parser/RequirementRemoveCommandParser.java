@@ -28,16 +28,15 @@ public class RequirementRemoveCommandParser implements Parser<RequirementRemoveC
     public RequirementRemoveCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CODE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CODE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_CODE) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_CODE) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RequirementRemoveCommand.MESSAGE_USAGE));
         }
 
-        Name name = parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Set<Code> codeList = parseCodes(argMultimap.getAllValues(PREFIX_CODE));
+        Set<Code> codeSet = parseCodes(argMultimap.getAllValues(PREFIX_CODE));
 
-        return new RequirementRemoveCommand(name, codeList);
+        return new RequirementRemoveCommand(codeSet);
     }
 }
