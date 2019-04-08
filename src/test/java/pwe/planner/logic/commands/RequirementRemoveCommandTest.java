@@ -45,29 +45,15 @@ public class RequirementRemoveCommandTest {
     @Test
     public void constructor_nullInputs_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new RequirementRemoveCommand(null, null);
+        new RequirementRemoveCommand(null);
     }
 
-    @Test
-    public void execute_nonExistentRequirementCategory_throwsCommandException() {
-        codeList.clear();
-        Name nonExistentRequirementCategoryName = new Name("DOES NOT EXIST");
-        assertCommandFailure(new RequirementRemoveCommand(nonExistentRequirementCategoryName, codeList),
-                model, commandHistory, String.format(RequirementRemoveCommand.MESSAGE_NONEXISTENT_REQUIREMENT_CATEGORY,
-                        nonExistentRequirementCategoryName));
-    }
 
     @Test
     public void execute_nonExistentCode_throwsCommandException() {
         codeList.clear();
         codeList.add(new Code("CS9999"));
-        Name requirementCategoryName = new Name("Computing Foundation");
-        assertCommandFailure(new RequirementRemoveCommand(requirementCategoryName, codeList), model, commandHistory,
-                RequirementRemoveCommand.MESSAGE_NONEXISTENT_CODE);
-
-        //case insensitive checks
-        requirementCategoryName = new Name("comPUTING FOUNDATion");
-        assertCommandFailure(new RequirementRemoveCommand(requirementCategoryName, codeList), model, commandHistory,
+        assertCommandFailure(new RequirementRemoveCommand(codeList), model, commandHistory,
                 RequirementRemoveCommand.MESSAGE_NONEXISTENT_CODE);
     }
 
@@ -75,34 +61,25 @@ public class RequirementRemoveCommandTest {
     public void execute_duplicateCode_throwsCommandException() {
         codeList.clear();
         codeList.add(new Code("CS1010"));
-        Name requirementCategoryName = new Name("Computing Foundation");
-        assertCommandFailure(new RequirementRemoveCommand(requirementCategoryName, codeList), model, commandHistory,
-                String.format(RequirementRemoveCommand.MESSAGE_REQUIREMENT_CATEGORY_NONEXISTENT_CODE,
-                        requirementCategoryName));
-
-        //case insensitive checks
-        Name requirementCategoryNameInsensitive = new Name("COMPUting FOundAtIon");
-        assertCommandFailure(new RequirementRemoveCommand(requirementCategoryNameInsensitive, codeList), model,
-                commandHistory, String.format(RequirementRemoveCommand.MESSAGE_REQUIREMENT_CATEGORY_NONEXISTENT_CODE,
-                        requirementCategoryName));
+        assertCommandFailure(new RequirementRemoveCommand(codeList), model, commandHistory,
+                RequirementRemoveCommand.MESSAGE_CODE_NOT_IN_ANY_REQUIREMENT_CATEGORY);
     }
 
     @Test
-    public void execute_removeModuleToRequirementCategory_success() {
+    public void execute_removeCodeFromRequirementCategory_success() {
         codeList.clear();
-        codeList.add(new Code("CS2100"));
         Name requirementCategoryName = new Name("Computing Foundation");
         RequirementCategory currentRequirementCategory = model.getRequirementCategory(requirementCategoryName);
         RequirementCategory editedRequirementCategory =
                 new RequirementCategory(requirementCategoryName, currentRequirementCategory.getCredits(), codeList);
 
-        Model expectedModel = model;
+        Model expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
         expectedModel.setRequirementCategory(currentRequirementCategory, editedRequirementCategory);
         expectedModel.commitApplication();
 
-        assertCommandSuccess(new RequirementRemoveCommand(requirementCategoryName, codeList), model, commandHistory,
-                String.format(RequirementRemoveCommand.MESSAGE_SUCCESS, requirementCategoryName, codeList),
-                expectedModel);
+        codeList.add(new Code("CS2100"));
+        assertCommandSuccess(new RequirementRemoveCommand(codeList), model, commandHistory,
+                RequirementRemoveCommand.MESSAGE_SUCCESS, expectedModel);
 
         // undo -> reverts application back to previous state
         expectedModel.undoApplication();
@@ -114,42 +91,44 @@ public class RequirementRemoveCommandTest {
     }
 
     @Test
-    public void execute_removeModuleToRequirementCategoryCaseInsensitive_success() {
+    public void execute_removeCodesFromRequirementCategories_success() {
         codeList.clear();
-        codeList.add(new Code("CS2100"));
-        Name requirementCategoryName = new Name("COMPUting FOundAtIon");
-        RequirementCategory currentRequirementCategory = model.getRequirementCategory(requirementCategoryName);
-        RequirementCategory editedRequirementCategory =
-                new RequirementCategory(requirementCategoryName, currentRequirementCategory.getCredits(), codeList);
+        Name requirementCategoryName1 = new Name("Computing Foundation");
+        Name requirementCategoryName2 = new Name("Mathematics");
+        RequirementCategory currentRequirementCategory1 = model.getRequirementCategory(requirementCategoryName1);
+        RequirementCategory currentRequirementCategory2 = model.getRequirementCategory(requirementCategoryName2);
+        RequirementCategory editedCurrentReqCat1 =
+                new RequirementCategory(requirementCategoryName1, currentRequirementCategory1.getCredits(), codeList);
+        RequirementCategory editedCurrentReqCat2 =
+                new RequirementCategory(requirementCategoryName2, currentRequirementCategory2.getCredits(), codeList);
 
-        Model expectedModel = model;
-        expectedModel.setRequirementCategory(currentRequirementCategory, editedRequirementCategory);
+        Model expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
+        expectedModel.setRequirementCategory(currentRequirementCategory1, editedCurrentReqCat1);
+        expectedModel.setRequirementCategory(currentRequirementCategory2, editedCurrentReqCat2);
         expectedModel.commitApplication();
 
-        assertCommandSuccess(new RequirementRemoveCommand(requirementCategoryName, codeList), model, commandHistory,
-                String.format(RequirementRemoveCommand.MESSAGE_SUCCESS, requirementCategoryName, codeList),
-                expectedModel);
+        codeList.add(new Code("CS2100"));
+        codeList.add(new Code("CS1231"));
+        assertCommandSuccess(new RequirementRemoveCommand(codeList), model, commandHistory,
+                RequirementRemoveCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_equals() {
         codeList.clear();
         codeList.add(new Code("CS2100"));
-        Name requirementCategoryName = new Name("Computing Foundation");
 
         Set<Code> codeListToCompare = new HashSet<>();
         codeListToCompare.add(new Code("CS1010"));
-        Name requirementCategoryNameToCompare = new Name("Mathematics");
 
-        RequirementRemoveCommand commandBaseline = new RequirementRemoveCommand(requirementCategoryName, codeList);
-        RequirementRemoveCommand commandToCompare =
-                new RequirementRemoveCommand(requirementCategoryNameToCompare, codeListToCompare);
+        RequirementRemoveCommand commandBaseline = new RequirementRemoveCommand(codeList);
+        RequirementRemoveCommand commandToCompare = new RequirementRemoveCommand(codeListToCompare);
 
         //same object -> returns true
         assertTrue(commandBaseline.equals(commandBaseline));
 
         //different objects, same values -> returns true
-        RequirementRemoveCommand commandBaselineCopy = new RequirementRemoveCommand(requirementCategoryName, codeList);
+        RequirementRemoveCommand commandBaselineCopy = new RequirementRemoveCommand(codeList);
         assertTrue(commandBaseline.equals(commandBaselineCopy));
 
         //different objects -> returns false
