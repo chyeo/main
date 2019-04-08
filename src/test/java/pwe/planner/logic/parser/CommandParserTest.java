@@ -32,6 +32,7 @@ import pwe.planner.logic.commands.ListCommand;
 import pwe.planner.logic.commands.PlannerListAllCommand;
 import pwe.planner.logic.commands.PlannerMoveCommand;
 import pwe.planner.logic.commands.RedoCommand;
+import pwe.planner.logic.commands.RequirementAddCommand;
 import pwe.planner.logic.commands.RequirementListCommand;
 import pwe.planner.logic.commands.RequirementRemoveCommand;
 import pwe.planner.logic.commands.SelectCommand;
@@ -141,6 +142,16 @@ public class CommandParserTest {
                 PlannerMoveCommand.COMMAND_WORD + " " + PREFIX_YEAR + "1 " + PREFIX_SEMESTER + "2 " + PREFIX_CODE
                         + "CS1010");
         assertEquals(new PlannerMoveCommand(new Year("1"), new Semester("2"), new Code("CS1010")), command);
+    }
+
+    @Test
+    public void parseCommand_requirementAdd() throws Exception {
+        Name name = new Name("Computing Foundation");
+        Set<Code> codeSet = new HashSet<>();
+        codeSet.add(new Code("CS1010"));
+        RequirementAddCommand command = (RequirementAddCommand)
+                parser.parseCommand(RequirementUtil.getRequirementAddCommand(name, codeSet));
+        assertEquals(new RequirementAddCommand(name, codeSet), command);
     }
 
     @Test
