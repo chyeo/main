@@ -15,6 +15,8 @@ import static pwe.planner.logic.parser.CliSyntax.OPERATOR_RIGHT_BRACKET;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_CODE;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_NAME;
+import static pwe.planner.logic.parser.CliSyntax.PREFIX_TAG;
+import static pwe.planner.testutil.TypicalModules.ALICE;
 import static pwe.planner.testutil.TypicalModules.BENSON;
 import static pwe.planner.testutil.TypicalModules.CARL;
 import static pwe.planner.testutil.TypicalModules.DANIEL;
@@ -169,6 +171,24 @@ public class FindCommandSystemTest extends ApplicationSystemTest {
 
         /* Case: find module in application, code is substring of keyword -> 0 modules found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_CODE + "FS4205"; // valid partial code derived from IFS4205
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find code of module in application with correct PREFIX -> 3 module found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_TAG + "friends";
+        ModelHelper.setFilteredList(expectedModel, ALICE, BENSON, DANIEL);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find non-existent module in application with PREFIX_TAG -> 0 modules found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_TAG + "NotExisting";
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find module in application with PREFIX_TAG, keyword is substring of a valid tag -> 0 modules found */
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_TAG + "frie"; // derived from friends
+        ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
