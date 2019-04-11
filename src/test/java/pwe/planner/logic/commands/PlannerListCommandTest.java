@@ -15,47 +15,31 @@ import pwe.planner.logic.CommandHistory;
 import pwe.planner.model.Model;
 import pwe.planner.model.ModelManager;
 import pwe.planner.model.UserPrefs;
-import pwe.planner.model.module.Code;
 import pwe.planner.model.planner.DegreePlanner;
 import pwe.planner.storage.JsonSerializableApplication;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for PlannerListAllCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for PlannerListCommand.
  */
-public class PlannerListAllCommandTest {
+public class PlannerListCommandTest {
     private Model model;
     private Model expectedModel;
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void setUp() throws IllegalValueException {
-        //ToDo: Implement getTypicalDegreePlannerList for DegreePlannerList and update the codes below
-        model = new ModelManager(
-                new JsonSerializableApplication(getTypicalModuleList(), getTypicalDegreePlannerList(),
-                        getTypicalRequirementCategoriesList())
-                        .toModelType(), new UserPrefs());
+        model = new ModelManager(new JsonSerializableApplication(getTypicalModuleList(), getTypicalDegreePlannerList(),
+                getTypicalRequirementCategoriesList()).toModelType(), new UserPrefs());
         expectedModel = new ModelManager(model.getApplication(), new UserPrefs());
     }
 
     @Test
     public void execute_plannerListIsNotFiltered_showsSameList() {
-        StringBuilder degreePlannerListContent = new StringBuilder();
-        for (DegreePlanner degreePlanner : model.getFilteredDegreePlannerList()) {
-            degreePlannerListContent
-                    .append("Year: " + degreePlanner.getYear() + " Semester: " + degreePlanner.getSemester() + "\n");
-            if (degreePlanner.getCodes().isEmpty()) {
-                degreePlannerListContent.append("No module inside");
-            } else {
-                degreePlannerListContent
-                        .append("Modules: " + degreePlanner.getCodes().stream().map(Code::toString).collect(
-                                Collectors.joining(", ")));
-            }
-            degreePlannerListContent.append("\n\n");
-        }
+        String degreePlannerListContent = model.getApplication().getDegreePlannerList().stream()
+                .map(DegreePlanner::toString)
+                .collect(Collectors.joining("\n"));
         String expectedMessage =
-                String.format(PlannerListAllCommand.MESSAGE_SUCCESS, degreePlannerListContent.toString());
-        assertCommandSuccess(new PlannerListAllCommand(), model, commandHistory, expectedMessage,
-                expectedModel);
+                String.format(PlannerListCommand.MESSAGE_SUCCESS, degreePlannerListContent);
+        assertCommandSuccess(new PlannerListCommand(), model, commandHistory, expectedMessage, expectedModel);
     }
-
 }
