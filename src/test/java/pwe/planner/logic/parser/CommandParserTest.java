@@ -29,7 +29,7 @@ import pwe.planner.logic.commands.FindCommand;
 import pwe.planner.logic.commands.HelpCommand;
 import pwe.planner.logic.commands.HistoryCommand;
 import pwe.planner.logic.commands.ListCommand;
-import pwe.planner.logic.commands.PlannerListAllCommand;
+import pwe.planner.logic.commands.PlannerListCommand;
 import pwe.planner.logic.commands.PlannerMoveCommand;
 import pwe.planner.logic.commands.RedoCommand;
 import pwe.planner.logic.commands.RequirementAddCommand;
@@ -131,9 +131,9 @@ public class CommandParserTest {
     }
 
     @Test
-    public void parseCommand_plannerListAll() throws Exception {
-        assertTrue(parser.parseCommand(PlannerListAllCommand.COMMAND_WORD) instanceof PlannerListAllCommand);
-        assertTrue(parser.parseCommand(PlannerListAllCommand.COMMAND_WORD + " 3") instanceof PlannerListAllCommand);
+    public void parseCommand_plannerList() throws Exception {
+        assertTrue(parser.parseCommand(PlannerListCommand.COMMAND_WORD) instanceof PlannerListCommand);
+        assertTrue(parser.parseCommand(PlannerListCommand.COMMAND_WORD + " 3") instanceof PlannerListCommand);
     }
 
     @Test
