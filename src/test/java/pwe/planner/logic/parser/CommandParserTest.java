@@ -11,7 +11,6 @@ import static pwe.planner.logic.parser.CliSyntax.PREFIX_YEAR;
 import static pwe.planner.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -36,6 +35,7 @@ import pwe.planner.logic.commands.PlannerShowCommand;
 import pwe.planner.logic.commands.RedoCommand;
 import pwe.planner.logic.commands.RequirementAddCommand;
 import pwe.planner.logic.commands.RequirementListCommand;
+import pwe.planner.logic.commands.RequirementMoveCommand;
 import pwe.planner.logic.commands.RequirementRemoveCommand;
 import pwe.planner.logic.commands.ResetCommand;
 import pwe.planner.logic.commands.SelectCommand;
@@ -174,8 +174,7 @@ public class CommandParserTest {
     @Test
     public void parseCommand_requirementAdd() throws Exception {
         Name name = new Name("Computing Foundation");
-        Set<Code> codeSet = new HashSet<>();
-        codeSet.add(new Code("CS1010"));
+        Set<Code> codeSet = Set.of(new Code("CS1010"));
         RequirementAddCommand command = (RequirementAddCommand)
                 parser.parseCommand(RequirementUtil.getRequirementAddCommand(name, codeSet));
         assertEquals(new RequirementAddCommand(name, codeSet), command);
@@ -187,13 +186,21 @@ public class CommandParserTest {
     }
 
     @Test
+    public void parseCommand_requirementMove() throws Exception {
+        Set<Code> codeSet = Set.of(new Code("CS2100"));
+        RequirementMoveCommand command = (RequirementMoveCommand) parser.parseCommand(
+                RequirementMoveCommand.COMMAND_WORD + " " + PREFIX_NAME + "Computing Breadth " + PREFIX_CODE
+                        + "CS2100");
+        assertEquals(new RequirementMoveCommand(new Name("Computing Breadth"), codeSet), command);
+    }
+
+    @Test
     public void parseCommand_requirementRemove() throws Exception {
-        Name name = new Name("Computing Foundation");
-        Set<Code> codeSet = new HashSet<>();
-        codeSet.add(new Code("CS1010"));
+        Set<Code> codeSet = Set.of(new Code("CS1010"));
         RequirementRemoveCommand command = (RequirementRemoveCommand)
-                parser.parseCommand(RequirementUtil.getRequirementRemoveCommand(name, codeSet));
-        assertEquals(new RequirementRemoveCommand(name, codeSet), command);
+                parser.parseCommand(RequirementUtil.getRequirementRemoveCommand(
+                        new Name("Computing Foundation"), codeSet));
+        assertEquals(new RequirementRemoveCommand(new Name("Computing Foundation"), codeSet), command);
     }
 
     @Test
