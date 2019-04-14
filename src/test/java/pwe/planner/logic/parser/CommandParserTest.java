@@ -195,10 +195,9 @@ public class CommandParserTest {
     @Test
     public void parseCommand_requirementRemove() throws Exception {
         Set<Code> codeSet = Set.of(new Code("CS1010"));
-        RequirementRemoveCommand command = (RequirementRemoveCommand)
-                parser.parseCommand(RequirementUtil.getRequirementRemoveCommand(
-                        new Name("Computing Foundation"), codeSet));
-        assertEquals(new RequirementRemoveCommand(new Name("Computing Foundation"), codeSet), command);
+        RequirementRemoveCommand command = (RequirementRemoveCommand) parser.parseCommand(
+                RequirementUtil.getRequirementRemoveCommand(codeSet));
+        assertEquals(new RequirementRemoveCommand(codeSet), command);
     }
 
     @Test
