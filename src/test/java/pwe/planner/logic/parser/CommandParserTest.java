@@ -31,6 +31,7 @@ import pwe.planner.logic.commands.HistoryCommand;
 import pwe.planner.logic.commands.ListCommand;
 import pwe.planner.logic.commands.PlannerListCommand;
 import pwe.planner.logic.commands.PlannerMoveCommand;
+import pwe.planner.logic.commands.PlannerShowCommand;
 import pwe.planner.logic.commands.RedoCommand;
 import pwe.planner.logic.commands.RequirementAddCommand;
 import pwe.planner.logic.commands.RequirementListCommand;
@@ -45,6 +46,7 @@ import pwe.planner.model.module.Name;
 import pwe.planner.model.module.NameContainsKeywordsPredicate;
 import pwe.planner.model.planner.Semester;
 import pwe.planner.model.planner.Year;
+import pwe.planner.model.planner.YearContainsKeywordPredicate;
 import pwe.planner.testutil.EditModuleDescriptorBuilder;
 import pwe.planner.testutil.ModuleBuilder;
 import pwe.planner.testutil.ModuleUtil;
@@ -141,6 +143,14 @@ public class CommandParserTest {
     public void parseCommand_plannerList() throws Exception {
         assertTrue(parser.parseCommand(PlannerListCommand.COMMAND_WORD) instanceof PlannerListCommand);
         assertTrue(parser.parseCommand(PlannerListCommand.COMMAND_WORD + " 3") instanceof PlannerListCommand);
+    }
+
+    @Test
+    public void parseCommand_plannerShow() throws Exception {
+        String keyword = "1";
+        PlannerShowCommand yearCommand = (PlannerShowCommand) parser.parseCommand(PlannerShowCommand.COMMAND_WORD + " "
+                + PREFIX_YEAR + "1");
+        assertEquals(new PlannerShowCommand(new YearContainsKeywordPredicate<>(keyword)), yearCommand);
     }
 
     @Test
