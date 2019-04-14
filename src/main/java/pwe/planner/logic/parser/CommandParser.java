@@ -22,6 +22,7 @@ import pwe.planner.logic.commands.PlannerListCommand;
 import pwe.planner.logic.commands.PlannerMoveCommand;
 import pwe.planner.logic.commands.PlannerRemoveCommand;
 import pwe.planner.logic.commands.PlannerShowCommand;
+import pwe.planner.logic.commands.PlannerSuggestCommand;
 import pwe.planner.logic.commands.RedoCommand;
 import pwe.planner.logic.commands.RequirementAddCommand;
 import pwe.planner.logic.commands.RequirementListCommand;
@@ -123,6 +124,9 @@ public class CommandParser {
 
         case PlannerAddCommand.COMMAND_WORD:
             return new PlannerAddCommandParser().parse(arguments);
+
+        case PlannerSuggestCommand.COMMAND_WORD:
+            return new PlannerSuggestCommandParser().parse(arguments);
 
         case PlannerRemoveCommand.COMMAND_WORD:
             return new PlannerRemoveCommandParser().parse(arguments);
