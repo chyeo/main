@@ -30,6 +30,7 @@ import pwe.planner.model.module.CreditsContainsKeywordsPredicate;
 import pwe.planner.model.module.Module;
 import pwe.planner.model.module.NameContainsKeywordsPredicate;
 import pwe.planner.model.module.TagContainsKeywordsPredicate;
+import pwe.planner.model.planner.SemesterContainsKeywordPredicate;
 import pwe.planner.storage.JsonSerializableApplication;
 
 /**
@@ -124,6 +125,16 @@ public class FindCommandTest {
         expectedModel.updateFilteredModuleList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(List.of(ALICE, BENSON, DANIEL), model.getFilteredModuleList());
+    }
+
+    @Test
+    public void execute_semKeyword_multipleModulesFound() {
+        String expectedMessage = String.format(MESSAGE_MODULES_LISTED_OVERVIEW, 1);
+        SemesterContainsKeywordPredicate<Module> predicate = new SemesterContainsKeywordPredicate<>("4");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredModuleList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(List.of(ALICE), model.getFilteredModuleList());
     }
 
     /**
