@@ -10,6 +10,7 @@ import static pwe.planner.logic.parser.CliSyntax.OPERATOR_RIGHT_BRACKET;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_CODE;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_NAME;
+import static pwe.planner.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static pwe.planner.logic.parser.CliSyntax.PREFIX_TAG;
 import static pwe.planner.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static pwe.planner.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -25,6 +26,7 @@ import pwe.planner.model.module.CreditsContainsKeywordsPredicate;
 import pwe.planner.model.module.Name;
 import pwe.planner.model.module.NameContainsKeywordsPredicate;
 import pwe.planner.model.module.TagContainsKeywordsPredicate;
+import pwe.planner.model.planner.SemesterContainsKeywordPredicate;
 
 public class FindCommandParserTest {
 
@@ -63,6 +65,9 @@ public class FindCommandParserTest {
         // single keyword
         FindCommand expectedFindTagsCommand = new FindCommand(new TagContainsKeywordsPredicate<>("tag"));
         assertParseSuccess(parser, PREFIX_TAG + "tag", expectedFindTagsCommand);
+
+        FindCommand expectedFindSemesterCommand = new FindCommand(new SemesterContainsKeywordPredicate<>("2"));
+        assertParseSuccess(parser, PREFIX_SEMESTER + "2", expectedFindSemesterCommand);
     }
 
     @Test
@@ -79,6 +84,8 @@ public class FindCommandParserTest {
                 + PREFIX_CREDITS + "999");
         // tag/TAGG || tag/Tag1
         assertParserSuccess(parser, PREFIX_TAG + "TAGG " + OPERATOR_OR + PREFIX_TAG + "Tag1");
+        // sem/1 || sem/2
+        assertParserSuccess(parser, PREFIX_SEMESTER + "1 " + OPERATOR_OR + PREFIX_SEMESTER + "2");
 
         // test for boolean AND
         // name/NAME && name/NAME
@@ -93,6 +100,8 @@ public class FindCommandParserTest {
         // tag/TAG && tag/TAG
         assertParserSuccess(parser, PREFIX_TAG + "TAG " + WHITESPACE + OPERATOR_AND + WHITESPACE
                 + PREFIX_TAG + "TAGGG");
+        // sem1 && sem/2
+        assertParserSuccess(parser, PREFIX_SEMESTER + "1" + OPERATOR_AND + PREFIX_SEMESTER + "2");
 
         // test for boolean AND and boolean OR
         // credits/CREDITS || credits/CREDITS && name/Programming
