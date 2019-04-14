@@ -122,8 +122,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
-
-====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user
@@ -146,7 +144,6 @@ which can be used as `add name/Programming Methodology`.
 ** e.g. if the command specifies `INDEX name/NAME code/CODE`:
 .. entering `INDEX code/CODE name/NAME` is also acceptable
 .. entering `name/NAME INDEX code/CODE` is not acceptable
-====
 
 === General Commands
 
@@ -595,14 +592,21 @@ Selects the 2nd module in the displayed module list.
 `select 1` +
 Selects the 1st module in the results of the `find` command.
 
+// tag::requirementtracker[]
 === Requirement Tracker
 
-The following table describes the parameters you may use for commands in this section.
+The requirement tracker allows you to manage and and track your degree requirements so that you are always on-track for
+ graduation!
+
+This section contains the various commands that you can use in this application to add, remove, move and list modules
+ to and from the specified requirement categories in this application.
+
+The following table describes the parameters you may use for the commands in this section.
 [cols="<20%,35%,35%"]
 |======
 |*Parameter*| *Description* | *Acceptable Range of Values*
 | `NAME` | Indicates the name of degree requirement category (e.g. `IT Professionalism`).
-| `NAME` should be either one of the following: +
+| `NAME` must be one of the following values: +
 1. `Computing Foundation` +
 2. `Information Security Requirements` +
 3. `Information Security Electives` +
@@ -612,43 +616,128 @@ The following table describes the parameters you may use for commands in this se
 7. `General Education` +
 8. `Unrestricted Electives`
 | `CODE` | Indicates the module code (e.g. `CS2101`). |
-`CODE` should begin with two or three alphabets, followed by four digits, and may optionally end with an alphabet.
- +
-`CODE` should not be blank.
+`CODE` must begin with two or three alphabets, followed by four digits, and may optionally end with an alphabet.
 |======
 
+[WARNING]
+====
+`NAME` and `CODE` (where applicable) must not be empty or blank.
+====
+
+[NOTE]
+====
+* Both `NAME` and `CODE` parameters are case insensitive. (e.g. `computing foundation` will match `Computing
+Foundation`)
+* `CODE` is treated as uppercase (e.g. cs1010 is treated as CS1010), and should be unique.
+* Only full words will be matched. (e.g. `foundation` will not match `Computing Foundation`)
+====
+// end::requirementtracker[]
+
+// tag::requirementadd[]
 ==== Adding modules : `requirement_add` image:https://img.shields.io/badge/requirement-add-8AB702.svg[]
 
-Adds a module to the degree requirement category in the application. +
-Format: `requirement_add name/NAME code/CODE [code/CODE]…`
+Want to see if you have fulfilled a particular degree requirement category?​
 
-*  After adding, the updated requirement category will be displayed.
+Simply add the module code to a degree requirement category using the `requirement_add` command to find out.
+
+Format: `requirement_add name/NAME code/CODE [code/CODE]…`
 
 Examples:
 
 * `requirement_add name/IT Professionalism code/IS4231` +
-Adds module `IS4231` into `IT Professionalism` degree requirement category.
+Adds the module code `IS4231` to the degree requirement category `IT Professionalism`.
+
+The two images below this command describes what you should see when you execute the above command
+
+image::RequirementAddCommand.png[]
+image::RequirementAddCommandAfter.png[]
 
 * `requirement_add name/Computing Foundation code/CS1231 code/CS2100` +
-Adds modules `CS1231` and `CS2100` into `Computing Foundation` degree requirement category.
+Adds module codes `CS1231` and `CS2100` to the degree requirement category `Computing Foundation`.
+// end::requirementadd[]
 
-==== Removing modules : `requirement_remove`  image:https://img.shields.io/badge/requirement-remove-8AB702.svg[]
+// tag::requirementremove[]
+==== Removing modules : `requirement_remove` image:https://img.shields.io/badge/requirement-remove-8AB702.svg[]
 
-Removes the specified module from the degree requirement category. +
-Format: `requirement_remove name/NAME code/CODE [code/CODE]…`
+Want to remove a module code from the degree requirement category?
 
-*  After removing, the updated requirement category will be displayed.
+`requirement_remove` will help you to remove the specified module code from the degree requirement category.
+
+Format: `requirement_remove code/CODE [code/CODE]…`
+
+[TIP]
+====
+If you want to delete the module entirely, simply use the `delete` command instead! The changes will be reflected in
+the degree requirement category as well.
+====
 
 Examples:
 
-* `requirement_remove name/Professionalism code/IS4231` +
-Removes the module `IS4231` from the `IT Professionalism` degree requirement category.
+* `requirement_remove code/IS4231` +
+Removes the module code `IS4231` from the degree requirement category.
 
+The two images below this command describes what you should see when you execute the above command
+
+image::RequirementRemoveCommand.png[]
+image::RequirementRemoveCommandAfter.png[]
+
+* `requirement_remove code/CS1231 code/CS2100` +
+Removes module codes `CS1231` and `CS2100` from the degree requirement category.
+
+// end::requirementremove[]
+
+// tag::requirementmove[]
+==== Moving modules between requirement categories : `requirement_move` image:https://img.shields.io/badge/requirement-move-8AB702.svg[]
+
+Having seconds thoughts about which degree requirement category the module code should be classified under?
+
+Or simply added the module code to the wong degree requirement category?
+
+No worries, `requirement_move` will allow you to move the specified module to another degree requirement category.
+
+Format: `requirement_move name/NAME code/CODE [code/CODE]…`
+
+[WARNING]
+====
+The `CODE` specified must be already added to a degree requirement category!
+====
+
+[NOTE]
+====
+Unlike the `planner_move` command, modules that are co-requisites will not be moved together.
+====
+
+Examples:
+
+* `requirement_move name/Computing Breadth code/IS4231` +
+Moves the module code `IS4231` to the degree requirement category `Computing Breadth.
+
+The two images below this command describes what you should see when you execute the above command
+
+image::RequirementMoveCommand.png[]
+image::RequirementMoveCommandAfter.png[]
+
+* `requirement_move name/Computing Foundation code/CS1231 code/CS2100` +
+Moves module codes `CS1231` and `CS2100` to the degree requirement category `Computing Foundation`.
+
+// end::requirementmove[]
+
+
+// tag::requirementlist[]
 ==== Listing all requirement categories : `requirement_list` image:https://img.shields.io/badge/requirement-list-8AB702.svg[]
+Shows a list of all degree requirement categories in the application and the module codes added into each degree
+requirement category.
 
-Shows a list of all degree requirement categories in the application and the modules
-added into each degree requirement category. +
 Format: `requirement_list`
+
+Examples:
+
+*`requirement_list`
+
+The image below this command describes what you should see when you execute the above command
+
+image::RequirementListCommand.png[]
+// end::requirementlist[]
 
 === Degree Plan Management
 
@@ -791,18 +880,6 @@ Shows a degree planner for year 1 semester 1.
 * `planner_list y/1 s/2` +
 Shows a degree planner for year 1 semester 2
 
-=== Moving a module between degree requirement categories : `requirement_move`
-
-Moves the specified module to another degree requirement category. +
-Format: `requirement_move CODE name/NAME`
-
-*  After moving, the updated requirement category will be displayed.
-
-Examples:
-
-* `requirement_move IS4231 name/IT Professionalism` +
-Moves the module `IS4231` from to `IT Professionalism` degree requirement category.
-
 == FAQ
 
 *Q*: How do I save my data in the application? +
@@ -846,19 +923,25 @@ a| `planner_suggest credits/CREDITS [tag/TAG]…`
 a| `planner_suggest credits/4 tag/maths`
 |====
 
-=== Requirement Categories Commands
-The table below shows a list of command which helps you to manage track your requirements
+=== Requirement Tracker Commands
+The table below shows a list of command which helps you to manage and track your degree requirements.
 
 |====
 |*Task*  | *Purpose* |*Command* | *Example*
-| *Add module(s) to degree requirement category* | Add module(s) based on the module code to the chosen category.
+| *Add module(s) to a requirement category* | Add module(s) to the specified requirement category based
+ on the module code provided.
 a| `requirement_add name/NAME code/CODE [code/CODE]…`
 a| `requirement_add name/IT Professionalism code/IS4231`
-| *Remove module from degree requirement category* | Remove module from requirement category based on module code.
-a| `requirement_remove name/NAME code/CODE [code/CODE]…`
-a| `requirement_remove name/IT Professionalism code/IS4231`
-| *Move module(s) between degree requirement categories* | Move module(s) between the requirement categories from any
-requirement categories to a chosen requirement categories.
-a| `requirement_move code/CODE`
-a| `requirement_move code/IS4231 name/IT Professionalism`
+| *Remove module(s) from the requirement category* | Remove module(s) from the requirement category
+based on the module code provided.
+a| `requirement_remove code/CODE [code/CODE]…`
+a| `requirement_remove code/IS4231`
+| *Move module(s) between requirement categories* | Move module(s) between the requirement categories from
+ any requirement categories to a specified requirement categories.
+a| `requirement_move name/NAME code/CODE [code/CODE]…`
+a| `requirement_move name/IT Professionalism code/IS4231`
+| *List all requirement categories in the application*
+| List all requirement categories in the application and the module(s) added to each requirement categories
+a| `requirement_list`
+a| `requirement_list`
 |====
