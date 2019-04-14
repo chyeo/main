@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import pwe.planner.commons.util.StringUtil;
 import pwe.planner.logic.CommandHistory;
 import pwe.planner.logic.commands.exceptions.CommandException;
 import pwe.planner.model.Model;
@@ -92,8 +93,7 @@ public class RequirementAddCommand extends Command {
                 .collect(Collectors.toList());
 
         if (!nonExistentCodes.isEmpty()) {
-            String nonExistentCodesErrorMessage = nonExistentCodes.stream().map(Code::toString)
-                    .collect(Collectors.joining(", "));
+            String nonExistentCodesErrorMessage = StringUtil.joinStreamAsString(nonExistentCodes.stream().sorted());
             throw new CommandException(String.format(MESSAGE_NONEXISTENT_CODE, nonExistentCodesErrorMessage));
         }
 
@@ -120,7 +120,7 @@ public class RequirementAddCommand extends Command {
         model.setRequirementCategory(currentRequirementCategory, editedRequirementCategory);
         model.commitApplication();
 
-        String codesAdded = toAdd.stream().map(Code::toString).collect(Collectors.joining(", "));
+        String codesAdded = StringUtil.joinStreamAsString(toAdd.stream().sorted());
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, codesAdded, currentRequirementCategory.getName()));
     }

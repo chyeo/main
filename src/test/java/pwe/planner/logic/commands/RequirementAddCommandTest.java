@@ -10,7 +10,6 @@ import static pwe.planner.testutil.TypicalRequirementCategories.getTypicalRequir
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,6 +17,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import pwe.planner.commons.exceptions.IllegalValueException;
+import pwe.planner.commons.util.StringUtil;
 import pwe.planner.logic.CommandHistory;
 import pwe.planner.model.Model;
 import pwe.planner.model.ModelManager;
@@ -61,7 +61,7 @@ public class RequirementAddCommandTest {
     public void execute_nonExistentCode_throwsCommandException() {
         Set<Code> validCodeSet = Set.of(new Code("CS2010"));
         Name requirementCategoryName = new Name("Computing Foundation");
-        String formattedCodeString = validCodeSet.stream().map(Code::toString).collect(Collectors.joining(", "));
+        String formattedCodeString = StringUtil.joinStreamAsString(validCodeSet.stream().sorted());
         assertCommandFailure(new RequirementAddCommand(requirementCategoryName, validCodeSet), model, commandHistory,
                 String.format(RequirementAddCommand.MESSAGE_NONEXISTENT_CODE, formattedCodeString));
 
@@ -114,7 +114,7 @@ public class RequirementAddCommandTest {
         expectedModel.setRequirementCategory(currentRequirementCategory, editedRequirementCategory);
         expectedModel.commitApplication();
 
-        String formattedCodeString = validCodeSet.stream().map(Code::toString).collect(Collectors.joining(", "));
+        String formattedCodeString = StringUtil.joinStreamAsString(validCodeSet.stream().sorted());
 
         assertCommandSuccess(new RequirementAddCommand(requirementCategoryName, validCodeSet), model, commandHistory,
                 String.format(RequirementAddCommand.MESSAGE_SUCCESS, formattedCodeString, requirementCategoryName),
@@ -142,7 +142,7 @@ public class RequirementAddCommandTest {
         expectedModel.setRequirementCategory(currentRequirementCategory, editedRequirementCategory);
         expectedModel.commitApplication();
 
-        String formattedCodeString = validCodeSet.stream().map(Code::toString).collect(Collectors.joining(", "));
+        String formattedCodeString = StringUtil.joinStreamAsString(validCodeSet.stream().sorted());
 
         assertCommandSuccess(new RequirementAddCommand(requirementCategoryName, validCodeSet), model, commandHistory,
                 String.format(RequirementAddCommand.MESSAGE_SUCCESS, formattedCodeString,
